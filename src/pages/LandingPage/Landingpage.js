@@ -8,7 +8,7 @@ import sportsImage from '../../assets/images/sportsmain.jpg'
 import entertainmentImage from '../../assets/images/entertainmentmain.cms'
 import newsImage from '../../assets/images/newsheadlines.png'
 import Navbar from '../../components/Navbar/Navbar'
-import Footer from '../../components/Footer'
+import Footer from '../../components/Footer/Footer'
 
 export default function Landingpage() {
   return (
