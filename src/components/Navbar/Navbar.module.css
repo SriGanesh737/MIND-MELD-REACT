@@ -1,0 +1,21 @@
+.nav-link{
+  font-size: 1.1rem !important;
+  font-weight: 400 !important;
+  color: rgb(212, 209, 209) !important;
+}
+
+.nav-link :visited{
+   color: #b03060;
+}
+.nav-link:hover
+{
+  color: rgb(247, 255, 23) !important;
+  /* on hover increase text size and add transition */
+  font-size: 1.3rem !important;
+  transition: all 0.3s ease-in-out;
+
+}
+
+.brand-img{
+  border-radius: 50%;
+}
