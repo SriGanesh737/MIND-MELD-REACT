@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
 
-* {
+.total {
   text-align: center;
   color: white;
 }
 
-body {
+.total{
   background-image: url('../../assets/images/back.webp');
   background-repeat: repeat;
 }
