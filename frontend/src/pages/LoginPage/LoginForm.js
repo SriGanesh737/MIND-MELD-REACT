@@ -24,7 +24,7 @@ const LoginForm=()=>{
     <span style={{color:"red" ,marginTop: "20px",fontSize: "18px"}} className={styles.errorMessage}>{emailerror!='' && emailerror}</span> 
 
     <a href="/forgotpassword" style={{color: "white",marginTop:"2px"}}>Forgot(or)reset password?</a>
-    <button className={`${styles.field} ${styles.btn}`} id="loginsubmit" type="submit" style={{backgroundColor: "black",fontSize: "20px"}} >
+    <button className={`${styles.field} ${styles.btn}`} id="loginsubmit" type="submit" style={{backgroundColor: "black",fontSize: "20px",color:"white"}} >
     Login
     </button>
     <div className={styles["signup-link"]}>Not a member? <a href="signup">Signup now</a></div>

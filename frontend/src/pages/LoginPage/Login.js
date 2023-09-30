@@ -23,7 +23,7 @@ const Login=()=>{
         <div className={styles["form-container"]}>
            <div className={styles["slide-controls"]}>
             <input type="radio" name="slide" id="login" checked/>
-            <label for="login" className={styles.slide}>Login</label>
+            <label for="login" className={styles.slide} >Login</label>
             <a href="signup" className={styles.slide} style={{textDecoration: "none"}}>SignUp</a>
             <div className={styles["slider-tab"]}></div>
           </div>
