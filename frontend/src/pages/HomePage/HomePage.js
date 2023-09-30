@@ -14,6 +14,7 @@ export default function HomePage() {
   return (
     <>
     <Navbar/>
+    <div className={styles.body}>
     <h1 className={`${styles.title} wow fadeInDown`}>MIND MELD</h1>
       <div className={styles.cards}>
         <TopicCard topicName="Health" id="health" imageSrc={healthImage} description="It features informative and
@@ -46,6 +47,7 @@ export default function HomePage() {
               and analysis written by journalists or experts in their fields."/>
           
       </div>
+    </div>
       <Footer/> 
     </>
   )

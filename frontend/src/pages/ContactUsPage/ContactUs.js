@@ -79,6 +79,7 @@ export default function ContactUs({data}) {
   return (
     <>
     <MyNavbar/>
+    <div class={Styles.body}>
     <div class={Styles["contactus-container"]}>
         <div class={Styles["contactus-left"]}>
             <h2 class={Styles["contactus-title"]}>
@@ -120,6 +121,7 @@ export default function ContactUs({data}) {
               <button class={`${Styles["contactus-submit"]} ${Styles["register"]}`} type="submit">Submit</button>
           </form>
         </div>
+    </div>
     </div>
     <Footer/>
     </>

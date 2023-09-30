@@ -1,16 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Gloock&family=Tilt+Neon&family=Tilt+Prism&display=swap');
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-body{
+.body{
   background-image: url('../../assets/images/frontbackground4.jpeg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    /* background-repeat:repeat-y; */
+    padding-bottom: 100px;
+     background-size: cover;
+    background-position: center; 
 }
 
 
