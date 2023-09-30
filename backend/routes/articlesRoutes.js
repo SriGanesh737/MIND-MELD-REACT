@@ -4,4 +4,4 @@ const articlesController = require('../controllers/articlesController');
 router.get('/:articleId',articlesController.article_get);
 
 
-module.exports = Router;
+module.exports = router;
