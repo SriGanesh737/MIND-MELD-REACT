@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { AuthProvider } from "./providers/authProvider";
 import Login from "./pages/LoginPage/Login";
 import Signup from "./pages/SignUpPage/Signup";
+import SingleArticle from "./pages/SingleArticlePage/SingleArticle";
 function App() {
   return (
     <AuthProvider>
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Signup/>}/>
         <Route path="/home" element={<HomePage/>} />
+        <Route path="/articles/:articleId" element={<SingleArticle/>}/>
         <Route path="/contactus" element={<ContactUs/>}/>
       </Routes>
     </Router>    
