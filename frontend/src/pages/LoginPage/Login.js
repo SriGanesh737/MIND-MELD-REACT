@@ -2,6 +2,7 @@ import styles from '../LoginPage/loginstyles.module.css'
 import LefttLogin from './Leftlogin.js'
 import LoginSlider from './Loginslider'
 import mmicon from '../../assets/images/mm.jpg'
+
 import LoginForm from './LoginForm'
 const Login=()=>{
    

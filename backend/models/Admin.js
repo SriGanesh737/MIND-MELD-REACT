@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
 
-const expertSchema = new Schema({
+const adminSchema = new Schema({
   email:{
     type: String,
     required: [true, 'Email is required']
@@ -19,13 +18,13 @@ const expertSchema = new Schema({
     type: String,
     required: [true, 'Last name is required']
   },
-  domain: {
+  domain:{
     type: String,
     default: 'not specified'
   },
   phone:{
     type: String,
-    required: [true, 'Phone number is required']
+    default: 'not specified'
   },
   gender:{
     type: String,
@@ -44,8 +43,8 @@ const expertSchema = new Schema({
     default: '/'
   },
   qualification:{
-    type: String,
-    default: 'not specified'
+      type: String,
+      default: 'not specified'
   },
   dateofbirth:{
     type: Date,
@@ -55,16 +54,13 @@ const expertSchema = new Schema({
     type: String,
     default: 'https://th.bing.com/th/id/OIP.z4no5tqp2ryBdMMD5NU9OgHaEv?w=245&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'
   },
-  is_blocked:{
-    type: Boolean,
-    default: false
-  },
-  token:{
-    type: String,
-    default: ''
+  doj:{
+    type: Date,
+    default: Date.now
   }
-  },{timestamps: true});
+  
+},{timestamps: true});
 
-  const Expert = mongoose.model('expert_model', expertSchema);
+const Admin = mongoose.model('admin_model', adminSchema);
 
-  module.exports = Expert;
+module.exports = Admin;

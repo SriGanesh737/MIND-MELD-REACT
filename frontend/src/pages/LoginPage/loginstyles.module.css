@@ -6,8 +6,8 @@
 }
 
 body {
-  /* background-image: url('../../assets/images/back.webp'); */
-  /* background-repeat: repeat; */
+  background-image: url('../../assets/images/back.webp');
+  background-repeat: repeat;
 }
 
 .total {

@@ -1,19 +1,23 @@
-import ContactUs from "./pages/ContactUsPage/ContactUs";
-import Landingpage from "./pages/LandingPage/Landingpage";
-import Login from '../src/pages/LoginPage/Login'
+import HomePage from "./pages/HomePage/HomePage";
+import LandingPage from "./pages/LandingPage/LandingPage";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { AuthProvider } from "./providers/authProvider";
+import Login from "./pages/LoginPage/Login";
 import Signup from "./pages/SignUpPage/Signup";
 function App() {
   return (
-    // <Router>
-    //   <Routes>
-    //     <Route path="/landingpage" element={<Landingpage/>}/>
-    //     <Route path="/contactus" element={<ContactUs/>}/>
-    //     <Route path='/login' element={<Login />} />
-    //     <Route path="/signp" element={<Signup/>} />
-    //   </Routes>
-    // </Router>
-    <Signup></Signup>    
+    <AuthProvider>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Signup/>}/>
+        <Route path="/home" element={<HomePage/>} />
+        <Route path="/contactus" element={<ContactUs/>}/>
+      </Routes>
+    </Router>    
+    </AuthProvider>
+
   );
 }
 
