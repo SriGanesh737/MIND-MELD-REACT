@@ -1,11 +1,10 @@
 const User = require('../models/user');
 const Expert = require('../models/Expert');
+const Admin = require('../models/Admin');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
+const {secretKey} = require('../secrets/secret');
 
-dotenv.config();
-const mySecret = process.env.mySecret;
 
 const register_post = async (req,res)=>{
     let firstname = req.body.fname;
@@ -39,3 +38,59 @@ const register_post = async (req,res)=>{
     
 }
 
+const login_post = async (req,res)=>{
+    let email = req.body.email;
+    let password = req.body.password;
+    const user = await User.findOne({email:email});
+    const expert = await Expert.findOne({email:email});
+    const admin = await Admin.findOne({email:email});
+    if(user){
+        // check password using bcrypt
+        let didMatch = await bcrypt.compare(password,user.password);
+        if(didMatch){
+            // create jwt token (expires in 24 hours)
+            const payload = {
+                id: user._id,
+                role: 'user'
+            }
+            let token = jwt.sign(payload,secretKey,{expiresIn:86400});
+            let BearerToken = 'Bearer '+token;
+            res.status(200).json({token:BearerToken});
+        }
+    }
+    else if (expert){
+        let didMatch = await bcrypt.compare(password,expert.password);
+        if(didMatch){
+            // create jwt token (expires in 24 hours)
+            const payload = {
+                id: expert._id,
+                role: 'expert'
+            }
+            let token = jwt.sign(payload,secretKey,{expiresIn:86400});
+            let BearerToken = 'Bearer '+token;
+            res.status(200).json({token:BearerToken});
+        }
+    }
+    else if (admin){
+        let didMatch = await bcrypt.compare(password,admin.password);
+        if(didMatch){
+            // create jwt token (expires in 24 hours)
+            const payload = {
+                id: admin._id,
+                role: 'admin'
+            }
+            let token = jwt.sign(payload,secretKey,{expiresIn:86400});
+            let BearerToken = 'Bearer '+token;
+            res.status(200).json({token:BearerToken});
+        }
+    }
+    else{
+        res.status(400).json({message:"Invalid email or password"});
+    }
+
+}
+
+module.exports = {
+    register_post,
+    login_post
+}
