@@ -1,5 +1,5 @@
 import HomePage from "./pages/HomePage/HomePage";
-import LandingPage from "./pages/LandingPage/LandingPage";
+import LandingPage from "./pages/LandingPage/Landingpage";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { AuthProvider } from "./providers/authProvider";
 import Login from "./pages/LoginPage/Login";
