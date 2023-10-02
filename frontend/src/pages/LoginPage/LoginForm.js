@@ -26,7 +26,8 @@ const LoginForm=()=>{
         email,
         password
     }).then((res)=>{
-        if(res.status===200){
+        if(res.status===200)
+        {
             // save token in local storage
             localStorage.setItem('token',res.data.token);
             // set token in authProvider

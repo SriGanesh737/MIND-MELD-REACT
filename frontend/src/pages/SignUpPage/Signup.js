@@ -2,7 +2,10 @@ import styles from "../SignUpPage/signup.module.css";
 import signupimage from "../../assets/images/signup.png";
 import useInput from "../../hooks/use-registerinput";
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from 'react-router-dom'
 const Signup = () => {
+  const navigate=useNavigate();
   const {
     value: enteredfirstname,
     isValid: firstnameIsValid,
@@ -103,19 +106,31 @@ const Signup = () => {
     event.preventDefault();
     if (formisvalid) {
       let details = {
-        firstname: enteredfirstname,
+        fname: enteredfirstname,
         lastname: enteredLastname,
         email: enteredEmail,
-        contact: enteredcontactnumber,
-        password: enteredpassword,
-        type: type,
+        phno: enteredcontactnumber,
+        pswd: enteredpassword,
+        registeras: type,
         
       };
       if(type==='expert')
       {
         details={...details,resume:file}
       }
+
       console.log(details)
+      axios.post('http://localhost:8000/auth/register',details).then((res)=>{
+        if(res.status===201)
+        {
+          // console.log(res.data)
+          console.log('successfully registered')
+           navigate('/login')
+        }
+    }).catch((err)=>{
+        const errorMessage = err.response.data.message;
+        console.log(errorMessage);
+    })
       resetfirstNameInput();
       resetlastNameInput();
       resetcnfpasswordInput();
@@ -124,11 +139,17 @@ const Signup = () => {
       resetemailInput();
       setFile("");
       setType("user");
-    } else console.log("wrong details");
+
+
+    }
+    
+    
+    
+    else console.log("wrong details");
   };
 
   return (
-    <div className={styles.total_signup}>
+    <div className={`${styles.total_signup} ${styles.body}`}>
       <div className={styles.container}>
         <div className={styles.title}>Sign Up</div>
         <div className={styles.content}>

@@ -7,6 +7,7 @@ const {secretKey} = require('../secrets/secret');
 
 
 const register_post = async (req,res)=>{
+    console.log(req.body)
     let firstname = req.body.fname;
     let lastname = req.body.lastname;
     let email = req.body.email;
@@ -17,6 +18,7 @@ const register_post = async (req,res)=>{
     if(registeras === 'user'){
         try{
             const user = await User.create({firstname,lastname,email,password,phone:phoneno});
+            console.log(user)
             res.status(201).json({user:user._id});
         }
         catch(err){
@@ -25,8 +27,10 @@ const register_post = async (req,res)=>{
         }
     }
     else if(registeras === 'expert'){
+        const resume=req.body.resume
         try{
-            const expert = await Expert.create({firstname,lastname,email,password,phone:phoneno});
+            const expert = await Expert.create({firstname,lastname,email,password,phone:phoneno,resume:resume});
+            console.log(expert)
             res.status(201).json({expert:expert._id});
         }
         catch(err){
