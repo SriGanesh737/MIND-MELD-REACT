@@ -5,7 +5,7 @@
   color: white;
 }
 
-.total{
+.total {
   background-image: url('../../assets/images/back.webp');
   background-repeat: repeat;
 }
@@ -18,9 +18,9 @@
 }
 
 .left {
-  /* background-image: url('/pexels-anni-roenkae-2832382.jpg'); */
+
   background-image: linear-gradient(to right bottom, #e5e5f1, #d7d5e0, #c9c6cf, #bab7bf, #aca8af, #a8a1a7, #a39b9f, #9d9597, #9e9695, #9d9794, #9c9994, #9a9a95);
-  /* background-size: 37.5rem 31.25rem; */
+
   background-color: aqua;
   height: 37.5rem;
   width: 31.25rem;
@@ -315,6 +315,9 @@ form .btn input[type="submit"] {
   .left,
   .right {
     border-radius: 20px;
+    margin: auto;
+    margin-bottom: 20px;
+  
   }
 }
 
@@ -362,9 +365,7 @@ img {
 }
 
 @media only screen and (max-width:450px) {
-  body {
-      padding-bottom: 50px;
-    }
+  
 
   .right,
   .left {
@@ -415,10 +416,7 @@ img {
 }
 
 @media only screen and (max-width:340px) {
-  body
-  {
-    padding-bottom: 50px;
-  }
+ 
 
   .right,
   .left {
