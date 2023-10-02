@@ -99,7 +99,22 @@ const login_post = async (req,res)=>{
 
 }
 
+const checkEmail_get = async(req,res)=>{
+    const email = req.params.email;
+    const user = await User.findOne({email:email});
+    const expert = await Expert.findOne({email:email});
+    const admin = await Admin.findOne({email:email});
+    if(user || expert || admin){
+        res.status(200).json({message:"Email already registered",status:"true"});
+    }
+    else {
+        res.status(200).json({message:"Email not registered",status:"false"});
+    }
+}
+
+
 module.exports = {
     register_post,
-    login_post
+    login_post,
+    checkEmail_get
 }
