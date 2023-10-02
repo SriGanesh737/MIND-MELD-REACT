@@ -103,7 +103,8 @@ const login_post = async (req,res)=>{
 
 }
 
-const checkEmail_get = async(req,res)=>{
+const checkEmail_get = async(req,res)=>
+{
     const email = req.params.email;
     const user = await User.findOne({email:email});
     const expert = await Expert.findOne({email:email});
