@@ -13,6 +13,7 @@ export default function SingleArticle() {
     title:"Demo Title",
     author_name:"Demo Author",
     date_of_publish:new Date(),
+    image_link:'',
     content:"Demo Content",
     likes:0,
     dislikes:0,
@@ -26,8 +27,9 @@ export default function SingleArticle() {
       setArticle({
         title:data.title,
         author_name:data.author_name,
-        date_of_publish:new Date(date_of_publish),
+        date_of_publish:new Date(data.date_of_publish),
         content: data.content,
+        image_link:data.image_link,
         likes:data.likes,
         dislikes:data.dislikes
       });
@@ -38,12 +40,13 @@ export default function SingleArticle() {
 
   
   return (
-    <div className="container">
+    <>
       <MyNavbar/>
-      <h1>{title}</h1>
-      <img src={image_link} alt="" width="1000px" height="500px"/>
-      <h2>-- Written by <i>{author_name}</i> --</h2>
-      <h3>{date_of_publish.getDate()}-{date_of_publish.getMonth()+1}-{date_of_publish.getFullYear()}</h3>
+      <div className={Styles.body}>
+      <h1 className={Styles.heading}>{title}</h1>
+      <img className={Styles.image} src={image_link} alt="" width="1000px" height="500px"/>
+      <h2 className={Styles.written}>-- Written by <i>{author_name}</i> --</h2>
+      <h3 className={Styles.date}>{date_of_publish.getDate()}-{date_of_publish.getMonth()+1}-{date_of_publish.getFullYear()}</h3>
       <button className={Styles.addtowishlist}><i className="fa-solid fa-bookmark"></i>Add to Bookmarks</button>
       <div className={Styles.content} dangerouslySetInnerHTML={{ __html: content }} />
       <div className={Styles.rating}>
@@ -61,8 +64,9 @@ export default function SingleArticle() {
       <div className={Styles['comments-section']}>
         Comments Section
       </div>
+      </div>
       <Footer/>
-    </div>
+    </>
   )
 }
 

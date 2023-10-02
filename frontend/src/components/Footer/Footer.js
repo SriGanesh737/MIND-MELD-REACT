@@ -7,8 +7,8 @@ export default function Footer() {
     <>
     <footer>
         <Container>
-        <div class={styles["footer-row"]}>
-    <div class={styles["footer-col"]}>
+        <div className={styles["footer-row"]}>
+    <div className={styles["footer-col"]}>
         <h4>Navigations</h4>
         <ul>
             <li><a href="landingpage">Home</a></li>
@@ -17,7 +17,7 @@ export default function Footer() {
             <li><a href="askquery">FAQ</a></li>
         </ul>
     </div>
-    <div class={styles["footer-col"]}>
+    <div className={styles["footer-col"]}>
        <h4>Quick Links</h4>
        <ul>
             <li><a href="posts?topic=education">Education</a></li>
@@ -31,19 +31,19 @@ export default function Footer() {
     </ul>
 
     </div>
-    <div class={styles["footer-col"]}>
+    <div className={styles["footer-col"]}>
         <h4>Contact Info</h4> 
         <ul>
-            <li><a href="#"><i class="fa-solid fa-phone"></i><span>+91 9273635224</span></a></li>
-            <li><a href="#"><i class="fa-solid fa-envelope"></i><span>mindmeld@gmail.com</span></a></li>
-            <li><a href="#"><i class="fa-solid fa-location-dot"></i><span>Sricity Chittoor ,517646</span></a></li>
+            <li><a href="#"><i className="fa-solid fa-phone"></i><span>+91 9273635224</span></a></li>
+            <li><a href="#"><i className="fa-solid fa-envelope"></i><span>mindmeld@gmail.com</span></a></li>
+            <li><a href="#"><i className="fa-solid fa-location-dot"></i><span>Sricity Chittoor ,517646</span></a></li>
         </ul>
     </div>
 </div>
         </Container>
 
 </footer>
-<p class={styles["copyright"]}><i class="fa-regular fa-copyright"></i>2023 Copyright:<span>MindMeld.com</span></p>
+<p className={styles["copyright"]}><i className="fa-regular fa-copyright"></i>2023 Copyright:<span>MindMeld.com</span></p>
     </>
   )
 }

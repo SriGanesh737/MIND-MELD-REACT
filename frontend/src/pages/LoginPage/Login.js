@@ -22,8 +22,8 @@ const Login=()=>{
         <h1>LOGIN PAGE</h1>
         <div className={styles["form-container"]}>
            <div className={styles["slide-controls"]}>
-            <input type="radio" name="slide" id="login" checked/>
-            <label for="login" className={styles.slide} >Login</label>
+            <input type="radio" name="slide" id="login" defaultChecked/>
+            <label htmlFor="login" className={styles.slide} >Login</label>
             <a href="signup" className={styles.slide} style={{textDecoration: "none"}}>SignUp</a>
             <div className={styles["slider-tab"]}></div>
           </div>

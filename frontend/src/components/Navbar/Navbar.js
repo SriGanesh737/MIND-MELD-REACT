@@ -31,18 +31,18 @@ export default function MyNavbar() {
             <Nav.Link as={Link} to="/dashboard" className={styles['nav-link']}>Dashboard</Nav.Link>
           </Nav>
         </Navbar.Collapse>
-        <div class="profileimg li_main" >
+        <div className="profileimg li_main" >
       <div>
-        <i class="fa-solid fa-user"></i>
-        <div class="dd_menu">
-          <div class="dd_left">
+        <i className="fa-solid fa-user"></i>
+        <div className="dd_menu">
+          <div className="dd_left">
             <ul>
-             <li><i class="fa-solid fa-right-from-bracket"></i></li>
-             <li ><i class="fa-solid fa-pen-to-square"></i></li>
-             <li><i class="fa-solid fa-eye"></i></li>
+             <li><i className="fa-solid fa-right-from-bracket"></i></li>
+             <li ><i className="fa-solid fa-pen-to-square"></i></li>
+             <li><i className="fa-solid fa-eye"></i></li>
             </ul>
           </div>
-          <div class="dd_right">
+          <div className="dd_right">
             <li><a href="/logout" style={{textDecoration:'none',color:'black'}}>Logout</a></li>
             <li><a href="/user/edit_e" style={{textDecoration:'none',color:'black'}}>Edit</a></li>
             <li><a href="/user" style={{textDecoration:'none',color:'black'}}>View</a></li>
