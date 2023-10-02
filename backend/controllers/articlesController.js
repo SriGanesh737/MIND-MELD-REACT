@@ -1,6 +1,6 @@
 const Article = require('../models/Article');
 
-const article_get = (req,res)=>{
+const article_get_byId = (req,res)=>{
       const articleId = req.params.articleId;
       Article.findOne({ _id: articleId })
       .then((article) => {
@@ -19,5 +19,20 @@ const article_get = (req,res)=>{
       });
 }
 
+const articles_get_byTopicAndPage = (req,res)=>{
+  const topic = req.params.topic;
+  const page = req.params.page;
+  const articlesPerPage = 10;
+  Article.find({topic:topic})
+  .skip((page-1)*articlesPerPage)
+  .limit(articlesPerPage)
+  .then((articles)=>{
+    res.status(200).json(articles);
+  })
+  .catch((err)=>{
+    res.status(500).json({message:"Internal Server Error"});
+  });
+}
 
-module.exports = {article_get}
+
+module.exports = {article_get_byId,articles_get_byTopicAndPage}
