@@ -2,7 +2,10 @@ import styles from "../SignUpPage/signup.module.css";
 import signupimage from "../../assets/images/signup.png";
 import useInput from "../../hooks/use-registerinput";
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Signup = () => {
+  const navigate = useNavigate();
   const {
     value: enteredfirstname,
     isValid: firstnameIsValid,
@@ -84,6 +87,25 @@ const Signup = () => {
   const fileChangehandler = (ev) => {
     setFile(ev.target.value);
   };
+  const [emailerror, setEmailerror] = useState(false);
+  const checkEmailexistence = () => {
+    console.log(enteredEmail)
+    axios
+      .get(`http://localhost:8000/auth/checkEmail/${enteredEmail}`)
+      .then((res) => {
+        if (res.data.status == "false") 
+        {
+          setEmailerror(false);
+        } else {
+          setEmailerror(true);
+        }
+      }).catch((err)=>{console.log(err)})
+  };
+
+  const emailBlurfunction = () => {
+    emailBlurHandler();
+    checkEmailexistence();
+  };
 
   let formisvalid = false;
   if (
@@ -92,7 +114,7 @@ const Signup = () => {
     emailIsValid &&
     contactnumberIsValid &&
     passwordIsValid &&
-    cnfpasswordIsValid
+    cnfpasswordIsValid && !emailerror
   ) {
     if (type === "user") formisvalid = true;
     else {
@@ -103,19 +125,31 @@ const Signup = () => {
     event.preventDefault();
     if (formisvalid) {
       let details = {
-        firstname: enteredfirstname,
+        fname: enteredfirstname,
         lastname: enteredLastname,
         email: enteredEmail,
-        contact: enteredcontactnumber,
-        password: enteredpassword,
-        type: type,
-        
+        phno: enteredcontactnumber,
+        pswd: enteredpassword,
+        registeras: type,
       };
-      if(type==='expert')
-      {
-        details={...details,resume:file}
+      if (type === "expert") {
+        details = { ...details, resume: file };
       }
-      console.log(details)
+
+      console.log(details);
+      axios
+        .post("http://localhost:8000/auth/register", details)
+        .then((res) => {
+          if (res.status === 201) {
+            // console.log(res.data)
+            console.log("successfully registered");
+            navigate("/login");
+          }
+        })
+        .catch((err) => {
+          const errorMessage = err.response.data.message;
+          console.log(errorMessage);
+        });
       resetfirstNameInput();
       resetlastNameInput();
       resetcnfpasswordInput();
@@ -126,9 +160,10 @@ const Signup = () => {
       setType("user");
     } else console.log("wrong details");
   };
+  
 
   return (
-    <div className={styles.total_signup}>
+    <div className={`${styles.total_signup} ${styles.body}`}>
       <div className={styles.container}>
         <div className={styles.title}>Sign Up</div>
         <div className={styles.content}>
@@ -186,11 +221,11 @@ const Signup = () => {
                   className={styles.email}
                   value={enteredEmail}
                   onChange={emailChangedHandler}
-                  onBlur={emailBlurHandler}
+                  onBlur={emailBlurfunction}
                   name="email"
                   required
                 />
-                {/* <span className="incem" style={{color:"red"}}></span> */}
+                {emailerror&&<span className="incem" style={{color:"red"}}>This email already exists</span>}
               </div>
               <div
                 className={`${styles["input-box"]} ${

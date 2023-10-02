@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const expertSchema = new Schema({
+
   email:{
     type: String,
     required: [true, 'Email is required']
@@ -31,6 +32,10 @@ const expertSchema = new Schema({
     type: String,
     default: 'not specified'
   },
+  resume:{
+    type:String,
+    required:[true,'resume is required']
+},
   insta_link:{
     type: String,
     default: '/'

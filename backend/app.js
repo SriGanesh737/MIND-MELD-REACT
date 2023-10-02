@@ -7,6 +7,7 @@ const userRoutes = require('./routes/userRoutes');
 
 
 app.use(express.json());
+app.use(express.urlencoded({extended:true}))
 app.use(cors());
 
 app.use('/auth',authRoutes);
