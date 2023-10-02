@@ -57,6 +57,9 @@ const login_post = async (req,res)=>{
             let BearerToken = 'Bearer '+token;
             res.status(200).json({token:BearerToken});
         }
+        else{
+            res.status(400).json({message:"Incorrect password"});
+        }
     }
     else if (expert){
         let didMatch = await bcrypt.compare(password,expert.password);
@@ -69,6 +72,9 @@ const login_post = async (req,res)=>{
             let token = jwt.sign(payload,secretKey,{expiresIn:86400});
             let BearerToken = 'Bearer '+token;
             res.status(200).json({token:BearerToken});
+        }
+        else{
+            res.status(400).json({message:"Incorrect password"});
         }
     }
     else if (admin){
@@ -83,9 +89,12 @@ const login_post = async (req,res)=>{
             let BearerToken = 'Bearer '+token;
             res.status(200).json({token:BearerToken});
         }
+        else{
+            res.status(400).json({message:"Incorrect password"});
+        }
     }
     else{
-        res.status(400).json({message:"Invalid email or password"});
+        res.status(400).json({message:"Email not registered"});
     }
 
 }
