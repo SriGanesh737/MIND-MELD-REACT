@@ -34,5 +34,15 @@ const articles_get_byTopicAndPage = (req,res)=>{
   });
 }
 
+const articles_get = (req,res)=>{
+  Article.find({})
+  .then((articles)=>{
+    res.status(200).json(articles);
+  })
+  .catch((err)=>{
+    res.status(500).json({message:"Internal Server Error"});
+  });
+}
 
-module.exports = {article_get_byId,articles_get_byTopicAndPage}
+
+module.exports = {article_get_byId,articles_get_byTopicAndPage,articles_get}

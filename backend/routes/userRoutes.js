@@ -7,4 +7,9 @@ router.post('/:userId/bookmarks/:articleId',userController.bookmark_add_byUserId
 
 router.delete('/:userId/bookmarks/:articleId',userController.bookmark_remove_byUserId_delete);
 
+// write routes for getting update user by id, delete user by id
+router.get('/',userController.users_get);
+
+router.get('/:userId',userController.user_get_byId);
+
 module.exports = router;
