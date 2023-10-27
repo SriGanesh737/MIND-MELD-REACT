@@ -1,6 +1,6 @@
  import styles from '../LoginPage/loginstyles.module.css'
  import axios from 'axios'
- import { useNavigate } from 'react-router-dom'
+ import { useNavigate,Link } from 'react-router-dom'
  import { useState } from 'react'
  import { useAuth } from '../../providers/authProvider'
 const LoginForm=()=>{
@@ -53,11 +53,11 @@ const LoginForm=()=>{
     </div>
     <span style={{color:"red" ,marginTop: "10px",fontSize: "15px",display:'block'}} className={styles.errorMessage}>{emailerror!=='' && emailerror}</span> 
 
-    <a href="/forgotpassword" style={{color: "white",marginTop:"2px"}}>Forgot(or)reset password?</a>
+    <Link to="/forgotpassword" style={{color: "white",marginTop:"2px"}}>Forgot(or)reset password?</Link>
     <button className={`${styles.field} ${styles.btn}`} id="loginsubmit" type="submit" style={{backgroundColor: "black",fontSize: "20px",color:"white"}} >
     Login
     </button>
-    <div className={styles["signup-link"]}>Not a member? <a href="signup">Signup now</a></div>
+    <div className={styles["signup-link"]}>Not a member? <Link to="/register">Signup now</Link></div>
   </form>)
 }
 export default LoginForm;

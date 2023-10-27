@@ -2,6 +2,7 @@ import styles from '../LoginPage/loginstyles.module.css'
 import LefttLogin from './Leftlogin.js'
 import LoginSlider from './Loginslider'
 import mmicon from '../../assets/images/mm.jpg'
+import { Link } from 'react-router-dom'
 
 import LoginForm from './LoginForm'
 const Login=()=>{
@@ -24,7 +25,7 @@ const Login=()=>{
            <div className={styles["slide-controls"]}>
             <input type="radio" name="slide" id="login" defaultChecked/>
             <label htmlFor="login" className={styles.slide} >Login</label>
-            <a href="signup" className={styles.slide} style={{textDecoration: "none"}}>SignUp</a>
+            <Link to="/register" className={styles.slide} style={{textDecoration: "none"}}>SignUp</Link>
             <div className={styles["slider-tab"]}></div>
           </div>
           <div className={styles["form-inner"]}>
