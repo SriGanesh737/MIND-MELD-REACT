@@ -11,28 +11,34 @@ export default function Articles() {
   const [page, setPage] = useState(1) // default page is 1
   const { topic } = useParams();
 
-  useEffect(()=>{
+  const highLightsArticles = (articles) => {
+    // Sort the articles based on likes
+    articles.sort((a, b) => b.likes - a.likes)
+    // Take the top 5 articles
+    return articles.slice(0, 5)
+  }
+
+  const [highLightArticles, setHighlightArticles] = useState([])
+
+  useEffect(() => {
     // fetch articles of topic using pagination
     const url = `http://localhost:8000/articles/topic/${topic}/page/${page}`;
     fetch(url)
-    .then((res)=>res.json())
-    .then((data)=>{
-      setArticles(data);
-      console.log(data);
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
-    
-  },[page,topic])
+      .then((res) => res.json())
+      .then((data) => {
+        setArticles(data);
+        const highlights = highLightsArticles(data);
+        setHighlightArticles(highlights);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+  }, [page, topic])
 
 
-  const highLightsArticles = (articles) =>{
-    // Sort the articles based on likes
-    articles.sort((a,b)=>b.likes-a.likes)
-    // Take the top 5 articles
-    return articles.slice(0,5)
-  }
+
 
   const headingStyles = {
     fontSize: '50px',
@@ -40,13 +46,13 @@ export default function Articles() {
     textAlign: 'center',
   }
 
+
   return (
     <>
-    <MyNavbar/>
-    <h1 style={headingStyles} class={`${Styles["highlights-heading"]}`} > {topic} </h1>
-    <Slideshow sliderData={highLightsArticles(articles)}/>
-
-    <Footer/>
+      <MyNavbar />
+      <h1 style={headingStyles} class={`${Styles["highlights-heading"]}`} > {topic} </h1>
+      <Slideshow sliderData={highLightArticles} />
+      <Footer />
     </>
   )
 }
