@@ -32,6 +32,10 @@ const LoginForm=()=>{
             localStorage.setItem('token',res.data.token);
             // set token in authProvider
             setToken(res.data.token);
+
+            //fetch user details and store in context
+            const url ="http://localhost:8000/user/";
+            const userDetails = fetch()
             // redirect to home page
             navigate('/home');
         }
