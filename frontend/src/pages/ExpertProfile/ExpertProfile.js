@@ -28,11 +28,6 @@ export default function ExpertProfile() {
     <>
     <div>
       <MyNavbar/> 
-
-
-
-
-
       <div className="bigDiv">
       <div className="card">
         <div className="imgbox">
