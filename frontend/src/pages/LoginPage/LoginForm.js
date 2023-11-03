@@ -3,7 +3,9 @@
  import { useNavigate,Link } from 'react-router-dom'
  import { useState } from 'react'
  import { useAuth } from '../../providers/authProvider'
+ import { useUser } from '../../providers/UserProvider' 
 const LoginForm=()=>{
+   const {setUserDetails} = useUser();
     const [email,setEmail]=useState('')
    const [password,setPassword]=useState('')
    const [emailerror,setEmailerror]=useState('')
@@ -34,8 +36,13 @@ const LoginForm=()=>{
             setToken(res.data.token);
 
             //fetch user details and store in context
-            const url ="http://localhost:8000/user/";
-            const userDetails = fetch()
+            const url ="http://localhost:8000/user/email/"+email;
+            fetch(url).then((res)=>res.json())
+            .then((data)=>{
+               setUserDetails(data);  
+            })
+            .catch((err)=>console.log(err));
+
             // redirect to home page
             navigate('/home');
         }
