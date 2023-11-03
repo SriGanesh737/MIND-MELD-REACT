@@ -37,7 +37,8 @@ const bookmark_remove_byUserId_delete = async (req,res)=>{
 
 const users_get = async (req,res)=>{
     const users = await User.find({});
-    res.status(200).json(users);    
+    const experts = await Expert.find({});
+    res.status(200).json({...users,experts});    
 }
 
 const user_get_byId = async (req,res)=>{
