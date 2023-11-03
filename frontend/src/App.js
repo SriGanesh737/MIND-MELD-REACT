@@ -1,11 +1,12 @@
 import HomePage from "./pages/HomePage/HomePage";
-import LandingPage from "./pages/LandingPage/Landingpage";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { AuthProvider } from "./providers/authProvider";
 import Login from "./pages/LoginPage/Login";
 import Signup from "./pages/SignUpPage/Signup";
 import SingleArticle from "./pages/SingleArticlePage/SingleArticle";
 import ContactUs from './pages/ContactUsPage/ContactUs'
+import LandingPage from './pages/LandingPage/Landingpage';
+import Articles from './pages/ArticlesPage/Articles'
 function App() {
   return (
     <AuthProvider>
@@ -16,6 +17,7 @@ function App() {
         <Route path="/register" element={<Signup/>}/>
         <Route path="/home" element={<HomePage/>} />
         <Route path="/articles/:articleId" element={<SingleArticle/>}/>
+        <Route path="/articles/topic/:topic" element= {<Articles/>} />
         <Route path="/contactus" element={<ContactUs/>}/>
       </Routes>
     </Router>    
