@@ -8,7 +8,7 @@ import ContactUs from './pages/ContactUsPage/ContactUs'
 
 import Articles from "./pages/ArticlesPage/Articles";
 import LandingPage from "./pages/LandingPage/LandingPage";
-// import ExpertProfile from "./pages/ExpertProfile/ExpertProfile";
+import ExpertProfile from "./pages/ExpertProfile/ExpertProfile";
 import UserProvider from "./providers/UserProvider";
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
         <Route path="/articles/:articleId" element={<SingleArticle/>}/>
         <Route path="/articles/topic/:topic" element= {<Articles/>} />
         <Route path="/contactus" element={<ContactUs/>}/>
-        {/* <Route path="/user" element={<ExpertProfile/>}/> */}
+        <Route path="/user/:userId" element={<ExpertProfile/>}/>
       </Routes>
     </Router>   
     </UserProvider> 
