@@ -10,6 +10,8 @@ router.delete('/:userId/bookmarks/:articleId',userController.bookmark_remove_byU
 // write routes for getting update user by id, delete user by id
 router.get('/',userController.users_get);
 
+router.get('/role/:role',userController.users_get_byRole);
+
 router.get('/:userId',userController.user_get_byId);
 
 router.get('/email/:email',userController.user_get_byEmail);
