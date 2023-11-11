@@ -67,7 +67,11 @@ const expertSchema = new Schema({
   token:{
     type: String,
     default: ''
-  }
+  },
+  role:{
+    type: String,
+    default: 'expert'
+  },
   },{timestamps: true});
 
   const Expert = mongoose.model('expert_model', expertSchema);

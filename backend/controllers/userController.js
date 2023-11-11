@@ -37,7 +37,8 @@ const bookmark_remove_byUserId_delete = async (req,res)=>{
 
 const users_get = async (req,res)=>{
     const users = await User.find({});
-    res.status(200).json(users);    
+    const experts = await Expert.find({});
+    res.status(200).json({...users,experts});    
 }
 
 const user_get_byId = async (req,res)=>{
@@ -64,4 +65,28 @@ const user_get_byId = async (req,res)=>{
     }
 }
 
-module.exports = {bookmarks_byUserId_get,bookmark_add_byUserId_post,bookmark_remove_byUserId_delete,users_get,user_get_byId}
+const user_get_byEmail = async(req,res) =>{
+    const email = req.params.email;
+    const user = await User.find({email:email});
+    const expert = await Expert.find({email:email});
+    const admin = await Admin.find({email:email});
+
+    if(user){
+        // remove password key itself from user object
+        delete user.password;
+        res.status(200).json(user);
+    }
+    else if(expert){
+        delete expert.password;
+        res.status(200).json(expert);
+    }
+    else if(admin){
+        delete admin.password;
+        res.status(200).json(admin);
+    }
+    else{
+        res.status(404).json({message:"User not found"});
+    }
+}
+
+module.exports = {bookmarks_byUserId_get,bookmark_add_byUserId_post,bookmark_remove_byUserId_delete,users_get,user_get_byId,user_get_byEmail}

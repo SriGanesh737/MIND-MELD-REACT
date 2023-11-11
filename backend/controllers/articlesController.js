@@ -22,7 +22,7 @@ const article_get_byId = (req,res)=>{
 const articles_get_byTopicAndPage = (req,res)=>{
   const topic = req.params.topic;
   const page = req.params.page;
-  const articlesPerPage = 10;
+  const articlesPerPage = 9;
   Article.find({topic:topic})
   .skip((page-1)*articlesPerPage)
   .limit(articlesPerPage)

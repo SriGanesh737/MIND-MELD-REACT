@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gloock&family=Tilt+Neon&family=Tilt+Prism&display=swap');
+
+.highlights-heading{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  font-family: 'Playfair Display', serif;
+  color:rgb(45, 0, 0);
+}

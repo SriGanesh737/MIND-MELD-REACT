@@ -57,7 +57,11 @@ const adminSchema = new Schema({
   doj:{
     type: Date,
     default: Date.now
-  }
+  },
+  role:{
+    type: String,
+    default: 'admin'
+  },
   
 },{timestamps: true});
 

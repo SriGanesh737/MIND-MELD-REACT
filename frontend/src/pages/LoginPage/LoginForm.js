@@ -1,9 +1,11 @@
  import styles from '../LoginPage/loginstyles.module.css'
  import axios from 'axios'
- import { useNavigate } from 'react-router-dom'
+ import { useNavigate,Link } from 'react-router-dom'
  import { useState } from 'react'
  import { useAuth } from '../../providers/authProvider'
+ import { useUser } from '../../providers/UserProvider' 
 const LoginForm=()=>{
+   const {setUserDetails} = useUser();
     const [email,setEmail]=useState('')
    const [password,setPassword]=useState('')
    const [emailerror,setEmailerror]=useState('')
@@ -32,6 +34,15 @@ const LoginForm=()=>{
             localStorage.setItem('token',res.data.token);
             // set token in authProvider
             setToken(res.data.token);
+
+            //fetch user details and store in context
+            const url ="http://localhost:8000/user/email/"+email;
+            fetch(url).then((res)=>res.json())
+            .then((data)=>{
+               setUserDetails(data);  
+            })
+            .catch((err)=>console.log(err));
+
             // redirect to home page
             navigate('/home');
         }
@@ -53,11 +64,11 @@ const LoginForm=()=>{
     </div>
     <span style={{color:"red" ,marginTop: "10px",fontSize: "15px",display:'block'}} className={styles.errorMessage}>{emailerror!=='' && emailerror}</span> 
 
-    <a href="/forgotpassword" style={{color: "white",marginTop:"2px"}}>Forgot(or)reset password?</a>
+    <Link to="/forgotpassword" style={{color: "white",marginTop:"2px"}}>Forgot(or)reset password?</Link>
     <button className={`${styles.field} ${styles.btn}`} id="loginsubmit" type="submit" style={{backgroundColor: "black",fontSize: "20px",color:"white"}} >
     Login
     </button>
-    <div className={styles["signup-link"]}>Not a member? <a href="signup">Signup now</a></div>
+    <div className={styles["signup-link"]}>Not a member? <Link to="/register">Signup now</Link></div>
   </form>)
 }
 export default LoginForm;

@@ -38,6 +38,10 @@ const userSchema = new Schema({
     type: String,
     default: ''
   },
+  role:{
+    type: String,
+    default: 'user'
+  },
 }, {timestamps: true});
 
 const User = mongoose.model('user_model', userSchema);

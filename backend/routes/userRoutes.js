@@ -12,4 +12,6 @@ router.get('/',userController.users_get);
 
 router.get('/:userId',userController.user_get_byId);
 
+router.get('/email/:email',userController.user_get_byEmail);
+
 module.exports = router;
