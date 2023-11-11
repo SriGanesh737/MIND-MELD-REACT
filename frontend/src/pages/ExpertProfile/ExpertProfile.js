@@ -26,7 +26,7 @@ export default function ExpertProfile() {
 
     loadProfileDetails();
 
-  }, [userId])
+  }, [userId]);
 
 
 
