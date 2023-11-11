@@ -6,6 +6,9 @@ import Signup from "./pages/SignUpPage/Signup";
 import SingleArticle from "./pages/SingleArticlePage/SingleArticle";
 import ContactUs from './pages/ContactUsPage/ContactUs'
 
+import Admin from "./pages/AdminPage/Admin";
+
+
 import Articles from "./pages/ArticlesPage/Articles";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import ExpertProfile from "./pages/ExpertProfile/ExpertProfile";
@@ -25,7 +28,11 @@ function App() {
         <Route path="/articles/:articleId" element={<SingleArticle/>}/>
         <Route path="/articles/topic/:topic" element= {<Articles/>} />
         <Route path="/contactus" element={<ContactUs/>}/>
+
+        <Route path="/admin" element={<Admin/>} />
+
         <Route path="/user/:userId" element={<ExpertProfile/>}/>
+
       </Routes>
     </Router>   
     </UserProvider> 
