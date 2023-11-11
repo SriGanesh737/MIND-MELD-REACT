@@ -51,8 +51,8 @@ export default function Articles() {
     <>
       <MyNavbar />
       <h1 style={headingStyles} class={`${Styles["highlights-heading"]}`} > {topic} </h1>
-      <Slideshow sliderData={highLightArticles} />
-      <Footer />
+      <Slideshow sliderData={articles} />
+      {/* <Footer /> */}
     </>
   )
 }

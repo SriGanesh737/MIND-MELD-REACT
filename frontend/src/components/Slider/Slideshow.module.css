@@ -1,0 +1,17 @@
+
+.slide {
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
+
+.image-part img {
+  width: 90%;
+  height: 500px;
+}
+
+.slideshow-container{
+  /* position: relative; */
+  /* overflow: hidden; */
+  height:500px;
+}
