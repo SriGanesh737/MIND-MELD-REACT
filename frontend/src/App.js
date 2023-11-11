@@ -6,6 +6,7 @@ import Login from "./pages/LoginPage/Login";
 import Signup from "./pages/SignUpPage/Signup";
 import SingleArticle from "./pages/SingleArticlePage/SingleArticle";
 import ContactUs from './pages/ContactUsPage/ContactUs'
+import Admin from "./pages/AdminPage/Admin";
 function App() {
   return (
     <AuthProvider>
@@ -17,6 +18,7 @@ function App() {
         <Route path="/home" element={<HomePage/>} />
         <Route path="/articles/:articleId" element={<SingleArticle/>}/>
         <Route path="/contactus" element={<ContactUs/>}/>
+        <Route path="/admin" element={<Admin/>} />
       </Routes>
     </Router>    
     </AuthProvider>
