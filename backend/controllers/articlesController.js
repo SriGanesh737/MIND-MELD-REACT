@@ -43,6 +43,23 @@ const articles_get = (req,res)=>{
     res.status(500).json({message:"Internal Server Error"});
   });
 }
+const deleteArticle=(req,res)=>{
+  const { articleid } = req.params;
+
+  // Use the findByIdAndDelete method provided by Mongoose
+  Article.findByIdAndDelete(articleid)
+    .then((deletedArticle) => {
+      if (deletedArticle) {
+        res.json({ message: 'Article deleted successfully', status: true });
+      } else {
+        res.status(404).json({ error: 'Article not found', status: false });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: 'Internal server error', status: false });
+    });
+
+}
 
 
-module.exports = {article_get_byId,articles_get_byTopicAndPage,articles_get}
+module.exports = {article_get_byId,articles_get_byTopicAndPage,articles_get,deleteArticle}

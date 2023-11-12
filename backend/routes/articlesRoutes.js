@@ -7,4 +7,6 @@ router.get('/topic/:topic/page/:page',articlesController.articles_get_byTopicAnd
 
 router.get('/',articlesController.articles_get)
 
+router.delete('/:articleid',articlesController.deleteArticle)
+
 module.exports = router;
