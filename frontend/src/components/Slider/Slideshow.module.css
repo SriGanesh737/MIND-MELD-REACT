@@ -6,12 +6,14 @@
 }
 
 .image-part img {
-  width: 90%;
-  height: 500px;
+  width: 100%;
+  height: 75vh;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.slideshow-container{
-  /* position: relative; */
-  /* overflow: hidden; */
-  height:500px;
+.title-part {
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }

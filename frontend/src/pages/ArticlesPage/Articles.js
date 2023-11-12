@@ -5,6 +5,8 @@ import MyNavbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import Styles from './Articles.module.css';
 import Slideshow from '../../components/Slider/Slideshow';
+import SearchBar from '../../components/SearchBar/SearchBar';
+import Article from '../../components/Article/Article';
 
 export default function Articles() {
   const [articles, setArticles] = useState([])
@@ -37,22 +39,37 @@ export default function Articles() {
 
   }, [page, topic])
 
+ const handlePrevClick = () => {
+   if(page > 1) {
+     setPage(page - 1)
+   }
+  }
 
-
-
-  const headingStyles = {
-    fontSize: '50px',
-    fontWeight: '700',
-    textAlign: 'center',
+  const handleNextClick = () => {
+    setPage(page + 1)
   }
 
 
   return (
     <>
       <MyNavbar />
-      <h1 style={headingStyles} class={`${Styles["highlights-heading"]}`} > {topic} </h1>
       <Slideshow sliderData={articles} />
-      {/* <Footer /> */}
+      <SearchBar topic={topic} page="Home" />
+      <div id="articlesId" className={Styles["articles"]}>
+        {
+          articles.map((article, i) => {
+            return <Article article_data={article} i={i} />
+          })
+        }
+      </div>
+
+      <div className={Styles["pagination"]}>
+      <div onClick={handlePrevClick} className={`${Styles["prev"]} ${page===1?Styles['disabled']:''}`}>Prev</div>
+      <div className={Styles["page"]}>Page <span className={Styles["page-num"]}>{page}</span></div>
+      <div onClick={handleNextClick} className={`${Styles["next"]} ${articles.length<9?Styles['disabled']:''}`}>Next</div>
+      </div>
+
+      <Footer />
     </>
   )
 }
