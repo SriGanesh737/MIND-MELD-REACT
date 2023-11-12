@@ -29,7 +29,7 @@ const AdminNavbar=()=>{
 
         <ul className={styles['nav-items']}>
          <Link to="/admin" style={{textDecoration: "none",color: "white"}}><li  className={styles['nav-item']}><i class="fa-solid fa-user"></i><span className={styles[navitemspan]}>Dashboard</span></li></Link> 
-         <Link to="/" style={{textDecoration: "none",color: "white"}}><li  className={styles['nav-item']}><i class="fa-solid fa-house"></i><span className={styles[navitemspan]}>Home</span></li></Link>
+         <Link to="/home" style={{textDecoration: "none",color: "white"}}><li  className={styles['nav-item']}><i class="fa-solid fa-house"></i><span className={styles[navitemspan]}>Home</span></li></Link>
          <Link to="/admin/all_experts" style={{textDecoration: "none",color: "white"}}><li  className={styles['nav-item']}><i class="fa-solid fa-user-tie"></i><span className={styles[navitemspan]}>Experts</span></li></Link> 
          <Link to="/admin/all_articles" style={{textDecoration: "none",color: "white"}}><li className={styles['nav-item']}><i class="fa-sharp fa-solid fa-newspaper"></i><span className={styles[navitemspan]}>Articles</span></li></Link>        
          <Link to="/admin/query" style={{textDecoration: "none",color: "white"}}> <li className={styles['nav-item']}><i class="fa-solid fa-message"></i><span className={styles[navitemspan]}>Queries</span></li></Link>
