@@ -39,6 +39,15 @@ export default function Articles() {
 
   }, [page, topic])
 
+ const handlePrevClick = () => {
+   if(page > 1) {
+     setPage(page - 1)
+   }
+  }
+
+  const handleNextClick = () => {
+    setPage(page + 1)
+  }
 
 
   return (
@@ -46,13 +55,20 @@ export default function Articles() {
       <MyNavbar />
       <Slideshow sliderData={articles} />
       <SearchBar topic={topic} page="Home" />
-      <div className={Styles["articles"]}>
+      <div id="articlesId" className={Styles["articles"]}>
         {
           articles.map((article, i) => {
             return <Article article_data={article} i={i} />
           })
         }
       </div>
+
+      <div className={Styles["pagination"]}>
+      <div onClick={handlePrevClick} className={`${Styles["prev"]} ${page===1?Styles['disabled']:''}`}>Prev</div>
+      <div className={Styles["page"]}>Page <span className={Styles["page-num"]}>{page}</span></div>
+      <div onClick={handleNextClick} className={`${Styles["next"]} ${articles.length<9?Styles['disabled']:''}`}>Next</div>
+      </div>
+
       <Footer />
     </>
   )
