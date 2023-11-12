@@ -28,7 +28,7 @@ export default function MyNavbar() {
             <Nav.Link as={Link} to="/compose" className={styles['nav-link']}>Compose</Nav.Link>
             <Nav.Link as={Link} to="/bookmarks" className={styles['nav-link']}>Bookmarks</Nav.Link>
             <Nav.Link as={Link} to="/yourwork" className={styles['nav-link']}>Your Work</Nav.Link>
-            <Nav.Link as={Link} to="/dashboard" className={styles['nav-link']}>Dashboard</Nav.Link>
+            <Nav.Link as={Link} to="/admin" className={styles['nav-link']}>Dashboard</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <div className="profileimg li_main" >
