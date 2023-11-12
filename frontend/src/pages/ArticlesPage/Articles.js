@@ -5,6 +5,8 @@ import MyNavbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import Styles from './Articles.module.css';
 import Slideshow from '../../components/Slider/Slideshow';
+import SearchBar from '../../components/SearchBar/SearchBar';
+import Article from '../../components/Article/Article';
 
 export default function Articles() {
   const [articles, setArticles] = useState([])
@@ -39,20 +41,19 @@ export default function Articles() {
 
 
 
-
-  const headingStyles = {
-    fontSize: '50px',
-    fontWeight: '700',
-    textAlign: 'center',
-  }
-
-
   return (
     <>
       <MyNavbar />
-      <h1 style={headingStyles} class={`${Styles["highlights-heading"]}`} > {topic} </h1>
       <Slideshow sliderData={articles} />
-      {/* <Footer /> */}
+      <SearchBar topic={topic} page="Home" />
+      <div className={Styles["articles"]}>
+        {
+          articles.map((article, i) => {
+            return <Article article_data={article} i={i} />
+          })
+        }
+      </div>
+      <Footer />
     </>
   )
 }
