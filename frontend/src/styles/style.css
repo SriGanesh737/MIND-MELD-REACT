@@ -44,17 +44,10 @@ body{
 }
 
 
-.highlights-heading{
-     margin-top: 30px;
-     margin-bottom: 30px;
-     margin-left: 30px;
-     font-family: 'Playfair Display', serif;
-     color:rgb(45, 0, 0);
-
-}
 
 
-.articles{
+
+/* .articles{
 
     margin-top: 30px;
     display: flex;
@@ -66,9 +59,9 @@ body{
     column-gap: 30px;
      align-items: center;
 
-}
+} */
 
-.article{
+/* .article{
      border-radius: 7px;
      overflow: hidden;
         display: flex;
@@ -191,7 +184,7 @@ body{
     .article-30{width:45%}
 
 
-}
+} */
 
 @media screen and (max-width:800px){
 

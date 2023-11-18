@@ -1,7 +1,7 @@
 import React from 'react'
 import Styles from './Article.module.css'
 
-export default function Article({article_data, i}) {
+export default function Article({setClickedId ,article_data, i}) {
 
   const getArticleSize = (i)=>{
     if(i%9<=2)
@@ -14,8 +14,23 @@ export default function Article({article_data, i}) {
       return 'article-50'
   }
 
+  const articleClickHandler = (e) => {
+    console.log(article_data)
+    let modal = document.querySelector('.modal-image');
+    let popImage = document.querySelector('.pop-image');
+    let descriptionText = document.querySelector('.description-text');
+    popImage.src = require("../../assets"+article_data["image_link"]);
+    descriptionText.innerHTML = article_data["content"].slice(0,350);
+
+    // scroll to top of page
+    setClickedId(article_data["_id"])
+    window.scrollTo(0, 0);
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+
   return (
-        <div id="article_data['_id']" className={`${Styles[getArticleSize(i)]} ${Styles["article"]}`} >
+        <div onClick={articleClickHandler} id="article_data['_id']" className={`${Styles[getArticleSize(i)]} ${Styles["article"]}`} >
           <div className={Styles["clip-img"]}>
           <img src={require("../../assets"+article_data["image_link"])} alt="H-1" />
           </div>
