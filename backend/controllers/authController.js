@@ -29,7 +29,7 @@ const register_post = async (req,res)=>{
     else if(registeras === 'expert'){
         const resume=req.body.resume
         try{
-            const expert = await Expert.create({firstname,lastname,email,password,phone:phoneno,resume:resume});
+            const expert = await Expert.create({firstname,lastname,email,password,phone:phoneno,resume:resume,is_blocked:true});
             console.log(expert)
             res.status(201).json({expert:expert._id});
         }

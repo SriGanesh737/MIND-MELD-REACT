@@ -14,6 +14,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import ExpertProfile from "./pages/ExpertProfile/ExpertProfile";
 import UserProvider from "./providers/UserProvider";
 import Allarticles from "./pages/AllArticles/Allarticles";
+import AllExperts from "./pages/AllExperts/AllExperts";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         
         <Route path="/admin" element={<Admin/>} />
         <Route path="/admin/all_articles" element={<Allarticles></Allarticles>} />
+        <Route path="/admin/all_experts" element={<AllExperts></AllExperts>} />
         <Route path="/user/:userId" element={<ExpertProfile/>}/>
 
       </Routes>
