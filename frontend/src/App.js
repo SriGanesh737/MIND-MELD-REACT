@@ -16,6 +16,8 @@ import UserProvider from "./providers/UserProvider";
 import Allarticles from "./pages/AllArticles/Allarticles";
 import AllExperts from "./pages/AllExperts/AllExperts";
 import Bookmarks from "./pages/Bookmarks/Bookmarks";
+import Query from "./pages/Querypage/Query";
+import SendMail from "./pages/Mailpage/Email";
 
 function App() {
   return (
@@ -36,7 +38,10 @@ function App() {
         <Route path="/admin" element={<Admin/>} />
         <Route path="/admin/all_articles" element={<Allarticles></Allarticles>} />
         <Route path="/admin/all_experts" element={<AllExperts></AllExperts>} />
+        <Route path="/admin/query" element={<Query></Query>}></Route>
+        <Route path="/admin/mail" element={<SendMail></SendMail>}></Route>
         <Route path="/user/:userId" element={<ExpertProfile/>}/>
+        <Route path="/logout" element={<LandingPage></LandingPage>}></Route>
 
       </Routes>
     </Router>   

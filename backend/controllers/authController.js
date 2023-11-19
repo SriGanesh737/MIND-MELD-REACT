@@ -116,10 +116,58 @@ const checkEmail_get = async(req,res)=>
         res.status(200).json({message:"Email not registered",status:"false"});
     }
 }
+const remove_Expert=async (req,res)=>{
+    try {
+        const expertId = req.params.expertid;
+    
+        // Check if the expert with the given ID exists
+        const existingExpert = await Expert.findById(expertId);
+    
+        if (!existingExpert) {
+          return res.status(404).json({ error: 'Expert not found',status:false });
+        }
+    
+        // Delete the expert
+        await Expert.findByIdAndDelete(expertId);
+    
+        res.json({ message: 'Expert deleted successfully',status:true });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error',status:false });
+      }
 
+}
+const updateblockedstate=async (req,res)=>{
+    try {
+        const expertId = req.params.expertid;
+        
+    
+        // Find the expert by ID
+        const existingExpert = await Expert.findById(expertId);
+        console.log(existingExpert)
+    
+        if (!existingExpert) {
+          return res.status(404).json({ error: 'Expert not found' ,status:false});
+        }
+    
+        // Update specific values for the expert
+        existingExpert.is_blocked = !existingExpert.is_blocked;
+        // Add other properties you want to update
+    
+        // Save the updated expert
+        await existingExpert.save();
+        console.log(existingExpert)
+    
+        res.json({ status: true, expert: existingExpert });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: false, error: 'Internal server error' });
+      }
+}
 
 module.exports = {
     register_post,
     login_post,
-    checkEmail_get
+    checkEmail_get,
+    remove_Expert,updateblockedstate
 }

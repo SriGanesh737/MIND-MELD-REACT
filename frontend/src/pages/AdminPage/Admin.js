@@ -46,7 +46,6 @@ const Admin = () => {
       })
       .then((data) => {
         setArticlesize(data.length)
-        console.log(data[0].date_of_publish)
         setArticles(data.slice(data.length-5, data.length).reverse());
       });
   }
