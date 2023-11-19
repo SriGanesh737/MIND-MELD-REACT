@@ -43,13 +43,13 @@ export default function ExpertProfile() {
                 </h2>
                 <div className={Styles.data}>
                   <a href={userData.insta_link} className={Styles.instaicon}>
-                    <i className="bi bi-instagram"></i>
+                  <i class="fa-brands fa-instagram"></i>
                   </a>
                   <a href={userData.github_link} className={Styles.githubicon}>
-                    <i className="bi bi-github"></i>
+                  <i class="fa-brands fa-github"></i>
                   </a>
                   <a href={userData.facebook_link} className={Styles.linkedinicon}>
-                    <i className="bi bi-linkedin"></i>
+                  <i class="fa-brands fa-linkedin"></i>
                   </a>
                 </div>
                 <div className={Styles.actionbtn}>
@@ -64,9 +64,8 @@ export default function ExpertProfile() {
             <div className={Styles.info}>
               <div className={`edit_details ${userId === userData._id && userData.role !== 'admin' ? 'show' : ''}`}>
                 <a style={{ display: 'none' }} href="/user/edit_e">
-                  <i className="bi bi-pencil-square">
-                    <span>Edit profile</span>
-                  </i>
+                  
+                  <i class="fa-solid fa-pen-to-square"><span>Edit profile</span></i>
                 </a>
               </div>
               <div className={Styles.firstname}>
@@ -98,18 +97,18 @@ export default function ExpertProfile() {
                 </h4>
               </div>
               <div className={Styles.emailicon} style={{ marginBottom: '10px' }}>
-                <i className="bi bi-envelope iconborder"></i>
+              <i class="fa-solid fa-envelope"></i>
                 <h4 style={{ display: 'flex', alignItems: 'center' }}>
                   <a href={userData.email}>{userData.email}</a>
                   <br />
                 </h4>
               </div>
               <div className={Styles.phoneicon} style={{ marginBottom: '10px' }}>
-                <i className="bi bi-telephone iconborder"></i>
+              <i class="fa-solid fa-phone"></i>
                 <h4 style={{ display: 'flex', alignItems: 'center' }}>+91 {userData.phone}<br /></h4>
               </div>
               <div className={Styles.education} style={{ marginBottom: '10px' }}>
-                <i className="bi bi-book-half"></i>
+              <i class="fa-solid fa-book"></i>
                 <h4 style={{ display: 'flex', alignItems: 'center' }}>{userData.qualification}<br /></h4>
               </div>
               <a href={`/download_pdf?id=${userData._id}`}>Resume</a>

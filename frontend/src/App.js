@@ -5,10 +5,7 @@ import Login from "./pages/LoginPage/Login";
 import Signup from "./pages/SignUpPage/Signup";
 import SingleArticle from "./pages/SingleArticlePage/SingleArticle";
 import ContactUs from './pages/ContactUsPage/ContactUs'
-
 import Admin from "./pages/AdminPage/Admin";
-
-
 import Articles from "./pages/ArticlesPage/Articles";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import ExpertProfile from "./pages/ExpertProfile/ExpertProfile";
@@ -18,6 +15,7 @@ import AllExperts from "./pages/AllExperts/AllExperts";
 import Bookmarks from "./pages/Bookmarks/Bookmarks";
 import Query from "./pages/Querypage/Query";
 import SendMail from "./pages/Mailpage/Email";
+import UserPage from "./pages/UserPage/UserPage";
 
 function App() {
   return (
@@ -40,8 +38,9 @@ function App() {
         <Route path="/admin/all_experts" element={<AllExperts></AllExperts>} />
         <Route path="/admin/query" element={<Query></Query>}></Route>
         <Route path="/admin/mail" element={<SendMail></SendMail>}></Route>
-        <Route path="/user/:userId" element={<ExpertProfile/>}/>
+        <Route path="/expert/:userId" element={<ExpertProfile/>}/>
         <Route path="/logout" element={<LandingPage></LandingPage>}></Route>
+        <Route path="/user/:userid" element={<UserPage/>}> </Route>
 
       </Routes>
     </Router>   
