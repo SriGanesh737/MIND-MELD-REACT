@@ -25,6 +25,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {setArticles} from './store/article-slice'
 import { getUsers,getExperts} from './store/user-slice'
+import AboutUs from "./pages/AboutUs/AboutUs";
 
 
 function App() {
@@ -102,6 +103,7 @@ function App() {
         <Route path="/expert/:userId" element={<ExpertProfile/>}/>
         <Route path="/logout" element={<LandingPage></LandingPage>}></Route>
         <Route path="/user/:userid" element={<UserPage/>}> </Route>
+        <Route path="/aboutus" element={<AboutUs/>}> </Route>
 
       </Routes>
     </Router>   
