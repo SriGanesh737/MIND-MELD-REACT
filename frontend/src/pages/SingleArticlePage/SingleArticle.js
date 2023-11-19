@@ -5,9 +5,12 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Styles from './SingleArticle.module.css';
+import CommentsSection from '../../components/CommentsSection/CommentsSection';
+import { useUser } from '../../providers/UserProvider';
 
 export default function SingleArticle() {
   
+  const {user} = useUser();
   let {articleId} = useParams();
   const [article,setArticle] = useState({
     title:"Demo Title",
@@ -38,6 +41,22 @@ export default function SingleArticle() {
 
   let {title,author_name,date_of_publish,content,likes,dislikes,image_link} = article;
 
+
+  const handleAddToBookmarks = () => {
+    // add to bookmarks
+    const url = "http://localhost:8000/user/"+user._id+"/bookmarks/"+articleId;
+    fetch(url,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      }
+    })
+    .then((res)=>res.json())
+    .then((data)=>{
+      console.log(data);
+    })
+    .catch((err)=>console.log(err));
+  }
   
   return (
     <>
@@ -47,7 +66,7 @@ export default function SingleArticle() {
       <img className={Styles.image} src={image_link} alt="" width="1000px" height="500px"/>
       <h2 className={Styles.written}>-- Written by <i>{author_name}</i> --</h2>
       <h3 className={Styles.date}>{date_of_publish.getDate()}-{date_of_publish.getMonth()+1}-{date_of_publish.getFullYear()}</h3>
-      <button className={Styles.addtowishlist}><i className="fa-solid fa-bookmark"></i>Add to Bookmarks</button>
+      <button onClick={handleAddToBookmarks} className={Styles.addtowishlist}><i className="fa-solid fa-bookmark"></i>Add to Bookmarks</button>
       <div className={Styles.content} dangerouslySetInnerHTML={{ __html: content }} />
       <div className={Styles.rating}>
         <div className={Styles.liked}>
@@ -62,6 +81,7 @@ export default function SingleArticle() {
       <h2 style={{textAlign:"center"}}>***** Thank You *****</h2>
       <h1 className={Styles['comments-title']}>Comments</h1>
       <div className={Styles['comments-section']}>
+        {/* <CommentsSection/> */}
         Comments Section
       </div>
       </div>

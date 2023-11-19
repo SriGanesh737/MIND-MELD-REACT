@@ -67,9 +67,9 @@ const user_get_byId = async (req,res)=>{
 
 const user_get_byEmail = async(req,res) =>{
     const email = req.params.email;
-    const user = await User.find({email:email});
-    const expert = await Expert.find({email:email});
-    const admin = await Admin.find({email:email});
+    const user = await User.findOne({email:email});
+    const expert = await Expert.findOne({email:email});
+    const admin = await Admin.findOne({email:email});
 
     if(user){
         // remove password key itself from user object
@@ -89,4 +89,23 @@ const user_get_byEmail = async(req,res) =>{
     }
 }
 
-module.exports = {bookmarks_byUserId_get,bookmark_add_byUserId_post,bookmark_remove_byUserId_delete,users_get,user_get_byId,user_get_byEmail}
+const users_get_byRole = async (req,res)=>{
+    const role = req.params.role;
+    if(role==='user'){
+        const users = await User.find({});
+        res.status(200).json(users);
+    }
+    else if(role==='expert'){
+        const experts = await Expert.find({});
+        res.status(200).json(experts);
+    }
+    else if(role==='admin'){
+        const admins = await Admin.find({});
+        res.status(200).json(admins);
+    }
+    else{
+        res.status(400).json({message:"Invalid role"});
+    }
+}
+
+module.exports = {bookmarks_byUserId_get,bookmark_add_byUserId_post,bookmark_remove_byUserId_delete,users_get,user_get_byId,user_get_byEmail,users_get_byRole}
