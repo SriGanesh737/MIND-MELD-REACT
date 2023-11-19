@@ -19,7 +19,7 @@ const register_post = async (req,res)=>{
         try{
             const user = await User.create({firstname,lastname,email,password,phone:phoneno});
             console.log(user)
-            res.status(201).json({user:user._id});
+            res.status(201).json({user:user._id,data:user});
         }
         catch(err){
             console.log(err);

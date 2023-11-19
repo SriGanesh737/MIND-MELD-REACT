@@ -17,7 +17,66 @@ import Query from "./pages/Querypage/Query";
 import SendMail from "./pages/Mailpage/Email";
 import UserPage from "./pages/UserPage/UserPage";
 
+import ComposePage from "./pages/ComposePage/ComposePage";
+
+import Yourwork from "./pages/YourWork/Yourwork";
+import axios from "axios";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {setArticles} from './store/article-slice'
+import { getUsers,getExperts} from './store/user-slice'
+
+
 function App() {
+  const dispatch=useDispatch()
+  function getAllArticles() 
+  {
+    axios
+      .get("http://localhost:8000/articles")
+      .then((res) => {
+        return res.data;
+      })
+      .then((data) => {
+        dispatch(setArticles(data))
+        console.log(data)
+        
+       
+      });
+  }
+  function getAllExperts() {
+    axios
+      .get("http://localhost:8000/user/role/expert")
+      .then((response) => {
+        return response.data;
+      })
+      .then((data) => {
+        dispatch(getExperts(data))
+        
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  function getAllusers() {
+    axios
+      .get("http://localhost:8000/user/role/user")
+      .then((res) => {
+        return res.data;
+      })
+      .then((data) => {
+        
+        dispatch(getUsers(data))
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  useEffect(() => {
+    console.log("hiii")
+    getAllArticles();
+    getAllExperts();
+    getAllusers();
+  }, []);
   return (
 
     <AuthProvider>
@@ -32,7 +91,9 @@ function App() {
         <Route path="/articles/topic/:topic" element= {<Articles/>} />
         <Route path="/contactus" element={<ContactUs/>}/>
         <Route path="/bookmarks" element={<Bookmarks/>}/>
-        
+        <Route path="/compose" element={<ComposePage/>}/>
+        <Route path="/yourwork" element={<Yourwork/>}/>
+
         <Route path="/admin" element={<Admin/>} />
         <Route path="/admin/all_articles" element={<Allarticles></Allarticles>} />
         <Route path="/admin/all_experts" element={<AllExperts></AllExperts>} />

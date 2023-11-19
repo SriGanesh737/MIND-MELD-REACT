@@ -4,7 +4,10 @@ import useInput from "../../hooks/use-registerinput";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { addUser,addExpert } from "../../store/user-slice";
+import { useDispatch } from "react-redux";
 const Signup = () => {
+  const dispatch=useDispatch();
   const navigate = useNavigate();
   const {
     value: enteredfirstname,
@@ -140,8 +143,16 @@ const Signup = () => {
         .post("http://localhost:8000/auth/register", details)
         .then((res) => {
           if (res.status === 201) {
-            // console.log(res.data)
+            console.log(res.data)
             console.log("successfully registered");
+            if(type==='user')
+            {
+              dispatch(addUser(res.data.data))
+            }
+            if(type==='expert')
+            {
+              dispatch(addExpert(res.data.data))
+            }
             navigate("/login");
           }
         })
