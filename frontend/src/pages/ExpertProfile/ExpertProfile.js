@@ -7,11 +7,8 @@ import Styles from './ExpertProfile.module.css';
 export default function ExpertProfile() {
   const { userId } = useParams();
   const [userData, setUserData] = useState({})
-
-
   useEffect(() => {
     const loadProfileDetails = async () => {
-      // fetch user using his id
       const url = `http://localhost:8000/user/${userId}`;
       console.log(url)
       fetch(url)
@@ -28,8 +25,6 @@ export default function ExpertProfile() {
 
   }, [userId])
 
-
-
   return (
     <>
       <div>
@@ -37,7 +32,7 @@ export default function ExpertProfile() {
         <div className={Styles.bigDiv}>
           <div className={Styles.card}>
             <div className={Styles.imgbox}>
-              <img src={userData.profile_image_link} alt="Profile Image" />
+              <img src={userData.profile_image_link} alt="Profile pic" />
             </div>
             <div className={Styles.content}>
               <div className={Styles.details}>
@@ -121,13 +116,6 @@ export default function ExpertProfile() {
             </div>
           </div>
         </div>
-
-
-
-
-
-
-
         <Footer />
       </div>
     </>

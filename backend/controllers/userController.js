@@ -1,6 +1,6 @@
 const Bookmark = require('../models/Bookmark');
 const Article = require('../models/Article');
-const User = require('../models/user');
+const User = require('../models/User');
 const Expert = require('../models/Expert');
 const Admin = require('../models/Admin');
 
