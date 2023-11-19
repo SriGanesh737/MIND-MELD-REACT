@@ -7,11 +7,14 @@ import Styles from './Articles.module.css';
 import Slideshow from '../../components/Slider/Slideshow';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Article from '../../components/Article/Article';
+import ModalImage from '../../components/ModalImage/ModalImage';
 
 export default function Articles() {
   const [articles, setArticles] = useState([])
   const [page, setPage] = useState(1) // default page is 1
   const { topic } = useParams();
+
+  const [clickedId,setClickedId] = useState(0);
 
   const highLightsArticles = (articles) => {
     // Sort the articles based on likes
@@ -50,15 +53,18 @@ export default function Articles() {
   }
 
 
+
+
   return (
     <>
       <MyNavbar />
       <Slideshow sliderData={articles} />
       <SearchBar topic={topic} page="Home" />
       <div id="articlesId" className={Styles["articles"]}>
+        <ModalImage clickedId={clickedId}/>
         {
           articles.map((article, i) => {
-            return <Article article_data={article} i={i} />
+            return <Article setClickedId={setClickedId} article_data={article} i={i} />
           })
         }
       </div>

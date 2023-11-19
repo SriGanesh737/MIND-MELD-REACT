@@ -76,3 +76,17 @@
 .show{
   display: block;
 }
+
+@media screen and (max-width:992px){
+  .article-50{width:45%}
+  .article-60{width:45%}
+  .article-40{width:45%}
+  .article-30{width:45%}
+}
+
+@media screen and (max-width:800px){
+  .article-50{width:90%}
+  .article-60{width:90%}
+  .article-40{width:90%}
+  .article-30{width:90%}
+}
