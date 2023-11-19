@@ -15,6 +15,7 @@ import ExpertProfile from "./pages/ExpertProfile/ExpertProfile";
 import UserProvider from "./providers/UserProvider";
 import Allarticles from "./pages/AllArticles/Allarticles";
 import AllExperts from "./pages/AllExperts/AllExperts";
+import Bookmarks from "./pages/Bookmarks/Bookmarks";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/articles/:articleId" element={<SingleArticle/>}/>
         <Route path="/articles/topic/:topic" element= {<Articles/>} />
         <Route path="/contactus" element={<ContactUs/>}/>
+        <Route path="/bookmarks" element={<Bookmarks/>}/>
         
         <Route path="/admin" element={<Admin/>} />
         <Route path="/admin/all_articles" element={<Allarticles></Allarticles>} />

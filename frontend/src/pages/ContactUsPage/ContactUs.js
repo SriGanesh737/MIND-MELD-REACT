@@ -2,6 +2,7 @@ import MyNavbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import Styles from './ContactUs.module.css';
 import { useState } from 'react';
+import contactUsImage from "../../assets/images/Contact us-rafiki.svg";
 
 export default function ContactUs({data}) {
 
@@ -95,7 +96,7 @@ export default function ContactUs({data}) {
                 <p class={Styles["single-link"]}><i class="fa-brands fa-twitter"></i>twitter</p>
             </div>
             <div class={Styles["contactus-image"]}>
-              <img src="../images/Contact us-rafiki.svg" alt=""/>
+              <img src={contactUsImage} alt=""/>
             </div>
         </div>
         <div class={Styles["contactus-right"]}>

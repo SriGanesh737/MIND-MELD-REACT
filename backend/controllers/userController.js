@@ -67,9 +67,9 @@ const user_get_byId = async (req,res)=>{
 
 const user_get_byEmail = async(req,res) =>{
     const email = req.params.email;
-    const user = await User.find({email:email});
-    const expert = await Expert.find({email:email});
-    const admin = await Admin.find({email:email});
+    const user = await User.findOne({email:email});
+    const expert = await Expert.findOne({email:email});
+    const admin = await Admin.findOne({email:email});
 
     if(user){
         // remove password key itself from user object

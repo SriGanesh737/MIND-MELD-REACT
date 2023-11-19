@@ -64,7 +64,7 @@ export default function Articles() {
         <ModalImage clickedId={clickedId}/>
         {
           articles.map((article, i) => {
-            return <Article setClickedId={setClickedId} article_data={article} i={i} />
+            return <Article key={i} setClickedId={setClickedId} article_data={article} i={i} />
           })
         }
       </div>
