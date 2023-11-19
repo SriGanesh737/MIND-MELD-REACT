@@ -4,40 +4,23 @@ import styles from "./allexperts.module.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {toast} from 'sonner'
-
+import { useSelector,useDispatch } from "react-redux";
+import {deleteExpert,updateExpertsdetails} from '../../store/user-slice'
 const AllExperts = () => {
-  const [experts, setExperts] = useState([]);
-  const [articleCounts, setArticleCounts] = useState({});
-
-  useEffect(() => {
-    // Fetch all experts
-    axios
-      .get("http://localhost:8000/user/role/expert")
-      .then((response) => response.data)
-      .then((data) => {
-        setExperts(data.reverse());
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    // Fetch all articles
-    axios
-      .get("http://localhost:8000/articles")
-      .then((res) => res.data)
-      .then((data) => {
-        // Calculate article counts for each expert
-        const counts = data.reduce((acc, article) => {
-          const authorId = article.author_id; // Assuming author_id is a string
-          acc[authorId] = (acc[authorId] || 0) + 1;
-          return acc;
-        }, {});
-
-        setArticleCounts(counts);
-      });
-  }, []);
+  const dispatch=useDispatch();
+  const experts= useSelector((state)=>state.users.experts)
+  const articles=useSelector((state)=>state.articles.articles)
+ let articleCounts = {};
+  const counts = articles.reduce((acc, article) => {
+    const authorId = article.author_id; // Assuming author_id is a string
+    acc[authorId] = (acc[authorId] || 0) + 1;
+    return acc;
+  }, {});
+ articleCounts=counts
+  
   function removeExpert(id,e) {
     e.preventDefault();
+   
     axios
       .delete(`http://localhost:8000/auth/${id}`)
       .then((response) => {
@@ -47,8 +30,8 @@ const AllExperts = () => {
         if (status) {
           // Successful deletion
           console.log('Expert deleted successfully');
-          const newdata=experts.filter((expert)=>expert._id!==id)
-          setExperts(newdata)
+          dispatch(deleteExpert(id))
+          // setExperts(newdata)
           toast.success('Expert removed successfully')
           // Add any other actions you want to perform on successful deletion
         } else {
@@ -64,19 +47,15 @@ const AllExperts = () => {
   }
   function approveExpert(e, id, index) {
     e.preventDefault();
+    console.log("hiiiiii")
     axios.put(`http://localhost:8000/auth/${id}/updateblocked`)
     .then((response) => {
       // Check the status property received from the backend
       const { status, expert } = response.data;
-
+          
       if (status) {
-        // Update the state with the updated expert
-        setExperts((prev) => {
-          const updatedExperts = [...prev];
-          updatedExperts[index] = expert;
-          return updatedExperts;
-        });
         toast.success('updated state of expert successfully')
+        dispatch(updateExpertsdetails(index))
       } else {
         // Handle failure
         console.error('Failed to update expert');
