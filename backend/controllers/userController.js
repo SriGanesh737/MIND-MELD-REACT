@@ -107,5 +107,11 @@ const users_get_byRole = async (req,res)=>{
         res.status(400).json({message:"Invalid role"});
     }
 }
+const articles_getbyuserid=async (req,res)=>{
+    const userId = req.params.userId;
+    const yourarticles = await Article.find({author_id:userId});
+    res.status(200).json(yourarticles); 
 
-module.exports = {bookmarks_byUserId_get,bookmark_add_byUserId_post,bookmark_remove_byUserId_delete,users_get,user_get_byId,user_get_byEmail,users_get_byRole}
+}
+
+module.exports = {bookmarks_byUserId_get,bookmark_add_byUserId_post,bookmark_remove_byUserId_delete,users_get,user_get_byId,user_get_byEmail,users_get_byRole,articles_getbyuserid}

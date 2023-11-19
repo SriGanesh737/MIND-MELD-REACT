@@ -4,25 +4,14 @@ import styles from "./allarticles.module.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {toast} from 'sonner'
+import { useDispatch, useSelector } from "react-redux";
+import { deleteArticle } from "../../store/article-slice";
 const Allarticles = () => {
-  const [articles, setArticles] = useState([]);
-  function getAllArticles() {
-    axios
-      .get("http://localhost:8000/articles")
-      .then((res) => {
-        return res.data;
-      })
-      .then((data) => {
-        console.log(data[0].date_of_publish);
-        setArticles(data.reverse());
-      });
-  }
-  useEffect(() => {
-    getAllArticles();
-  }, []);
+  
+  const articles=useSelector((state)=>state.articles.articles)
+  const dispatch=useDispatch();
   function deletearticle(id, e) {
     e.preventDefault();
-    console.log(id)
     axios
       .delete(`http://localhost:8000/articles/${id}`)
       .then((res) => {
@@ -30,8 +19,7 @@ const Allarticles = () => {
       })
       .then((data) => {
         if (data.status) {
-          const newdata=articles.filter((article)=>article._id!==id)
-          setArticles(newdata)
+          dispatch(deleteArticle(id))
           toast.success('Article deleted successfully')
         }
       })
