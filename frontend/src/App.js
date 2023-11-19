@@ -18,6 +18,7 @@ import AllExperts from "./pages/AllExperts/AllExperts";
 import Bookmarks from "./pages/Bookmarks/Bookmarks";
 import Query from "./pages/Querypage/Query";
 import SendMail from "./pages/Mailpage/Email";
+import ComposePage from "./pages/ComposePage/ComposePage";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/articles/topic/:topic" element= {<Articles/>} />
         <Route path="/contactus" element={<ContactUs/>}/>
         <Route path="/bookmarks" element={<Bookmarks/>}/>
+        <Route path="/compose" element={<ComposePage/>}/>
         
         <Route path="/admin" element={<Admin/>} />
         <Route path="/admin/all_articles" element={<Allarticles></Allarticles>} />
