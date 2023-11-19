@@ -34,6 +34,7 @@ const expertSchema = new Schema({
   },
   resume:{
     type:String,
+    default:'resume',
     required:[true,'resume is required']
 },
   insta_link:{

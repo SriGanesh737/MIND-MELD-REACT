@@ -22,7 +22,7 @@
   background-image: linear-gradient(to right bottom, #e5e5f1, #d7d5e0, #c9c6cf, #bab7bf, #aca8af, #a8a1a7, #a39b9f, #9d9597, #9e9695, #9d9794, #9c9994, #9a9a95);
 
   background-color: aqua;
-  height: 37.5rem;
+  height: 38.5rem;
   width: 31.25rem;
   border-radius: 10px 0 0px 10px;
   margin: auto;
@@ -34,7 +34,7 @@
 .right {
   background-color: rgb(23, 24, 24);
   background-image: linear-gradient(to right, #948c91, #989298, #9d999f, #a19fa5, #a6a6ab, #a4a6ab, #a3a6aa, #a2a6a9, #9a9fa2, #93989a, #8c9293, #858b8b);
-  height: 37.5rem;
+  height: 38.5rem;
   width: 31.25rem;
   margin: auto;
   border-radius: 0px 10px 10px 0px;
