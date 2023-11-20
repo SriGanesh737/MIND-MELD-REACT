@@ -27,10 +27,11 @@ export default function MyNavbar() {
             <Nav.Link as={Link} to="/contactus" className={styles['nav-link']}>ContactUs</Nav.Link>
             <Nav.Link as={Link} to="/aboutus" className={styles['nav-link']}>AboutUs</Nav.Link>
             <Nav.Link as={Link} to="/questions" className={styles['nav-link']}>Questions</Nav.Link>
-            <Nav.Link as={Link} to="/compose" className={styles['nav-link']}>Compose</Nav.Link>
+            {user.role !== 'user'?(<Nav.Link as={Link} to="/compose" className={styles['nav-link']}>Compose</Nav.Link>):''}
             <Nav.Link as={Link} to="/bookmarks" className={styles['nav-link']}>Bookmarks</Nav.Link>
-            <Nav.Link as={Link} to="/yourwork" className={styles['nav-link']}>Your Work</Nav.Link>
-            <Nav.Link as={Link} to="/admin" className={styles['nav-link']}>Dashboard</Nav.Link>
+            {user.role !== 'user'?(<Nav.Link as={Link} to="/yourwork" className={styles['nav-link']}>Your Work</Nav.Link>) :''}
+            {user.role === 'admin' ? (<Nav.Link as={Link} to="/admin" className={styles['nav-link']}>
+              Dashboard</Nav.Link>) : ''}
           </Nav>
         </Navbar.Collapse>
         <div className={styles.profileimg} onClick={toggleDropDown}>
@@ -44,11 +45,11 @@ export default function MyNavbar() {
                   <li><i className="fa-solid fa-pen-to-square"></i></li>
                   <li><i className="fa-solid fa-eye"></i></li>
                 </ul>
-              </div>x
+              </div>
               <div className={styles["dd_right"]}>
                 <li><Link to="/logout" style={{ textDecoration: 'none', color: 'black' }}>Logout</Link></li>
-                <li><Link to="/user/edit_u" style={{ textDecoration: 'none', color: 'black' }}>Edit</Link></li>
-                <li><Link to={"/user/"+user._id} style={{ textDecoration: 'none', color: 'black' }}>View</Link></li>
+                <li><Link to={user.role==='user'?"/user/edit_u":"/user/edit_e"} style={{ textDecoration: 'none', color: 'black' }}>Edit</Link></li>
+                <li><Link to={user.role==='user'?"/user/"+user._id:"/expert/"+user._id} style={{ textDecoration: 'none', color: 'black' }}>View</Link></li>
               </div>
              </div>
             )}
