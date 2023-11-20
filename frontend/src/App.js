@@ -116,7 +116,7 @@ const router = createBrowserRouter(
         <Route path="/logout" element={<LandingPage></LandingPage>}></Route>
         <Route path="/user/:userid" element={<UserPage/>}> </Route>
         <Route path="/aboutus" element={<AboutUs/>}> </Route>
-        <Route path="/user/edit_details" element={<EditDetails />} ></Route>
+        <Route path="/user/edit_e" element={<EditDetails />} ></Route>
         <Route path="/user/edit_u" element={<EditUser/>}></Route>
     </Route>
   )
