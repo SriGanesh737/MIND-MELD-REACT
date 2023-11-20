@@ -15,5 +15,16 @@
 .title-part {
   font-size: 2rem;
   font-weight: 700;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 10px rgba(201, 174, 174, 0.5);
+  background-color: rgb(176, 172, 165);
+  border-radius: 0 0 10px 10px;
+
+}
+
+.slideshow-container{
+  margin: 3% 5% 2% 10%;
+  width: 80%;
+  border-radius: 10px;
+  overflow: hidden;
+
 }
