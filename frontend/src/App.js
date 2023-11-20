@@ -27,6 +27,7 @@ import {setArticles} from './store/article-slice'
 import { getUsers,getExperts} from './store/user-slice'
 import AboutUs from "./pages/AboutUs/AboutUs";
 import EditDetails from './pages/EditDetails/EditDetails'
+import EditUser from "./pages/EditUser/EditUser";
 
 
 function App() {
@@ -106,6 +107,7 @@ function App() {
         <Route path="/user/:userid" element={<UserPage/>}> </Route>
         <Route path="/aboutus" element={<AboutUs/>}> </Route>
         <Route path="/user/edit_details" element={<EditDetails />} ></Route>
+        <Route path="/user/edit_u" element={<EditUser/>}></Route>
         
       </Routes>
     </Router>   
