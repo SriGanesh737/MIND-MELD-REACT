@@ -1,5 +1,4 @@
 import HomePage from "./pages/HomePage/HomePage";
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { AuthProvider } from "./providers/authProvider";
 import Login from "./pages/LoginPage/Login";
 import Signup from "./pages/SignUpPage/Signup";
@@ -16,9 +15,8 @@ import Bookmarks from "./pages/Bookmarks/Bookmarks";
 import Query from "./pages/Querypage/Query";
 import SendMail from "./pages/Mailpage/Email";
 import UserPage from "./pages/UserPage/UserPage";
-
 import ComposePage from "./pages/ComposePage/ComposePage";
-
+import { useUser } from './providers/UserProvider'
 import Yourwork from "./pages/YourWork/Yourwork";
 import axios from "axios";
 import { useEffect } from "react";
@@ -29,6 +27,12 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import EditDetails from './pages/EditDetails/EditDetails'
 import EditUser from "./pages/EditUser/EditUser";
 
+import {
+  createBrowserRouter, 
+  createRoutesFromElements,
+  Route, 
+  RouterProvider
+} from 'react-router-dom'
 
 function App() {
   const dispatch=useDispatch()
@@ -74,45 +78,54 @@ function App() {
         console.log(err);
       });
   }
-  useEffect(() => {
+function getwholedata(){
     console.log("hiii")
     getAllArticles();
     getAllExperts();
     getAllusers();
-  }, []);
-  return (
+    return 1;
+}
 
-    <AuthProvider>
-    <UserProvider>
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/register" element={<Signup/>}/>
-        <Route path="/home" element={<HomePage/>} />
-        <Route path="/articles/:articleId" element={<SingleArticle/>}/>
-        <Route path="/articles/topic/:topic" element= {<Articles/>} />
-        <Route path="/contactus" element={<ContactUs/>}/>
-        <Route path="/bookmarks" element={<Bookmarks/>}/>
-        <Route path="/compose" element={<ComposePage/>}/>
-        <Route path="/yourwork" element={<Yourwork/>}/>
+const {user}=useUser();
+var role="user"
+if(user)
+{
+   role=user.role
+}
+console.log(role)
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/"  loader={getwholedata}>
+     <Route index element={<LandingPage/>} />
+    <Route path="/login" element={<Login />}></Route>
+    <Route path="/register" element={<Signup/>}/>
+    <Route path="/home" element={<HomePage/>} />
+    <Route path="/articles/:articleId" element={<SingleArticle/>}/>
+    <Route path="/articles/topic/:topic" element= {<Articles/>} />
+    <Route path="/contactus" element={<ContactUs/>}/>
+    <Route path="/bookmarks" element={<Bookmarks/>}/>
+    {(role==="admin" || role==="expert")&&<Route path="/compose" element={<ComposePage/>}/>}
+    {role==="expert"&&<Route path="/yourwork" element={<Yourwork/>}/>}
 
-        <Route path="/admin" element={<Admin/>} />
-        <Route path="/admin/all_articles" element={<Allarticles></Allarticles>} />
-        <Route path="/admin/all_experts" element={<AllExperts></AllExperts>} />
-        <Route path="/admin/query" element={<Query></Query>}></Route>
-        <Route path="/admin/mail" element={<SendMail></SendMail>}></Route>
-        <Route path="/expert/:userId" element={<ExpertProfile/>}/>
+        {role==="admin"&&<Route path="/admin" element={<Admin/>} />}
+        {role==="admin"&&<Route path="/admin/all_articles" element={<Allarticles></Allarticles>} />}
+        {role==="admin"&&<Route path="/admin/all_experts" element={<AllExperts></AllExperts>} />}
+        {role==="admin"&&<Route path="/admin/query" element={<Query></Query>}></Route>}
+        {role==="admin"&&<Route path="/admin/mail" element={<SendMail></SendMail>}></Route>}
+        {role==="expert"&&<Route path="/expert/:userId" element={<ExpertProfile/>}/>}
         <Route path="/logout" element={<LandingPage></LandingPage>}></Route>
         <Route path="/user/:userid" element={<UserPage/>}> </Route>
         <Route path="/aboutus" element={<AboutUs/>}> </Route>
         <Route path="/user/edit_details" element={<EditDetails />} ></Route>
         <Route path="/user/edit_u" element={<EditUser/>}></Route>
-        
-      </Routes>
-    </Router>   
-    </UserProvider> 
-    </AuthProvider>
+    </Route>
+  )
+)
+  return (
+
+   <>
+    <RouterProvider router={router} />
+    </>
 
   );
 }

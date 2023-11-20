@@ -8,13 +8,13 @@ import { Link } from 'react-router-dom';
 export default function MyNavbar() { 
   return (
     <Navbar expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
-      <Container>
+      {/* <Container> */}
       <Navbar.Brand href="/home">
             <img
               src={BrandLogo}
               width="70"
               height="60"
-              className={`d-inline-block align-top ${styles['brand-img']}`}
+              className={`d-inline-block align-top ${styles['brand-img']} `}
               alt="React Bootstrap logo"
             />
           </Navbar.Brand>
@@ -51,7 +51,7 @@ export default function MyNavbar() {
 
       </div>
     </div>
-      </Container>
+      {/* </Container> */}
     </Navbar>
   )
 }
