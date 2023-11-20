@@ -15,6 +15,7 @@ import AllExperts from "./pages/AllExperts/AllExperts";
 import Bookmarks from "./pages/Bookmarks/Bookmarks";
 import Query from "./pages/Querypage/Query";
 import SendMail from "./pages/Mailpage/Email";
+import UserPage from "./pages/UserPage/UserPage";
 
 import ComposePage from "./pages/ComposePage/ComposePage";
 
@@ -24,6 +25,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {setArticles} from './store/article-slice'
 import { getUsers,getExperts} from './store/user-slice'
+import AboutUs from "./pages/AboutUs/AboutUs";
+import EditDetails from './pages/EditDetails/EditDetails'
+import EditUser from "./pages/EditUser/EditUser";
 
 
 function App() {
@@ -98,9 +102,13 @@ function App() {
         <Route path="/admin/all_experts" element={<AllExperts></AllExperts>} />
         <Route path="/admin/query" element={<Query></Query>}></Route>
         <Route path="/admin/mail" element={<SendMail></SendMail>}></Route>
-        <Route path="/user/:userId" element={<ExpertProfile/>}/>
+        <Route path="/expert/:userId" element={<ExpertProfile/>}/>
         <Route path="/logout" element={<LandingPage></LandingPage>}></Route>
-
+        <Route path="/user/:userid" element={<UserPage/>}> </Route>
+        <Route path="/aboutus" element={<AboutUs/>}> </Route>
+        <Route path="/user/edit_details" element={<EditDetails />} ></Route>
+        <Route path="/user/edit_u" element={<EditUser/>}></Route>
+        
       </Routes>
     </Router>   
     </UserProvider> 
