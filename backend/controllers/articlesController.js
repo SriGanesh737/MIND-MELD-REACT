@@ -60,6 +60,63 @@ const deleteArticle=(req,res)=>{
     });
 
 }
+const filterHandler=async (req,res)=>{
+  let {searchinput,based_on,filter_option,topic}=req.body;
+  console.log(req.body)
+  let topic_lower = topic.toLowerCase();
+    search_value = searchinput.toLowerCase();
+    let sort_basis = -1;
+    if (filter_option == 'oldest first') 
+    sort_basis = 1;
 
 
-module.exports = {article_get_byId,articles_get_byTopicAndPage,articles_get,deleteArticle}
+    if (filter_option == 'most liked') 
+    {
+        Article.find({ topic: topic_lower }).sort({ likes: -1 }).then((data) => {
+            let slider_data = data;
+            slider_data.sort((a, b) => b.likes - a.likes);
+            slider_data = slider_data.slice(0, Math.min(5, slider_data.length));
+            // console.log(slider_data);
+            const filtered_data = data.filter((article) => {
+                if (based_on == 'title' && article.title.toLowerCase().includes(search_value.toLowerCase())) 
+                return true;
+                else if (based_on == 'tags') {
+                    const tags = article.tags;
+                    for (let i = 0; i < tags.length; i++) {
+                        if (tags[i].toLowerCase().includes(search_value.toLowerCase())) return true;
+                    }
+                }
+            });
+            // console.log(filtered_data)
+            res.json({ success: true, filtered_data  });
+
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+    else {
+        console.log(sort_basis, "...");
+        Article.find({ topic: topic_lower }).sort({ date_of_publish: sort_basis }).then((data) => {
+            let slider_data = data;
+            // console.log(slider_data);
+            const filtered_data = data.filter((article) => {
+                if (based_on == 'title' && article.title.toLowerCase().includes(search_value)) return true;
+                else if (based_on == 'tags') {
+                    const tags = article.tags;
+                    for (let i = 0; i < tags.length; i++) {
+                        if (tags[i].toLowerCase().includes(search_value)) return true;
+                    }
+                }
+            });
+            console.log(filtered_data[0]._id)
+            res.json({ success: true,filtered_data  });
+        }).catch((err) => {
+            console.log(err);
+            res.json({success:"false"})
+        })
+
+}
+}
+
+
+module.exports = {article_get_byId,articles_get_byTopicAndPage,articles_get,deleteArticle,filterHandler}
