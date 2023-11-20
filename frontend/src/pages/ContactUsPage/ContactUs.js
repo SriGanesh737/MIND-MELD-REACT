@@ -14,6 +14,8 @@ export default function ContactUs({data}) {
   const [firstNameError, setFirstNameError] = useState('');
   const [lastNameError, setLastNameError] = useState('');
   const [phoneNumberError, setPhoneNumberError] = useState('');
+  const [emailError, setemailError] = useState('');
+  const [messageError,setMessageError] = useState('');
  
   function onlyLetters(str) {
     return /^[A-Za-z\s]*$/.test(str);
@@ -40,6 +42,15 @@ export default function ContactUs({data}) {
       setLastNameError('');
     }
   }
+  function validateEmail(email){
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!emailRegex.test(email)){
+      setemailError('Incorrect Email')
+    }
+    else{
+      setemailError('')
+    }
+  }
 
   function validatePhoneNumber(phoneNumber) {
     if(!onlyNumbers(phoneNumber) || phoneNumber.length !== 10) {
@@ -47,6 +58,15 @@ export default function ContactUs({data}) {
     }
     else {
       setPhoneNumberError('');
+    }
+  }
+
+  function validateMessage(message){
+    if (!message){
+      setMessageError('Message should not be null')
+    }
+    else{
+      setMessageError('')
     }
   }
 
@@ -62,6 +82,7 @@ export default function ContactUs({data}) {
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
+    validateEmail(e.target.value);
   }
 
   function handlePhoneNumberChange(e) {
@@ -71,11 +92,34 @@ export default function ContactUs({data}) {
 
   function handleMessageChange(e) {
     setMessage(e.target.value);
+    validateMessage(e.target.value)
   }
-
-
-
-
+  
+  function handleSubmit(e){
+    e.preventDefault();
+    if (firstNameError || lastNameError || emailError || phoneNumberError || messageError){
+      return;
+    }else{
+      fetch('http://localhost:8000/utility/contact', {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({firstname:firstName,lastname:lastName,email:email,phone:phoneNumber,message:message}),
+  }).then((response)=>{
+    return response.json()
+  }).then((data)=>{
+    console.log(data.success)
+    if (data.success){
+      setFirstName('');
+      setLastName('')
+      setEmail('')
+      setPhoneNumber('')
+      setMessage('')
+    }
+  })
+    }
+  }
 
   return (
     <>
@@ -106,7 +150,7 @@ export default function ContactUs({data}) {
             <h2 class={Styles["contactus-title"]}>
                 Send a message
             </h2>
-          <form action="/contactus" method="post" class={`${Styles["contactus-form"]} ${Styles["myform"]}`}>
+          <form onSubmit={handleSubmit} class={`${Styles["contactus-form"]} ${Styles["myform"]}`}>
 
               <input value={firstName} onChange={handleFirstNameChange} placeholder="First Name" type="text" name="firstname" class={Styles["firstname"]}/>
               <span class="incfn" style={{color: "rgba(243, 26, 26, 0.819)"}}>{firstNameError}</span>
@@ -114,13 +158,13 @@ export default function ContactUs({data}) {
               <input value={lastName} onChange={handleLastNameChange} placeholder="Last Name" type="text" name="lastname" class={Styles["lastname"]}/>
               <span class="incln" style={{color: "rgba(243, 26, 26, 0.819)"}}>{lastNameError}</span>
 
-              <input value={email} onChange={handleEmailChange} placeholder="Email" type="email" name="email" class="email"/>
+              <input value={email} onChange={handleEmailChange} placeholder="Email" type="email" name="email" class="email"/><span class="incph" style={{color: "rgba(243, 26, 26, 0.819)"}}>{emailError}</span>
 
               <input value={phoneNumber} onChange={handlePhoneNumberChange} placeholder="Phone Number" type="text" name="phoneno" class={Styles["phoneno"]}/>
               <span class="incph" style={{color: "rgba(243, 26, 26, 0.819)"}}>{phoneNumberError}</span>
 
               <textarea value={message} onChange={handleMessageChange} name="message" id="contactus-msg" cols="30" rows="20" class={Styles["message"]} placeholder="Leave a Message"></textarea>
-              <p>{data}</p>
+              <p>{data}</p><span class="incph" style={{color: "rgba(243, 26, 26, 0.819)"}}>{messageError}</span>
               
               <button class={`${Styles["contactus-submit"]} ${Styles["register"]}`} type="submit">Submit</button>
           </form>
