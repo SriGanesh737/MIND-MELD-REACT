@@ -9,4 +9,6 @@ router.get('/',articlesController.articles_get)
 
 router.delete('/:articleid',articlesController.deleteArticle)
 
+router.post("/filter",articlesController.filterHandler)
+
 module.exports = router;

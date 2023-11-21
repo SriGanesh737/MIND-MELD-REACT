@@ -25,8 +25,9 @@ export default function ComposePage() {
   });
 
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  
   const handleShow = () => setShow(true);
+  const handleClose=()=>setShow(false)
 
   const editorRef = useRef(null);
 
@@ -65,18 +66,43 @@ export default function ComposePage() {
     });
     handleClose();
   }
+ function handleClosetags(e,id){
+  e.preventDefault();
+  console.log(id)
+  let newtags=article.tags.filter((tag,index)=>index!==id)
+  article.tags=newtags
+  setArticle((prev)=>{
+    return ({
+      ...prev,tags:newtags
+    })
+  })
 
+ }
 
-
+const [newtag,setNewtag]=useState("");
+function addnewtag(){
+  console.log(newtag)
+  if(!newtag||newtag==""){return;}
+  else{
+    let tags=[...article.tags];
+    tags.push(newtag);
+    setArticle((prev)=>{
+      return ({
+        ...prev,tags:tags
+      })
+    })
+  }
+}
   return (
     <div className={Styles.composePage}>
       
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+      <Modal show={show} onHide={handleClose} style={{ minWidth: '60vw', minHeight: '60vh' }} >
+        <Modal.Header closeButton >
           <Modal.Title>Content</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body >
             <CKEditor
+            
                 onReady={handleReady}
                 onError={handleError}
                 onChange={handleChange}
@@ -155,7 +181,7 @@ export default function ComposePage() {
         <br/>
         <label style={{"fontWeight":"700","fontSize":"18px"}}>Content:</label>
         <br/>
-        <button type='button' className={`btn ${Styles["trigger-btn"]}`} onClick={handleShow}>
+        <button type='button' className={`btn ${Styles["trigger-btn"]}`} onClick={handleShow} >
           <div className={Styles["input-content"]} dangerouslySetInnerHTML={article.content}></div>
         </button>
 
@@ -163,14 +189,18 @@ export default function ComposePage() {
         <label style={{"fontWeight":"700","fontSize":"18px"}}>Markdown:</label>
         <br/>
         <div className={Styles.header}>
-          <input type="text" id="myInput" placeholder="Tag..."/>
-          <span className={Styles.addBtn}>Add</span>
+          <input type="text" id="myInput" placeholder="Tag..." value={newtag} onChange={(e)=>{
+            setNewtag(e.target.value)}}/>
+          <button className={Styles.addBtn} type='button' onClick={addnewtag} 
+          >Add</button>
         </div>
         <ul id="myUL">
           {
             article.tags.map((tag,i)=>{
               return(
-                <li key={i}>{tag} <span className={Styles.close}>&times;</span> </li>
+                <li key={i}>{tag} <button className={Styles.close} onClick={(e)=>{
+                  handleClosetags(e,i)
+                }}>&times;</button> </li>
               )
             })
           }

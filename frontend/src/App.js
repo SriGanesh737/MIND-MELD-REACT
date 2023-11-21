@@ -1,5 +1,4 @@
 import HomePage from "./pages/HomePage/HomePage";
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { AuthProvider } from "./providers/authProvider";
 import Login from "./pages/LoginPage/Login";
 import Signup from "./pages/SignUpPage/Signup";
@@ -17,15 +16,26 @@ import Query from "./pages/Querypage/Query";
 import SendMail from "./pages/Mailpage/Email";
 import QnA from "./pages/QnA/QnA";
 
+import UserPage from "./pages/UserPage/UserPage";
 import ComposePage from "./pages/ComposePage/ComposePage";
-
+import { useUser } from './providers/UserProvider'
 import Yourwork from "./pages/YourWork/Yourwork";
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {setArticles} from './store/article-slice'
 import { getUsers,getExperts} from './store/user-slice'
+import AboutUs from "./pages/AboutUs/AboutUs";
+import EditDetails from './pages/EditDetails/EditDetails'
+import EditUser from "./pages/EditUser/EditUser";
 
+import {
+  createBrowserRouter, 
+  createRoutesFromElements,
+  Route, 
+  RouterProvider
+} from 'react-router-dom'
+import NotFound from "./pages/NotFound";
 
 function App() {
   const dispatch=useDispatch()
@@ -71,14 +81,53 @@ function App() {
         console.log(err);
       });
   }
-  useEffect(() => {
+function getwholedata(){
     console.log("hiii")
     getAllArticles();
     getAllExperts();
     getAllusers();
-  }, []);
+    return 1;
+}
+
+const {user}=useUser();
+var role="user"
+if(user)
+{
+   role=user.role
+}
+console.log(role)
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/"  loader={getwholedata}>
+     <Route index element={<LandingPage/>} />
+    <Route path="/login" element={<Login />}></Route>
+    <Route path="/register" element={<Signup/>}/>
+    <Route path="/home" element={<HomePage/>} />
+    <Route path="/articles/:articleId" element={<SingleArticle/>}/>
+    <Route path="/articles/topic/:topic" element= {<Articles/>} />
+    <Route path="/contactus" element={<ContactUs/>}/>
+    <Route path="/bookmarks" element={<Bookmarks/>}/>
+    {(role==="admin" || role==="expert")&&<Route path="/compose" element={<ComposePage/>}/>}
+    {role==="expert"&&<Route path="/yourwork" element={<Yourwork/>}/>}
+
+        {role==="admin"&&<Route path="/admin" element={<Admin/>} />}
+        {role==="admin"&&<Route path="/admin/all_articles" element={<Allarticles></Allarticles>} />}
+        {role==="admin"&&<Route path="/admin/all_experts" element={<AllExperts></AllExperts>} />}
+        {role==="admin"&&<Route path="/admin/query" element={<Query></Query>}></Route>}
+        {role==="admin"&&<Route path="/admin/mail" element={<SendMail></SendMail>}></Route>}
+        {role==="expert"&&<Route path="/expert/:userId" element={<ExpertProfile/>}/>}
+        <Route path="/logout" element={<LandingPage></LandingPage>}></Route>
+        <Route path="/user/:userid" element={<UserPage/>}> </Route>
+        <Route path="/aboutus" element={<AboutUs/>}> </Route>
+        <Route path="/user/edit_e" element={<EditDetails />} ></Route>
+        <Route path="/user/edit_u" element={<EditUser/>}></Route>
+        <Route path="*" element={<NotFound/>}></Route>
+    </Route>
+  )
+)
   return (
 
+<<<<<<< HEAD
     <AuthProvider>
     <UserProvider>
     <Router>
@@ -107,6 +156,11 @@ function App() {
     </Router>   
     </UserProvider> 
     </AuthProvider>
+=======
+   <>
+    <RouterProvider router={router} />
+    </>
+>>>>>>> c7f4444a368c239c491c862323571f9a08e8af15
 
   );
 }

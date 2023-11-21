@@ -14,6 +14,8 @@ export default function ContactUs({data}) {
   const [firstNameError, setFirstNameError] = useState('');
   const [lastNameError, setLastNameError] = useState('');
   const [phoneNumberError, setPhoneNumberError] = useState('');
+  const [emailError, setemailError] = useState('');
+  const [messageError,setMessageError] = useState('');
  
   function onlyLetters(str) {
     return /^[A-Za-z\s]*$/.test(str);
@@ -40,6 +42,15 @@ export default function ContactUs({data}) {
       setLastNameError('');
     }
   }
+  function validateEmail(email){
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!emailRegex.test(email)){
+      setemailError('Incorrect Email')
+    }
+    else{
+      setemailError('')
+    }
+  }
 
   function validatePhoneNumber(phoneNumber) {
     if(!onlyNumbers(phoneNumber) || phoneNumber.length !== 10) {
@@ -47,6 +58,15 @@ export default function ContactUs({data}) {
     }
     else {
       setPhoneNumberError('');
+    }
+  }
+
+  function validateMessage(message){
+    if (!message){
+      setMessageError('Message should not be null')
+    }
+    else{
+      setMessageError('')
     }
   }
 
@@ -62,6 +82,7 @@ export default function ContactUs({data}) {
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
+    validateEmail(e.target.value);
   }
 
   function handlePhoneNumberChange(e) {
@@ -71,58 +92,81 @@ export default function ContactUs({data}) {
 
   function handleMessageChange(e) {
     setMessage(e.target.value);
+    validateMessage(e.target.value)
   }
-
-
-
-
+  
+  function handleSubmit(e){
+    e.preventDefault();
+    if (firstNameError || lastNameError || emailError || phoneNumberError || messageError){
+      return;
+    }else{
+      fetch('http://localhost:8000/utility/contact', {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({firstname:firstName,lastname:lastName,email:email,phone:phoneNumber,message:message}),
+  }).then((response)=>{
+    return response.json()
+  }).then((data)=>{
+    console.log(data.success)
+    if (data.success){
+      setFirstName('');
+      setLastName('')
+      setEmail('')
+      setPhoneNumber('')
+      setMessage('')
+    }
+  })
+    }
+  }
 
   return (
     <>
     
     <MyNavbar/>
-    <div class={Styles.body}>
-    <div class={Styles["contactus-container"]}>
-        <div class={Styles["contactus-left"]}>
-            <h2 class={Styles["contactus-title"]}>
+    <div className={Styles.body}>
+    <div className={Styles["contactus-container"]}>
+        <div className={Styles["contactus-left"]}>
+            <h2 className={Styles["contactus-title"]}>
                 Contact Info
             </h2>
-            <div class={Styles["contactus-links"]}>
-                <p class={Styles["single-link"]}><i class="fa-solid fa-location-crosshairs"></i>Indian Institute of Information Technology ,
+            <div className={Styles["contactus-links"]}>
+                <p className={Styles["single-link"]}><i className="fa-solid fa-location-crosshairs"></i>Indian Institute of Information Technology ,
                 Sricity</p>
-                <p class={Styles["single-link"]}><i class="fa-solid fa-phone"></i>+91 1234567890</p>
-                <p class={Styles["single-link"]}><i class="fa-solid fa-envelope"></i> contactmindmeld2003@gmail.com</p>
-                <p class={Styles["single-link"]}><i class="fa-brands fa-facebook"></i>facebook</p>
-                <p class={Styles["single-link"]}><i class="fa-brands fa-linkedin"></i>linked in</p>
-                <p class={Styles["single-link"]}><i class="fa-brands fa-twitter"></i>twitter</p>
+                <p className={Styles["single-link"]}><i className="fa-solid fa-phone"></i>+91 1234567890</p>
+                <p className={Styles["single-link"]}><i className="fa-solid fa-envelope"></i> contactmindmeld2003@gmail.com</p>
+                <p className={Styles["single-link"]}><i className="fa-brands fa-facebook"></i>facebook</p>
+                <p className={Styles["single-link"]}><i className="fa-brands fa-linkedin"></i>linked in</p>
+                <p className={Styles["single-link"]}><i className="fa-brands fa-twitter"></i>twitter</p>
             </div>
-            <div class={Styles["contactus-image"]}>
+            <div className={Styles["contactus-image"]}>
 
               <img src={contactUsImage} alt=""/>
 
             </div>
         </div>
-        <div class={Styles["contactus-right"]}>
-            <h2 class={Styles["contactus-title"]}>
+        <div className={Styles["contactus-right"]}>
+            <h2 className={Styles["contactus-title"]}>
                 Send a message
             </h2>
-          <form action="/contactus" method="post" class={`${Styles["contactus-form"]} ${Styles["myform"]}`}>
+          <form onSubmit={handleSubmit} className={`${Styles["contactus-form"]} ${Styles["myform"]}`}>
 
-              <input value={firstName} onChange={handleFirstNameChange} placeholder="First Name" type="text" name="firstname" class={Styles["firstname"]}/>
-              <span class="incfn" style={{color: "rgba(243, 26, 26, 0.819)"}}>{firstNameError}</span>
+              <input value={firstName} onChange={handleFirstNameChange} placeholder="First Name" type="text" name="firstname" className={Styles["firstname"]}/>
+              <span className="incfn" style={{color: "rgba(243, 26, 26, 0.819)"}}>{firstNameError}</span>
 
-              <input value={lastName} onChange={handleLastNameChange} placeholder="Last Name" type="text" name="lastname" class={Styles["lastname"]}/>
-              <span class="incln" style={{color: "rgba(243, 26, 26, 0.819)"}}>{lastNameError}</span>
+              <input value={lastName} onChange={handleLastNameChange} placeholder="Last Name" type="text" name="lastname" className={Styles["lastname"]}/>
+              <span className="incln" style={{color: "rgba(243, 26, 26, 0.819)"}}>{lastNameError}</span>
 
-              <input value={email} onChange={handleEmailChange} placeholder="Email" type="email" name="email" class="email"/>
+              <input value={email} onChange={handleEmailChange} placeholder="Email" type="email" name="email" className="email"/><span className="incph" style={{color: "rgba(243, 26, 26, 0.819)"}}>{emailError}</span>
 
-              <input value={phoneNumber} onChange={handlePhoneNumberChange} placeholder="Phone Number" type="text" name="phoneno" class={Styles["phoneno"]}/>
-              <span class="incph" style={{color: "rgba(243, 26, 26, 0.819)"}}>{phoneNumberError}</span>
+              <input value={phoneNumber} onChange={handlePhoneNumberChange} placeholder="Phone Number" type="text" name="phoneno" className={Styles["phoneno"]}/>
+              <span className="incph" style={{color: "rgba(243, 26, 26, 0.819)"}}>{phoneNumberError}</span>
 
-              <textarea value={message} onChange={handleMessageChange} name="message" id="contactus-msg" cols="30" rows="20" class={Styles["message"]} placeholder="Leave a Message"></textarea>
-              <p>{data}</p>
+              <textarea value={message} onChange={handleMessageChange} name="message" id="contactus-msg" cols="30" rows="20" className={Styles["message"]} placeholder="Leave a Message"></textarea>
+              <p>{data}</p><span className="incph" style={{color: "rgba(243, 26, 26, 0.819)"}}>{messageError}</span>
               
-              <button class={`${Styles["contactus-submit"]} ${Styles["register"]}`} type="submit">Submit</button>
+              <button className={`${Styles["contactus-submit"]} ${Styles["register"]}`} type="submit">Submit</button>
           </form>
         </div>
     </div>

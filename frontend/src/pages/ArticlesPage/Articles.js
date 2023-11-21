@@ -51,7 +51,10 @@ export default function Articles() {
   const handleNextClick = () => {
     setPage(page + 1)
   }
-
+  function filteredarticles(newarticles)
+  {
+    setArticles(newarticles)
+  }
 
 
 
@@ -59,7 +62,7 @@ export default function Articles() {
     <>
       <MyNavbar />
       <Slideshow sliderData={articles} />
-      <SearchBar topic={topic} page="Home" />
+      <SearchBar topic={topic} page="Home"handlefilters={filteredarticles}/>
       <div id="articlesId" className={Styles["articles"]}>
         <ModalImage clickedId={clickedId}/>
         {

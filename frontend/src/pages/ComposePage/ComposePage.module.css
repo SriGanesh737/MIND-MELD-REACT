@@ -25,6 +25,7 @@
 {
   text-align: left;
   margin-left: 2rem;
+  
 }
 .right .input-title
 {
@@ -80,7 +81,8 @@
 
 .close {
   /* position: absolute; */
-
+  border: 0 ;
+  background-color: #4BB543;
   width: 25px;
   /* font-size: 20px; */
   justify-content: center;
@@ -134,11 +136,11 @@
  border-color: rgb(2, 81, 2);
 }
 .addBtn {
-  padding: 8px;
-  width: 25%;
+  padding: 1px;
+  width: 50px;
   background: black;
   color: #fefefe;
-
+   margin: 2px;
   text-align: center;
   font-size: 16px;
   cursor: pointer;
