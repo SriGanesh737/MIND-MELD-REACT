@@ -15,6 +15,7 @@ import AllExperts from "./pages/AllExperts/AllExperts";
 import Bookmarks from "./pages/Bookmarks/Bookmarks";
 import Query from "./pages/Querypage/Query";
 import SendMail from "./pages/Mailpage/Email";
+import QnA from "./pages/QnA/QnA";
 
 import ComposePage from "./pages/ComposePage/ComposePage";
 
@@ -92,6 +93,7 @@ function App() {
         <Route path="/bookmarks" element={<Bookmarks/>}/>
         <Route path="/compose" element={<ComposePage/>}/>
         <Route path="/yourwork" element={<Yourwork/>}/>
+        <Route path="/queries" element={<QnA/>}/>
 
         <Route path="/admin" element={<Admin/>} />
         <Route path="/admin/all_articles" element={<Allarticles></Allarticles>} />
