@@ -14,12 +14,11 @@ import AllExperts from "./pages/AllExperts/AllExperts";
 import Bookmarks from "./pages/Bookmarks/Bookmarks";
 import Query from "./pages/Querypage/Query";
 import SendMail from "./pages/Mailpage/Email";
-import QnA from "./pages/QnA/QnA";
-
 import UserPage from "./pages/UserPage/UserPage";
 import ComposePage from "./pages/ComposePage/ComposePage";
 import { useUser } from './providers/UserProvider'
 import Yourwork from "./pages/YourWork/Yourwork";
+import QnA from "./pages/QnA/QnA";
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -48,7 +47,7 @@ function App() {
       })
       .then((data) => {
         dispatch(setArticles(data))
-        console.log(data)
+        // console.log(data)
         
        
       });
@@ -82,7 +81,6 @@ function App() {
       });
   }
 function getwholedata(){
-    console.log("hiii")
     getAllArticles();
     getAllExperts();
     getAllusers();
@@ -95,7 +93,7 @@ if(user)
 {
    role=user.role
 }
-console.log(role)
+// console.log(role)
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/"  loader={getwholedata}>
@@ -107,6 +105,7 @@ const router = createBrowserRouter(
     <Route path="/articles/topic/:topic" element= {<Articles/>} />
     <Route path="/contactus" element={<ContactUs/>}/>
     <Route path="/bookmarks" element={<Bookmarks/>}/>
+    <Route path="/queries" element={<QnA/>}/>
     {(role==="admin" || role==="expert")&&<Route path="/compose" element={<ComposePage/>}/>}
     {role==="expert"&&<Route path="/yourwork" element={<Yourwork/>}/>}
 
@@ -127,40 +126,9 @@ const router = createBrowserRouter(
 )
   return (
 
-<<<<<<< HEAD
-    <AuthProvider>
-    <UserProvider>
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/register" element={<Signup/>}/>
-        <Route path="/home" element={<HomePage/>} />
-        <Route path="/articles/:articleId" element={<SingleArticle/>}/>
-        <Route path="/articles/topic/:topic" element= {<Articles/>} />
-        <Route path="/contactus" element={<ContactUs/>}/>
-        <Route path="/bookmarks" element={<Bookmarks/>}/>
-        <Route path="/compose" element={<ComposePage/>}/>
-        <Route path="/yourwork" element={<Yourwork/>}/>
-        <Route path="/queries" element={<QnA/>}/>
-
-        <Route path="/admin" element={<Admin/>} />
-        <Route path="/admin/all_articles" element={<Allarticles></Allarticles>} />
-        <Route path="/admin/all_experts" element={<AllExperts></AllExperts>} />
-        <Route path="/admin/query" element={<Query></Query>}></Route>
-        <Route path="/admin/mail" element={<SendMail></SendMail>}></Route>
-        <Route path="/user/:userId" element={<ExpertProfile/>}/>
-        <Route path="/logout" element={<LandingPage></LandingPage>}></Route>
-
-      </Routes>
-    </Router>   
-    </UserProvider> 
-    </AuthProvider>
-=======
    <>
     <RouterProvider router={router} />
     </>
->>>>>>> c7f4444a368c239c491c862323571f9a08e8af15
 
   );
 }

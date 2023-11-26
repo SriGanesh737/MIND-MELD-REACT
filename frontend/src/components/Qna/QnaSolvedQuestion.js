@@ -2,6 +2,16 @@ import React from 'react'
 import Styles from '../../pages/QnA/QnA.module.css';
 
 export default function QnaSolvedQuestion({data, i}) {
+  const [toggleStyle, setToggleStyle] = React.useState("none");
+
+  const handleViewAnswer = ()=>{
+    setToggleStyle("block");
+  }
+
+  const handleHideAnswer = ()=>{
+   setToggleStyle("none");
+  }
+
   return (
     <div className={`${Styles["question-wrapper"]} ${!data.is_answered?'dontshow':" "}`}>
 
@@ -22,7 +32,7 @@ export default function QnaSolvedQuestion({data, i}) {
                     </div>
                     <div className={Styles["solution-part"]}>
                       {data.answer.substring(0,100)}...
-                        <a className={`${i} ${Styles.viewFullAnswer}`} href="#"> view full answer</a>
+                        <a onClick={handleViewAnswer} className={`${i} ${Styles.viewFullAnswer}`} style={{cursor:'pointer',textDecoration:'none'}} > view full answer</a>
                     </div>
                   </div>
 
@@ -36,13 +46,11 @@ export default function QnaSolvedQuestion({data, i}) {
 
                 </div>
 
-                <div className={`${Styles["answer-box"]} ${Styles["answer-box-"+i]}`}>
-                  <i className={`${i} fa-solid fa-xmark`}></i>
-                  {/* <br> */}
+                <div style={{display:toggleStyle}} className={`${Styles["answer-box"]} ${Styles["answer-box-"+i]} answer-box-${i}`}>
+                  <i onClick={handleHideAnswer} className={`${i} fa-solid fa-xmark ${Styles.closeBtn}`}></i>
                   <span className={Styles["answer_text"]}>
                     {data.answer}
                   </span>
-
                 </div>
 
               </div>

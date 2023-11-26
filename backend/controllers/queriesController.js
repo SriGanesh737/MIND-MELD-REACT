@@ -30,7 +30,7 @@ const faq_filters_post = async (req,res)=>{
       })
       res.status(200).json(searchResults);
     }
-    res.status(200).json(faqs);
+    else res.status(200).json(faqs);
 }
 
 const faq_post = async (req,res)=>{
@@ -45,4 +45,14 @@ const faq_post = async (req,res)=>{
     res.status(200).json({message:"Question added successfully"});
 }
 
-module.exports = {faq_get,faq_filters_post,faq_post};
+const faq_answer_post = async (req,res)=>{
+  const {faq_id,expert_id,answer} = req.body;
+  const faq = await Faq.findById(faq_id);
+  faq.expert_id = expert_id;
+  faq.answer = answer;
+  faq.is_answered = true;
+  await faq.save();
+  res.status(200).json({message:"Answer added successfully"});
+}
+
+module.exports = {faq_get,faq_filters_post,faq_post,faq_answer_post};

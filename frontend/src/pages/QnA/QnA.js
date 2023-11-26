@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Styles from './QnA.module.css'
 import qnaImage from '../../assets/images/qAImage.svg'
-import QnaQuestion from '../../components/Qna/QnaSolvedQuestion';
 import QnaSolvedQuestion from '../../components/Qna/QnaSolvedQuestion';
 import QnaUnsolvedQuestion from '../../components/Qna/QnaUnsolvedQuestion';
 import MyNavbar from '../../components/Navbar/Navbar';
@@ -69,6 +68,11 @@ export default function QnA() {
     .then((res)=>res.json())
     .then((data)=>{
       console.log(data);
+      setQuery({
+        question: "",
+        topic: "Health",
+        user_id: user._id
+      });
     })
     .catch((err)=>console.log(err));
   }

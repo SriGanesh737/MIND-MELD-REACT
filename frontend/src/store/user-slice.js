@@ -14,12 +14,12 @@ const userSlice=createSlice({
         getExperts(state,action){
             
             state.experts=action.payload
-            console.log(state.experts)
+            // console.log(state.experts)
             
         },
         getUsers(state,action){
           state.users=action.payload
-          console.log(state.users)
+        //   console.log(state.users)
         },
         addExpert(state,action){
             console.log(action.payload)

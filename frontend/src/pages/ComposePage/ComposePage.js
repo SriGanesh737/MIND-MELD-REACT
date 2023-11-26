@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import MyNavbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 import Styles from './ComposePage.module.css'
 import ComposeImage from '../../assets/images/Diary-bro.png'
-import { useParams } from 'react-router-dom'
+import {useSearchParams } from 'react-router-dom'
 import { useUser } from '../../providers/UserProvider'
 import { Modal } from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
@@ -11,7 +11,7 @@ import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 export default function ComposePage() {
 
-  const {articleId} = useParams();
+  const articleId = useSearchParams()[0].get('articleId');
   const {user} = useUser();
   const [article,setArticle] = useState({
     topic:"education",
@@ -25,11 +25,34 @@ export default function ComposePage() {
   });
 
   const [show, setShow] = useState(false);
+  const [newtag,setNewtag]=useState("");
   
   const handleShow = () => setShow(true);
   const handleClose=()=>setShow(false)
 
   const editorRef = useRef(null);
+
+  useEffect (()=>{
+    if(articleId!==undefined && articleId!==null){
+      fetch(`http://localhost:8000/articles/${articleId}`)
+      .then((res)=>res.json())
+      .then((data)=>{
+        const requiredData = {
+          topic:data.topic,
+          title:data.title,
+          content:{ __html: data.content },
+          author_name:data.author_name,
+          date_of_publish:data.date_of_publish,
+          tags:data.tags,
+          author_id:data.author_id,
+          image_link:data.image_link,
+        }
+        setArticle(requiredData);
+        console.log(requiredData);
+      })
+      .catch((err)=>console.log(err));
+    }
+  },[articleId])
 
   const handleReady = (editor) => {
     console.log('Editor is ready to use!', editor);
@@ -66,6 +89,7 @@ export default function ComposePage() {
     });
     handleClose();
   }
+
  function handleClosetags(e,id){
   e.preventDefault();
   console.log(id)
@@ -79,7 +103,6 @@ export default function ComposePage() {
 
  }
 
-const [newtag,setNewtag]=useState("");
 function addnewtag(){
   console.log(newtag)
   if(!newtag||newtag==""){return;}
@@ -93,6 +116,43 @@ function addnewtag(){
     })
   }
 }
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const url = articleId!==undefined ?`http://localhost:8000/articles?id=${articleId}`:"http://localhost:8000/articles";
+  const article_data = {
+    topic:article.topic,
+    title:article.title,
+    content:article.content.__html,
+    author_name:article.author_name,
+    date_of_publish:article.date_of_publish,
+    tags:article.tags,
+    author_id:article.author_id,
+    image_link:article.image_link,
+  } 
+  
+  fetch(url,{
+    method:"POST",
+    body: JSON.stringify(article_data),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then((res)=>res.json())
+  .then((data)=>{
+    console.log(data);
+  })
+  .catch((err)=>console.log(err));
+}
+
+const handleArticleChange = (e) => {
+  setArticle({
+    ...article,
+    [e.target.name]: e.target.value
+  })    
+}
+
+
   return (
     <div className={Styles.composePage}>
       
@@ -163,10 +223,10 @@ function addnewtag(){
       </div>
       <div className = {Styles.right}>
       <h1> Write a Blog of Your Choice </h1>
-      <form action={"http://localhost:8000/posts?id="+articleId} method='post' className = {Styles.form}>
+      <form className = {Styles.form}>
         <label htmlFor="field" style={{"fontWeight":"700","fontSize":"20px"}}>Select Blog Field:</label> 
         <br/>
-        <select name="topic" id="field" required>
+        <select value={article.topic} onChange={handleArticleChange} name="topic" id="field" required>
           <option value="education">Education</option>
           <option value="lifestyle">Life Style</option>
           <option value="health">Health</option>
@@ -177,12 +237,12 @@ function addnewtag(){
         <br/>
         <label htmlFor="title" style={{"fontWeight":"700","fontSize":"18px"}}>Title:</label>
         <br/>
-        <input type="text" name="title" id="title" className={Styles["input-title"]} required/>
+        <input value={article.title} onChange={handleArticleChange} type="text" name="title" id="title" className={Styles["input-title"]} required/>
         <br/>
         <label style={{"fontWeight":"700","fontSize":"18px"}}>Content:</label>
         <br/>
         <button type='button' className={`btn ${Styles["trigger-btn"]}`} onClick={handleShow} >
-          <div className={Styles["input-content"]} dangerouslySetInnerHTML={article.content}></div>
+          <div className={Styles["input-content"]} dangerouslySetInnerHTML={article.content} style={{padding:"10px",borderRadius:"5px"}}></div>
         </button>
 
         <br/>
@@ -209,7 +269,7 @@ function addnewtag(){
         <label style={{"fontWeight":"700","fontSize":"18px","marginBottom":"15px"}}>Image Attachment:</label>
         <input type="file" className="form-control" id="image" name="image" accept="image/png, image/jpeg" style={{"width":"400px"}}/>
         <br/>
-        <button type="submit" className={Styles.submit}>POST ARTICLE</button>
+        <button type="button" onClick={handleSubmit} className={Styles.submit}>POST ARTICLE</button>
 
 
       </form>

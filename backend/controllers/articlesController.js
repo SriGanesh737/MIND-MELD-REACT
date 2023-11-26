@@ -43,6 +43,7 @@ const articles_get = (req,res)=>{
     res.status(500).json({message:"Internal Server Error"});
   });
 }
+
 const deleteArticle=(req,res)=>{
   const { articleid } = req.params;
 
@@ -60,6 +61,7 @@ const deleteArticle=(req,res)=>{
     });
 
 }
+
 const filterHandler=async (req,res)=>{
   let {searchinput,based_on,filter_option,topic}=req.body;
   console.log(req.body)
@@ -118,5 +120,39 @@ const filterHandler=async (req,res)=>{
 }
 }
 
+const article_post = async (req,res)=>{
+  const articleId = req.query.id;
+  const {topic,title,content,author_name,date_of_publish,tags,author_id,image_link} = req.body;
+  console.log(req.query)
+  if(articleId){
+    const article = await Article.findById(articleId);
+    article.topic = topic;
+    article.title = title;
+    article.content = content;
+    article.author_name = author_name;
+    article.date_of_publish = date_of_publish;
+    article.tags = tags;
+    article.author_id = author_id;
+    article.image_link = image_link;
+    await article.save();
+    console.log("Article updated successfully")
+    res.status(200).json({message:"Article updated successfully"});
+  }
+  else{
+    const article = new Article({
+        topic,
+        title,
+        content,
+        author_name,
+        date_of_publish,
+        tags,
+        author_id,
+        image_link
+    });
+    await article.save();
+    console.log("Article added successfully")
+    res.status(200).json({message:"Article added successfully"});
+  }
+}
 
-module.exports = {article_get_byId,articles_get_byTopicAndPage,articles_get,deleteArticle,filterHandler}
+module.exports = {article_get_byId,articles_get_byTopicAndPage,articles_get,deleteArticle,filterHandler,article_post}

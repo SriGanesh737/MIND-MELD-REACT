@@ -272,10 +272,9 @@ flex-direction: column;
   margin-top: -15px;
   padding: 10px 20px;
   border-radius: 10px;
-  display: none;
 }
 
-.answer-box .fa-xmark{
+.closeBtn{
   font-size: 18px;
   font-weight: 600;
   color: red;
@@ -286,7 +285,7 @@ flex-direction: column;
   margin-bottom: 5px;
 }
 
-.answer-box .fa-xmark:hover{
+.closeBtn:hover{
   background-color: red;
   color: white;
 
