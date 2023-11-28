@@ -80,7 +80,6 @@ function App() {
       });
   }
 function getwholedata(){
-    console.log("hiii")
     getAllArticles();
     getAllExperts();
     getAllusers();

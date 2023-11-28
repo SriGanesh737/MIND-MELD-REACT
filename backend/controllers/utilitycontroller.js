@@ -1,7 +1,7 @@
 const  Query= require('../models/Query');
 const contact_us=(req,res)=>{
     const query=new Query({
-        firstname:req.body.firstname,lastname:req.body.lastname,email:req.body.email,message:req.body.message,phone:req.body.phoneno
+        firstname:req.body.firstname,lastname:req.body.lastname,email:req.body.email,message:req.body.message,phone:req.body.phone
     })
     console.log(query)
     query.save().then(() => {
@@ -15,7 +15,21 @@ const contact_us=(req,res)=>{
     })
 
 }
+const all_queries=async(req,res)=>{
+    query_data=await Query.find({isresolved:false});
+    res.json({data:query_data})
+    
+}
+const postquery= (req,res)=>{
+    
+    id=req.params.id;
+    //  console.log(id);
+     Query.updateOne({ _id: id }, { $set: { isresolved: true } }).then((updated) => {
+       res.json({success:true})
+    }).catch((err)=>{
+        res.json({success:false})
+    });
+    
+  }
 
-
-
-module.exports={contact_us}
+module.exports={contact_us,all_queries,postquery}
