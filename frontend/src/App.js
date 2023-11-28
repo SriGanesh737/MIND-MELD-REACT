@@ -18,6 +18,7 @@ import UserPage from "./pages/UserPage/UserPage";
 import ComposePage from "./pages/ComposePage/ComposePage";
 import { useUser } from './providers/UserProvider'
 import Yourwork from "./pages/YourWork/Yourwork";
+import QnA from "./pages/QnA/QnA";
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,7 +47,7 @@ function App() {
       })
       .then((data) => {
         dispatch(setArticles(data))
-        console.log(data)
+        // console.log(data)
         
        
       });
@@ -92,7 +93,7 @@ if(user)
 {
    role=user.role
 }
-console.log(role)
+// console.log(role)
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/"  loader={getwholedata}>
@@ -104,6 +105,7 @@ const router = createBrowserRouter(
     <Route path="/articles/topic/:topic" element= {<Articles/>} />
     <Route path="/contactus" element={<ContactUs/>}/>
     <Route path="/bookmarks" element={<Bookmarks/>}/>
+    <Route path="/queries" element={<QnA/>}/>
     {(role==="admin" || role==="expert")&&<Route path="/compose" element={<ComposePage/>}/>}
     {role==="expert"&&<Route path="/yourwork" element={<Yourwork/>}/>}
 

@@ -39,7 +39,6 @@ export default function EditDetails() {
   };
 
 
-
   return (
     <>
       <MyNavbar />
