@@ -174,7 +174,7 @@ const Signup = () => {
 
   return (
     <div className={`${styles.total_signup} ${styles.body}`}>
-      <div className={styles.container}>
+      <div className={`${styles.container} animated wow fadeInLeft`}>
         <div className={styles.title}>Sign Up</div>
         <div className={styles.content}>
           <form
@@ -336,7 +336,7 @@ const Signup = () => {
               >
                 Register
               </button>
-              <p style={{ textAlign: "center", marginTop: "10px" }}>
+              <p style={{ textAlign: "center", marginTop: "10px", color: "black" }}>
                 Already a member?{" "}
                 <Link
                   to="/login"
@@ -353,7 +353,7 @@ const Signup = () => {
           </form>
         </div>
       </div>
-      <div className={`${styles["signup_image"]} wow fadeInUp`}>
+      <div className={`${styles["signup_image"]}  animated wow fadeInRight`}>
         <img src={signupimage} alt="" />
       </div>
     </div>

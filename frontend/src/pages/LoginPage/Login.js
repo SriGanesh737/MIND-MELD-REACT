@@ -11,11 +11,11 @@ const Login=()=>{
 
     return (
         <div className={styles.total} >
-    <div className={styles.left}> 
+    <div className={`${styles.left} animated wow fadeInLeft`}> 
       <LefttLogin></LefttLogin>
       <LoginSlider/>
     </div>
-     <div className={styles.right}>
+     <div className={`${styles.right} animated wow fadeInRight`}>
       <div className={styles.loginimage}>
         <img src={mmicon} height="120px" width="120px" style={{borderRadius: "50%"}} className={styles.name} alt=""/>
       </div>
