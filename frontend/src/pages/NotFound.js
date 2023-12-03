@@ -2,8 +2,11 @@ import styles from './notfound.module.css'
 import { Link } from 'react-router-dom'
 function NotFound()
 {
-  return (<div class={styles.image}>
+  return (<div >
   <Link href="/home"> <button class={styles.home}>Go to Home</button>  </Link>
-<img src={require("../assets/images/errorphoto.jpg")} alt=""/></div>)
+  <div style={{display:'flex',justifyContent:'center',width:'500px',height:'400px',margin:'auto',borderRadius:'10px',overflow:'hidden'}}>
+<img src={require("../assets/images/errorphoto.jpg")} alt=""/>
+</div>
+</div>)
 }
 export default NotFound
