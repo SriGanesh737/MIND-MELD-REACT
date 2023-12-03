@@ -20,17 +20,20 @@ export default function BookmarkCard({data}) {
     .then((res)=>res.json())
     .then((data)=>{
       console.log(data);
+      // remove from frontend
+      document.getElementById(data._id).style.display = "none";
     })
     .catch((err)=>console.log(err));
   }
 
-  const handleBookmarkClick = () => {
+  const handleBookmarkClick = (e) => {
     // redirect to single article page
+    if(e.target.className.includes("remove-from-bookmarks")) return;
     navigate("/articles/"+data._id)
   }
 
   return (
-    <div onClick={handleBookmarkClick} id={data.id} className={`card ${Styles["card"]}`}>
+    <div onClick={handleBookmarkClick} id={data._id} className={`card ${Styles["card"]}`}>
       <div className={Styles["bookmark-image-container"]}>
         <img className={`${Styles["card-img-top"]}`} src={data.image_link} alt="Card" />
       </div>

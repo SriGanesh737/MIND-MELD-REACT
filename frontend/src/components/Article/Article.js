@@ -19,7 +19,7 @@ export default function Article({setClickedId ,article_data, i}) {
     let modal = document.querySelector('.modal-image');
     let popImage = document.querySelector('.pop-image');
     let descriptionText = document.querySelector('.description-text');
-    popImage.src = require("../../assets"+article_data["image_link"]);
+    popImage.src = article_data["image_link"];
     descriptionText.innerHTML = article_data["content"].slice(0,350);
 
     // scroll to top of page

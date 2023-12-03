@@ -2,8 +2,11 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Styles from './Slideshow.module.css' 
+import {useNavigate} from 'react-router-dom';
 
 const Slideshow = ({ sliderData: highLightArticles }) => {
+
+  const navigate = useNavigate();
   const settings = {
     infinite: true,
     speed: 500,
@@ -13,11 +16,16 @@ const Slideshow = ({ sliderData: highLightArticles }) => {
     autoplaySpeed: 2000,
   };
 
+  const highlightClickHandler = (id)=>{
+    // redirect to single article page
+    navigate("/articles/"+id)
+  }
+
   return (
     <div className={`${Styles["slideshow-container"]}`} data-wow-delay="0.1s">
       <Slider {...settings}>
         {highLightArticles.map((slide) => (
-          <div key={slide._id} className={`${Styles.slide} active`}>
+          <div onClick={()=>highlightClickHandler(slide._id)} key={slide._id} className={`${Styles.slide} active`}>
             <div className={Styles["image-part"]}>
               {/* <img src={require(`../../assets${slide.image_link}`)} alt="mindmeld" /> */}
               <img src={slide.image_link} alt="mindmeld" />
