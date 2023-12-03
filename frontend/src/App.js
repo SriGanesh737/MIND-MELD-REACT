@@ -33,6 +33,7 @@ import {
   RouterProvider
 } from 'react-router-dom'
 import NotFound from "./pages/NotFound";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
 function App() {
   const dispatch=useDispatch()
@@ -118,6 +119,7 @@ const router = createBrowserRouter(
         <Route path="/aboutus" element={<AboutUs/>}> </Route>
         <Route path="/user/edit_e" element={<EditDetails />} ></Route>
         <Route path="/user/edit_u" element={<EditUser/>}></Route>
+        <Route path="/forgotpassword" element={<ForgotPassword></ForgotPassword>}></Route>
         <Route path="*" element={<NotFound/>}></Route>
     </Route>
   )
