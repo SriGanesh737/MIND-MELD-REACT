@@ -19,7 +19,8 @@ const Slideshow = ({ sliderData: highLightArticles }) => {
         {highLightArticles.map((slide) => (
           <div key={slide._id} className={`${Styles.slide} active`}>
             <div className={Styles["image-part"]}>
-              <img src={require(`../../assets${slide.image_link}`)} alt="mindmeld" />
+              {/* <img src={require(`../../assets${slide.image_link}`)} alt="mindmeld" /> */}
+              <img src={slide.image_link} alt="mindmeld" />
             </div>
             <div className={Styles["title-part"]}>{slide.title.substring(0, 200)}</div>
           </div>

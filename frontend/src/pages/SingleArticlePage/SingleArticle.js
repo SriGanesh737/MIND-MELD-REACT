@@ -63,7 +63,8 @@ export default function SingleArticle() {
       <MyNavbar/>
       <div className={Styles.body}>
       <h1 className={Styles.heading}>{title}</h1>
-      <img className={Styles.image} src={'../../assets'+image_link} alt="" width="1000px" height="500px"/>
+      {/* <img className={Styles.image} src={'../../assets'+image_link} alt="" width="1000px" height="500px"/> */}
+      <img className={Styles.image} src={image_link} alt="" width="1000px" height="500px"/>
       <h2 className={Styles.written}>-- Written by <i>{author_name}</i> --</h2>
       <h3 className={Styles.date}>{date_of_publish.getDate()}-{date_of_publish.getMonth()+1}-{date_of_publish.getFullYear()}</h3>
       <button onClick={handleAddToBookmarks} className={Styles.addtowishlist}><i className="fa-solid fa-bookmark"></i>Add to Bookmarks</button>
