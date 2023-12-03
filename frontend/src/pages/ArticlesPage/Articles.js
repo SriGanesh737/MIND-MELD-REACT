@@ -8,6 +8,7 @@ import Slideshow from '../../components/Slider/Slideshow';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Article from '../../components/Article/Article';
 import ModalImage from '../../components/ModalImage/ModalImage';
+import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
 
 export default function Articles() {
   const [articles, setArticles] = useState([])
@@ -24,9 +25,14 @@ export default function Articles() {
   }
 
   const [highLightArticles, setHighlightArticles] = useState([])
-
+   const [loading,setLoading]=useState(false)
   useEffect(() => {
     // fetch articles of topic using pagination
+    setLoading(true)
+    const timeinterval=setTimeout(() => {
+      setLoading(false)
+      
+    }, 500);
     const url = `http://localhost:8000/articles/topic/${topic}/page/${page}`;
     fetch(url)
       .then((res) => res.json())
@@ -39,6 +45,7 @@ export default function Articles() {
       .catch((err) => {
         console.log(err);
       })
+      return () => clearTimeout(timeinterval);
 
   }, [page, topic])
 
@@ -59,7 +66,9 @@ export default function Articles() {
 
 
   return (
+    
     <>
+   
       <MyNavbar />
       <Slideshow sliderData={articles} />
       <SearchBar topic={topic} page="Home"handlefilters={filteredarticles}/>

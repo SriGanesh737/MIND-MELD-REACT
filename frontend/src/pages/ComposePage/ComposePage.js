@@ -9,17 +9,19 @@ import { Modal } from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import {toast} from 'sonner'
+import Article from '../../components/Article/Article'
 export default function ComposePage() {
 
   const articleId = useSearchParams()[0].get('articleId');
   const {user} = useUser();
   const [article,setArticle] = useState({
     topic:"education",
-    title:"Demo Title",
-    content:{ __html: '<p>some raw html</p>' },
+    title:"",
+    content:{ __html: '' },
     author_name:user.firstname+" "+user.lastname,
     date_of_publish:new Date(),
-    tags:["demo","demo","demo","demo"],
+    tags:[],
     author_id:user._id,
     image_link:'',
   });
@@ -130,7 +132,12 @@ const handleSubmit = (e) => {
     author_id:article.author_id,
     image_link:article.image_link,
   } 
-  
+  if(article_data.title==='' || article_data.content==='' ||article_data.image_link==='' )
+  {
+    console.log(article_data)
+     toast.error('fill all details')
+     return;
+  }
   fetch(url,{
     method:"POST",
     body: JSON.stringify(article_data),
@@ -267,8 +274,15 @@ const handleArticleChange = (e) => {
         </ul>
         <br/>
         <label style={{"fontWeight":"700","fontSize":"18px","marginBottom":"15px"}}>Image Attachment:</label>
-        <input type="file" className="form-control" id="image" name="image" accept="image/png, image/jpeg" style={{"width":"400px"}}/>
+        {/* <input type="file" className="form-control" id="image" name="image" accept="image/png, image/jpeg" style={{"width":"400px"}}/> */}
+        <input className="form-control" type='text' style={{width:'450px'}} value={Article.image_link} onChange={(e)=>{
+          setArticle((olddata)=>{
+            console.log(e.target.value)
+            return {...olddata,image_link:e.target.value}
+          })
+        }}/>
         <br/>
+        
         <button type="button" onClick={handleSubmit} className={Styles.submit}>POST ARTICLE</button>
 
 

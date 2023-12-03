@@ -66,6 +66,7 @@ const Yourwork=()=>{
           </div>
           </Link>)
     })}
+    {articles.length===0 && <div style={{display:'flex',justifyContent:'center'}}><img  src={require('../../assets/images/null.png')}/></div>}
 
     </div>
     <Footer></Footer>

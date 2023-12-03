@@ -16,7 +16,7 @@ export default function LandingPage() {
         </div>
         <div className={styles.hrefs}>
             <h2 className={styles.navi}> <Link to="/contactus">ContactUs</Link> </h2>
-            <h2 className={styles.navi}> <Link href="/aboutus">AboutUs</Link></h2>
+            <h2 className={styles.navi}> <Link to="/aboutus">AboutUs</Link></h2>
           </div>
         <div className={styles["bottom-btns"]}>
             <h2 className={styles.explore}>EXPLORE OUR VISION</h2>

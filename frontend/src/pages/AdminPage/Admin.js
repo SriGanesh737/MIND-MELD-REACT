@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+
 import AdminNavbar from "../../components/AdminNavbar/AdminNavbar";
 import styles from "../../components/AdminNavbar/AdminNavbar.module.css";
 import CountUp from "react-countup";
-import axios from "axios";
+
 import { useSelector } from "react-redux";
+import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
 const Admin = () => {
   
   const articles=useSelector((state)=>state.articles.articles)
@@ -15,6 +16,9 @@ const Admin = () => {
   
  
   return (
+    <>
+    
+    {(!users||!articles || !experts)&& <LoadingAnimation></LoadingAnimation>}
     <div className={styles.body}>
       <AdminNavbar></AdminNavbar>
       <div className={styles.right}>
@@ -150,6 +154,7 @@ const Admin = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 export default Admin;

@@ -4,12 +4,13 @@
  import { useState } from 'react'
  import { useAuth } from '../../providers/authProvider'
  import { useUser } from '../../providers/UserProvider' 
+import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation'
 const LoginForm=()=>{
    const {setUserDetails} = useUser();
     const [email,setEmail]=useState('')
    const [password,setPassword]=useState('')
    const [emailerror,setEmailerror]=useState('')
-  
+   const [loading,setLoading]=useState(false)
    const navigate = useNavigate();
    const {setToken} = useAuth();
 
@@ -24,6 +25,7 @@ const LoginForm=()=>{
    const formSubmitHandler = (event)=>{
     event.preventDefault();
     // send post request to /api/login
+    setLoading(true)
     axios.post('http://localhost:8000/auth/login',{
         email,
         password
@@ -44,18 +46,23 @@ const LoginForm=()=>{
             .catch((err)=>console.log(err));
 
             // redirect to home page
+            setLoading(false)
             navigate('/home');
         }
     }).catch((err)=>{
         const errorMessage = err.response.data.message;
         if(errorMessage.includes('Email')||errorMessage.includes('password')){
+          setLoading(false)
             setEmailerror(errorMessage);
         }
         console.log(err.response);
     })
+    setLoading(false)
    }
 
-    return (<form onSubmit={formSubmitHandler} className={styles.loginform} >
+    return (<>
+    {loading && <LoadingAnimation></LoadingAnimation>}
+    <form onSubmit={formSubmitHandler} className={styles.loginform} >
     <div className={styles.field}>
       <input type="email" name="email" placeholder="Email Address" value={email} required autoComplete="off" id="email" onChange={emailhandler}/>
     </div>
@@ -69,6 +76,7 @@ const LoginForm=()=>{
     Login
     </button>
     <div className={styles["signup-link"]}>Not a member? <Link to="/register">Signup now</Link></div>
-  </form>)
+  </form>
+  </>)
 }
 export default LoginForm;

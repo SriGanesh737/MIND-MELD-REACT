@@ -1,5 +1,7 @@
 const Faq = require('../models/Faq');
-
+const User = require('../models/user');
+const Expert = require('../models/Expert');
+const nodemailer=require('nodemailer')
 const faq_get = async (req,res)=>{
     const faqs = await Faq.find({});
     res.status(200).json(faqs);
@@ -54,5 +56,54 @@ const faq_answer_post = async (req,res)=>{
   await faq.save();
   res.status(200).json({message:"Answer added successfully"});
 }
+const email_members=async (req,res)=>{
+  let subject=req.body.subject;
+  let text=req.body.message;
+  let experts=req.body.experts;
+  let users=req.body.users;
+  console.log(req.body)
+  let emails=[];
+  let email1=[];
+  let email2=[];
+  if(experts==true)
+  {
+     email1=await Expert.find({},{email:1,_id:0});
+  }
 
-module.exports = {faq_get,faq_filters_post,faq_post,faq_answer_post};
+  if(users==true)
+  {
+   email2=await User.find({},{email:1,_id:0})
+  }
+
+  emails=[...email1,...email2]
+  const emailsArray = emails.map(obj => obj.email);
+  // console.log(emailsArray);
+  let mailtransporter=nodemailer.createTransport({
+    service:"gmail",
+   auth:{
+     user:"contactmindmeld2023@gmail.com",
+     pass:"wgnfqhvyawxeziab"
+   }})
+   let details={
+    from:"contactmindmeld2023@gmail.com",
+    to:emailsArray,
+    subject:subject,
+    text:text
+  }
+  mailtransporter.sendMail(details,(err)=>{
+    if(err)
+    res.json({success:false});
+    else
+    {
+      sentdata="Email has been sent successfully";
+      console.log('email has sent');
+      res.json({success:true});
+    }
+  })
+
+  }
+
+  
+  
+
+module.exports = {faq_get,faq_filters_post,faq_post,faq_answer_post,email_members};

@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/User');
 const Expert = require('../models/Expert');
 const Admin = require('../models/Admin');
 const bcrypt = require('bcryptjs');
@@ -7,7 +7,6 @@ const {secretKey} = require('../secrets/secret');
 
 
 const register_post = async (req,res)=>{
-    console.log(req.body)
     let firstname = req.body.fname;
     let lastname = req.body.lastname;
     let email = req.body.email;
@@ -17,7 +16,8 @@ const register_post = async (req,res)=>{
 
     if(registeras === 'user'){
         try{
-            const user = await User.create({firstname,lastname,email,password,phone:phoneno});
+            const hashedpswd = await bcrypt.hash(password, 12);
+            const user = await User.create({firstname,lastname,email,password:hashedpswd,phone:phoneno});
             console.log(user)
             res.status(201).json({user:user._id,data:user});
         }
@@ -29,7 +29,8 @@ const register_post = async (req,res)=>{
     else if(registeras === 'expert'){
         const resume=req.body.resume
         try{
-            const expert = await Expert.create({firstname,lastname,email,password,phone:phoneno,resume:resume,is_blocked:true});
+            const hashedpswd = await bcrypt.hash(password, 12);
+            const expert = await Expert.create({firstname,lastname,email,password:hashedpswd,phone:phoneno,resume:resume,is_blocked:true});
             console.log(expert)
             res.status(201).json({expert:expert._id});
         }

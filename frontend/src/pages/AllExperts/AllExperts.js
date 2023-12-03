@@ -47,7 +47,6 @@ const AllExperts = () => {
   }
   function approveExpert(e, id, index) {
     e.preventDefault();
-    console.log("hiiiiii")
     axios.put(`http://localhost:8000/auth/${id}/updateblocked`)
     .then((response) => {
       // Check the status property received from the backend
