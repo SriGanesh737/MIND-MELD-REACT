@@ -100,7 +100,7 @@ video {
   border-radius: 50%;
   justify-content: center;
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 25px;
   display: flex;
   align-items: center;
   /* padding-top: 30px; */
@@ -184,12 +184,15 @@ input[type="radio"] {
 
 #login:checked~label.login {
   cursor: default;
-  user-select: none;
+
 }
 
 .wrapper .form-container {
   width: 100%;
   overflow: hidden;
+}
+.wrapper h1{
+  margin: 0px;
 }
 
 .form-container .form-inner {

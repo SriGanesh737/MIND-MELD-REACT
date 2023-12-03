@@ -12,6 +12,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     object-fit: cover;
+    min-height: 100vh;
     background-position: center;
     /* font-family: ; */
 }

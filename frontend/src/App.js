@@ -8,7 +8,6 @@ import Admin from "./pages/AdminPage/Admin";
 import Articles from "./pages/ArticlesPage/Articles";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import ExpertProfile from "./pages/ExpertProfile/ExpertProfile";
-import UserProvider from "./providers/UserProvider";
 import Allarticles from "./pages/AllArticles/Allarticles";
 import AllExperts from "./pages/AllExperts/AllExperts";
 import Bookmarks from "./pages/Bookmarks/Bookmarks";
@@ -20,8 +19,7 @@ import { useUser } from './providers/UserProvider'
 import Yourwork from "./pages/YourWork/Yourwork";
 import QnA from "./pages/QnA/QnA";
 import axios from "axios";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {setArticles} from './store/article-slice'
 import { getUsers,getExperts} from './store/user-slice'
 import AboutUs from "./pages/AboutUs/AboutUs";

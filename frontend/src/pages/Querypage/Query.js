@@ -1,13 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./querypage.module.css";
 import AdminNavbar from "../../components/AdminNavbar/AdminNavbar";
+import axios from "axios";
 const Query = () => {
-  const [queries, setQueries] = useState([{firstname:"likith",lastname:"andavarapu",email:"likith.a21@iiits.in",phone:"890-728272982",message:"this website is awesome"},{firstname:"likith",lastname:"andavarapu",email:"likith.a21@iiits.in",phone:"890-728272982",message:"this website is awesome"},{firstname:"likith",lastname:"andavarapu",email:"likith.a21@iiits.in",phone:"890-728272982",message:"this website is awesome"},{firstname:"likith",lastname:"andavarapu",email:"likith.a21@iiits.in",phone:"890-728272982",message:"this website is awesome"}]);
+  const [queries, setQueries] = useState([]);
+  function getQueries()
+  {
+    axios.get("http://localhost:8000/utility/queries").then((res)=>{
+      return res.data;
+    }).then((data)=>{
+      // console.log(data)
+      setQueries(data.data)
+    })
+  }
+  function resolvequery(id)
+  {
+    axios.put(`http://localhost:8000/utility/query/${id}`).then((res)=>{
+      return res.data;
+    }).then((data)=>{
+      console.log(data.success)
+      if(data.success)
+      {
+         const newqueries=queries.filter((query)=>query._id!==id)
+         setQueries(newqueries)
+      }
+      
+    })
+  }
+  useEffect(()=>{
+    getQueries()
+  },[])
   return (
     < div className={styles.bodyss}>
     <AdminNavbar></AdminNavbar>
       <h1>User Queries</h1>
       <div className={styles.All_queries}>
+      {console.log(queries)}
         {queries.map((query) => {
           return (
             <div className={styles.query}>
@@ -31,7 +59,7 @@ const Query = () => {
                 <span>query:</span>
                 {query.message}
               </h4>
-              <button className={styles.resolve_btn}>Mark as resolved</button>
+              <button className={styles.resolve_btn} onClick={()=>{resolvequery(query._id)}}>Mark as resolved</button>
             </div>
           );
         })}

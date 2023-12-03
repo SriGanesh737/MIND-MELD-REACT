@@ -3,6 +3,10 @@ import AdminNavbar from '../../components/AdminNavbar/AdminNavbar';
 import styles from './sendmail.module.css';
 
 const SendMail = () => {
+  function submithandler(e)
+  {
+    e.preventDefault();
+  }
   return (
     <div className={styles.bodysss}>
       <AdminNavbar />
@@ -11,7 +15,7 @@ const SendMail = () => {
           Email MINDMELD members
         </h2>
         <h3 style={{ fontFamily: 'Open Sans, sans-serif' }}>Category</h3>
-        <form action="/admin/mail" method="post" className={styles.form}>
+        <form onSubmit={submithandler} className={styles.form}>
           <label className={styles.checkboxLabel}>
             <input className={styles.checkboxInput} type="checkbox" name="experts" value="1" />
             Experts
