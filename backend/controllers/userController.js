@@ -130,29 +130,56 @@ const articles_getbyuserid=async (req,res)=>{
 
 const user_update_byId_put = async (req,res)=>{
     const userId = req.params.userId;
-    const {name,email,phone} = req.body;
     const user = await User.findById(userId);
     const expert = await Expert.findById(userId);
     const admin = await Admin.findById(userId);
 
     if(user){
-        user.name = name;
+        const {firstname,lastname,gender,email,mobile,profile_image_link} = req.body;
+        console.log(req.body)
+        user.firstname = firstname;
+        user.lastname = lastname;
+        user.profile_image_link = profile_image_link;
         user.email = email;
-        user.phone = phone;
+        user.phone = mobile;
+        user.gender = gender;
         await user.save();
         res.status(200).json({message:"User updated successfully"});
     }
     else if(expert){
-        expert.name = name;
+        console.log(req.body)
+        const {firstname,lastname,domain,gender,email,mobile,profile_image_link,insta_link,facebook_link,github_link,qualification,dateofbirth} = req.body;
+        expert.firstname = firstname;
+        expert.lastname = lastname;
+        expert.domain = domain;
+        expert.gender = gender;
         expert.email = email;
-        expert.phone = phone;
+        expert.phone = mobile;
+        expert.profile_image_link = profile_image_link;
+        expert.insta_link = insta_link;
+        expert.facebook_link = facebook_link;
+        expert.github_link = github_link;
+        expert.qualification = qualification;
+        expert.dateofbirth = dateofbirth;
+
         await expert.save();
         res.status(200).json({message:"Expert updated successfully"});
     }
     else if(admin){
-        admin.name = name;
+        console.log(req.body)
+        const {firstname,lastname,domain,gender,email,mobile,profile_image_link,insta_link,facebook_link,github_link,qualification,dateofbirth} = req.body;
+        admin.firstname = firstname;
+        admin.lastname = lastname;
+        admin.domain = domain;
+        admin.gender = gender;
         admin.email = email;
-        admin.phone = phone;
+        admin.phone = mobile;
+        admin.profile_image_link = profile_image_link;
+        admin.insta_link = insta_link;
+        admin.facebook_link = facebook_link;
+        admin.github_link = github_link;
+        admin.qualification = qualification;
+        admin.dateofbirth = dateofbirth;
         await admin.save();
         res.status(200).json({message:"Admin updated successfully"});
     }
@@ -163,4 +190,4 @@ const user_update_byId_put = async (req,res)=>{
 
 
 
-module.exports = {bookmarks_byUserId_get,bookmark_add_byUserId_post,bookmark_remove_byUserId_delete,users_get,user_get_byId,user_get_byEmail,users_get_byRole,articles_getbyuserid}
+module.exports = {bookmarks_byUserId_get,bookmark_add_byUserId_post,bookmark_remove_byUserId_delete,users_get,user_get_byId,user_get_byEmail,users_get_byRole,articles_getbyuserid,user_update_byId_put}

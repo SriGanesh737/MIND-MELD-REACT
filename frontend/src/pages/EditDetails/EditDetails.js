@@ -5,8 +5,9 @@ import Styles from './EditDetails.module.css'
 import { useUser } from "../../providers/UserProvider";
 
 
+
 export default function EditDetails() {
-  const {user} = useUser();
+  const {user,setUserDetails} = useUser();
   const data = user;
 
   const [formData, setFormData] = useState({
@@ -34,8 +35,29 @@ export default function EditDetails() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = formData;
-    console.log(data)
+    const url = "http://localhost:8000/user/" + user._id;
+    fetch(url,{
+      method:"PUT",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(formData)
+    })
+    .then((res)=>res.json())
+    .then((data)=>{
+      console.log(data);
+      const url ="http://localhost:8000/user/email/"+formData.email;
+            fetch(url).then((res)=>res.json())
+            .then((data)=>{
+               setUserDetails(data);  
+            })
+            .catch((err)=>console.log(err));
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+
+
   };
 
 

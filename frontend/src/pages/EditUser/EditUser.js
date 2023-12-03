@@ -5,15 +5,8 @@ import Styles from './EditUser.module.css'
 import { useUser } from '../../providers/UserProvider'
 
 export default function EditUser() {
-    const { user } = useUser();
+    const { user,setUserDetails } = useUser();
     const data = user;
-
-    const [firstname, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [email, setEmail] = useState('')
-    const [phoneNumber, setPhoneNumber] = useState('')
-    const [gender,setGender] = useState('')
-    const [profile_image_link,setProfile_image_link] = useState('')
 
     const [firstNameError, setFirstNameError] = useState('')
     const [lastNameError, setLastNameError] = useState('')
@@ -54,6 +47,7 @@ export default function EditUser() {
             setLastNameError('');
         }
     }
+
     function validateEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
@@ -72,17 +66,19 @@ export default function EditUser() {
             setPhoneNumberError('');
         }
     }
+
     const handlegenderChange = (e)=>{
         setFormData((prev) => {
             const newdata = { ...prev, gender: e.target.value }
-            setGender(newdata)
+            // setGender(newdata)
             return newdata
         })
     }
+
     const handleprofileimageChange = (e)=>{
         setFormData((prev) => {
             const newdata = { ...prev, profile_image_link: e.target.value }
-            setProfile_image_link(newdata)
+            // setProfile_image_link(newdata)
             return newdata
         })
         
@@ -93,7 +89,7 @@ export default function EditUser() {
             const newdata = { ...prev, firstname: e.target.value }
             return newdata
         })
-        setFirstName(e.target.value)
+        // setFirstName(e.target.value)
 
         validateFirstName(e.target.value)
     }
@@ -103,7 +99,7 @@ export default function EditUser() {
             const newdata = { ...prev, lastname: e.target.value }
             return newdata
         })
-        setLastName(e.target.value)
+        // setLastName(e.target.value)
 
         validateLastName(e.target.value)
 
@@ -114,7 +110,7 @@ export default function EditUser() {
             const newdata = { ...prev, email: e.target.value }
             return newdata
         })
-        setEmail(e.target.value)
+        // setEmail(e.target.value)
 
         validateEmail(e.target.value)
     }
@@ -124,7 +120,7 @@ export default function EditUser() {
             const newdata = { ...prev, mobile: e.target.value }
             return newdata
         })
-        setPhoneNumber(e.target.value)
+        // setPhoneNumber(e.target.value)
 
         validatePhoneNumber(e.target.value)
 
@@ -136,25 +132,27 @@ export default function EditUser() {
         if (firstNameError || lastNameError || emailError || phoneNumberError) {
             return;
         } else {
-            fetch('http://localhost:8000/user/edit_u', {
-                method: 'POST',
+            const url = "http://localhost:8000/user/"+user._id;
+            fetch(url, {
+                method: "PUT",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ firstname: firstname, lastname: lastName,gender:gender, email: email, phone: phoneNumber,profile_image_link:profile_image_link }),
-            }).then((response) => {
-                return response.json()
-            }).then((data) => {
-                console.log(data.success)
-                if (data.success) {
-                    setFormData((prevData) => ({...prevData,firstname: firstname,}));
-                    setFormData((prevData) => ({...prevData,lastname: lastName,}));
-                    setFormData((prevData) => ({...prevData,email: email,}));
-                    setFormData((prevData) => ({...prevData,phone: phoneNumber,}));
-                    setFormData((prevData) => ({...prevData,gender: gender,}));
-                    setFormData((prevData) => ({...prevData,profile_image_link: profile_image_link,}));
-                }
+                body: JSON.stringify(formData)
             })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    const url ="http://localhost:8000/user/email/"+formData.email;
+                    fetch(url).then((res)=>res.json())
+                    .then((data)=>{
+                       setUserDetails(data);  
+                    })
+                })
+                .catch((err) => {
+                    console.log(err);
+                }
+                );
         }
     };
 
