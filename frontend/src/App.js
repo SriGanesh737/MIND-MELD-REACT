@@ -6,7 +6,7 @@ import SingleArticle from "./pages/SingleArticlePage/SingleArticle";
 import ContactUs from './pages/ContactUsPage/ContactUs'
 import Admin from "./pages/AdminPage/Admin";
 import Articles from "./pages/ArticlesPage/Articles";
-import LandingPage from "./pages/LandingPage/Landingpage";
+import LandingPage from "./pages/LandingPage/LandingPage";
 import ExpertProfile from "./pages/ExpertProfile/ExpertProfile";
 import Allarticles from "./pages/AllArticles/Allarticles";
 import AllExperts from "./pages/AllExperts/AllExperts";
@@ -105,7 +105,7 @@ const router = createBrowserRouter(
     <Route path="/contactus" element={<ContactUs/>}/>
     {(role==="admin" || role==="expert"|| role=='user')&&<Route path="/bookmarks" element={<Bookmarks/>}/>}
     {(role==="admin" || role==="expert"|| role=='user')&&<Route path="/queries" element={<QnA/>}/>}
-    {(role==="admin" || role==="expert")&&<Route path="/compose" element={<ComposePage/>}/>}
+    {(role==="admin" || (role==="expert" && user.is_blocked===false))&&<Route path="/compose" element={<ComposePage/>}/>}
     {(role==="admin" || role==="expert")&&<Route path="/yourwork" element={<Yourwork/>}/>}
 
         {role==="admin"&&<Route path="/admin" element={<Admin/>} />}

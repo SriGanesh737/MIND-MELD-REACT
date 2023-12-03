@@ -155,5 +155,85 @@ const article_post = async (req,res)=>{
     res.status(200).json({message:"Article added successfully"});
   }
 }
+const liked=async (req,res)=>{
+  let articleid = req.params.articleid
+  let userid=req.body.userid
+    Article.find({ _id: articleid }).then((data) => {
+        newarray1 = data[0].liked_userids;
+        likes = data[0].likes;
+        dislikes = data[0].dislikes;
+        let index = newarray1.includes(userid)
+        if (index == true) {
+          
+        }
+        else {
+            ++likes;
+           
+            newarray1.push(userid)
+        }
+        newarray2 = data[0].disliked_userids;
+        index = newarray2.includes(userid)
+        if (index == true) {
+            --dislikes;
+            
+            newarray2 = newarray2.filter(fruit => fruit !== userid)
+          
+        }
+        else {
+         
+        }
+        Article.updateOne({ _id: articleid }, { $set: { likes: parseInt(likes), dislikes: parseInt(dislikes), liked_userids: newarray1, disliked_userids: newarray2 } }).then(() => {
+         
+            res.json({success:true})
+        })
+       
+    }).catch((err) => {
+        console.log(err);
+    });
 
-module.exports = {article_get_byId,articles_get_byTopicAndPage,articles_get,deleteArticle,filterHandler,article_post}
+}
+const disliked=async (req,res)=>{
+  articleid = req.params.articleid
+  userid=req.body.userid
+    Article.find({ _id: articleid }).then((data) => {
+        // console.log(data)
+        newarray1 = data[0].disliked_userids;
+        // console.log(newarray1)
+        likes = data[0].likes;
+        dislikes = data[0].dislikes;
+        // console.log(userid)
+        // console.log(newarray1.includes(userid))
+        let index = newarray1.includes(userid)
+        // console.log(likes, dislikes);
+        if (index == true) {
+            // console.log('disliked before')
+        }
+        else {
+            ++dislikes;
+            // console.log('disliked now')
+            newarray1.push(userid)
+        }
+        newarray2 = data[0].liked_userids;
+        index = newarray2.includes(userid)
+        if (index == true) {
+            --likes;
+            // console.log('liked before removing')
+            newarray2 = newarray2.filter(fruit => fruit !== userid)
+            // console.log(newarray2)
+        }
+        else {
+
+            // console.log('not available in likes')
+        }
+        Article.updateOne({ _id: articleid }, { $set: { likes: parseInt(likes), dislikes: parseInt(dislikes), liked_userids: newarray2, disliked_userids: newarray1 } }).then(() => {
+            // console.log('successfully updated');
+            res.json({success:true})
+        })
+
+        //    Article.updateOne({_id:articleid},{$set:{}})
+    }).catch((err) => {
+        console.log(err);
+    });
+
+}
+module.exports = {article_get_byId,articles_get_byTopicAndPage,articles_get,deleteArticle,filterHandler,article_post,liked,disliked}

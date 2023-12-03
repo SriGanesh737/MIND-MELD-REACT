@@ -13,4 +13,6 @@ router.post("/filter",articlesController.filterHandler)
 
 router.post('/',articlesController.article_post)
 
+router.post('/liked/:articleid',articlesController.liked)
+router.post('/disliked/:articleid',articlesController.disliked)
 module.exports = router;
