@@ -4,10 +4,11 @@ import Footer from '../../components/Footer/Footer'
 import Styles from './AboutUs.module.css'
 import aboutUsImage from '../../assets/images/About us22.png';
 import {Link} from 'react-router-dom';
-
+import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
 export default function AboutUs() {
   return (
     <>
+  
     <MyNavbar />
     <div className={Styles.body}>
       <div className={Styles["aboutus_image"]}>

@@ -98,14 +98,14 @@ const router = createBrowserRouter(
      <Route index element={<LandingPage/>} />
     <Route path="/login" element={<Login />}></Route>
     <Route path="/register" element={<Signup/>}/>
-    <Route path="/home" element={<HomePage/>} />
+    {(role==="admin" || role==="expert"|| role=='user')&&<Route path="/home" element={<HomePage/>} />}
     <Route path="/articles/:articleId" element={<SingleArticle/>}/>
     <Route path="/articles/topic/:topic" element= {<Articles/>} />
     <Route path="/contactus" element={<ContactUs/>}/>
-    <Route path="/bookmarks" element={<Bookmarks/>}/>
-    <Route path="/queries" element={<QnA/>}/>
+    {(role==="admin" || role==="expert"|| role=='user')&&<Route path="/bookmarks" element={<Bookmarks/>}/>}
+    {(role==="admin" || role==="expert"|| role=='user')&&<Route path="/queries" element={<QnA/>}/>}
     {(role==="admin" || role==="expert")&&<Route path="/compose" element={<ComposePage/>}/>}
-    {role==="expert"&&<Route path="/yourwork" element={<Yourwork/>}/>}
+    {(role==="admin" || role==="expert")&&<Route path="/yourwork" element={<Yourwork/>}/>}
 
         {role==="admin"&&<Route path="/admin" element={<Admin/>} />}
         {role==="admin"&&<Route path="/admin/all_articles" element={<Allarticles></Allarticles>} />}
