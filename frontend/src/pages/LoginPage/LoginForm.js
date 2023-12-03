@@ -4,6 +4,7 @@
  import { useState } from 'react'
  import { useAuth } from '../../providers/authProvider'
  import { useUser } from '../../providers/UserProvider' 
+ import {toast} from 'sonner'
 import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation'
 const LoginForm=()=>{
    const {setUserDetails} = useUser();
@@ -53,7 +54,8 @@ const LoginForm=()=>{
         const errorMessage = err.response.data.message;
         if(errorMessage.includes('Email')||errorMessage.includes('password')){
           setLoading(false)
-            setEmailerror(errorMessage);
+          toast.error(errorMessage)
+            // setEmailerror(errorMessage);
         }
         console.log(err.response);
     })

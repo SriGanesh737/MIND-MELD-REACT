@@ -2,7 +2,7 @@
 import AdminNavbar from "../../components/AdminNavbar/AdminNavbar";
 import styles from "../../components/AdminNavbar/AdminNavbar.module.css";
 import CountUp from "react-countup";
-
+import { useState,useEffect } from "react";
 import { useSelector } from "react-redux";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
 const Admin = () => {
@@ -13,12 +13,21 @@ const Admin = () => {
   const expertsize=experts.length
   const usersize=users.length;
   const articlesize=articles.length;
-  
+  const [loading,setLoading]=useState(false)
+  useEffect(()=>{
+    setLoading(true)
+    const timeinterval=setTimeout(() => {
+      setLoading(false)
+      
+    }, 300);
+    return () => clearTimeout(timeinterval);
+  },[]
+  )
  
   return (
     <>
     
-    {(!users||!articles || !experts)&& <LoadingAnimation></LoadingAnimation>}
+    {loading&& <LoadingAnimation></LoadingAnimation>}
     <div className={styles.body}>
       <AdminNavbar></AdminNavbar>
       <div className={styles.right}>

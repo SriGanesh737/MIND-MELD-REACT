@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import {toast} from 'sonner'
 import { useDispatch, useSelector } from "react-redux";
 import { deleteArticle } from "../../store/article-slice";
+import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation.js'
 const Allarticles = () => {
   
   const articles=useSelector((state)=>state.articles.articles)
@@ -27,8 +28,20 @@ const Allarticles = () => {
         console.log(err);
       });
   }
+  const [loading,setLoading]=useState(false)
+  useEffect(()=>{
+    setLoading(true)
+    const timeinterval=setTimeout(() => {
+      setLoading(false)
+      
+    }, 300);
+    return () => clearTimeout(timeinterval);
+  },[]
+  )
 
   return (
+    <>
+    {loading && <LoadingAnimation></LoadingAnimation>}
     <div className={styles.body}>
       <AdminNavbar></AdminNavbar>
       <div className={styles.right}>
@@ -46,7 +59,7 @@ const Allarticles = () => {
                   >
                     <div className={styles.singlecard}>
                       <div className={styles.image}>
-                        <img src={require(`../../assets${article.image_link}`)} alt="" />
+                        <img src={article.image_link} alt="" />
                       </div>
                       <div className={styles.content}>
                         <div className={styles.titler}>
@@ -98,6 +111,7 @@ const Allarticles = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 export default Allarticles;

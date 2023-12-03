@@ -67,7 +67,7 @@ export default function Articles() {
 
   return (
     
-    <>
+    <> {loading && <LoadingAnimation></LoadingAnimation>}
    
       <MyNavbar />
       <Slideshow sliderData={articles} />

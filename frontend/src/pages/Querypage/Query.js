@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./querypage.module.css";
 import AdminNavbar from "../../components/AdminNavbar/AdminNavbar";
 import axios from "axios";
+import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
 const Query = () => {
   const [queries, setQueries] = useState([]);
   function getQueries()
@@ -30,10 +31,22 @@ const Query = () => {
   useEffect(()=>{
     getQueries()
   },[])
+  const [loading,setLoading]=useState(false)
+  useEffect(()=>{
+    setLoading(true)
+    const timeinterval=setTimeout(() => {
+      setLoading(false)
+      
+    }, 300);
+    return () => clearTimeout(timeinterval);
+  },[]
+  )
   return (
+    <>
+    {loading && <LoadingAnimation></LoadingAnimation>}
     < div className={styles.bodyss}>
     <AdminNavbar></AdminNavbar>
-      <h1>User Queries</h1>
+      <h1 className={styles.h1}>User Queries</h1>
       <div className={styles.All_queries}>
       {console.log(queries)}
         {queries.map((query) => {
@@ -64,7 +77,11 @@ const Query = () => {
           );
         })}
       </div>
+      {
+        queries.length==0 && <div style={{display:'flex',justifyContent:'center'}}><img  src={require('../../assets/images/null.png')}/></div>
+      }
     </div>
+    </>
   );
 };
 export default Query;

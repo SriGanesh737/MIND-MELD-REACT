@@ -112,16 +112,7 @@ const SendMail = () => {
             }}
             required
           ></textarea>
-          <p
-            style={{
-              color: "#8f8f8f",
-              fontWeight: "700",
-              fontSize: "20px",
-              margin: "10px 0",
-            }}
-          >
-            sent
-          </p>
+          
           <button type="submit" className={styles.submitButton}>
             SEND MAIL
           </button>

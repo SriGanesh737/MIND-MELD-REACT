@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import {toast} from 'sonner'
 import { useSelector,useDispatch } from "react-redux";
 import {deleteExpert,updateExpertsdetails} from '../../store/user-slice'
+import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation.js'
 const AllExperts = () => {
   const dispatch=useDispatch();
   const experts= useSelector((state)=>state.users.experts)
@@ -66,9 +67,20 @@ const AllExperts = () => {
       console.error('Error:', error.message);
     });
   }
-  
+  const [loading,setLoading]=useState(false)
+  useEffect(()=>{
+    setLoading(true)
+    const timeinterval=setTimeout(() => {
+      setLoading(false)
+      
+    }, 300);
+    return () => clearTimeout(timeinterval);
+  },[]
+  )
 
   return (
+    <>
+     {loading && <LoadingAnimation></LoadingAnimation>}
     <div className={styles.body}>
       <AdminNavbar></AdminNavbar>
       <div className={styles.right}>
@@ -120,6 +132,7 @@ const AllExperts = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

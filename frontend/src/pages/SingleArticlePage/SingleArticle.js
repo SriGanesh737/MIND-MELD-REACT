@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Styles from './SingleArticle.module.css';
 import CommentsSection from '../../components/CommentsSection/CommentsSection';
+import {toast} from 'sonner'
 import { useUser } from '../../providers/UserProvider';
 
 export default function SingleArticle() {
@@ -53,7 +54,8 @@ export default function SingleArticle() {
     })
     .then((res)=>res.json())
     .then((data)=>{
-      console.log(data);
+      toast.success("successfully added to your bookmarks")
+      
     })
     .catch((err)=>console.log(err));
   }
@@ -80,7 +82,7 @@ export default function SingleArticle() {
         </div>
       </div>
       <h2 style={{textAlign:"center"}}>***** Thank You *****</h2>
-      <h1 className={Styles['comments-title']}>Comments</h1>
+      {/* <h1 className={Styles['comments-title']}>Comments</h1> */}
       <div className={Styles['comments-section']}>
         {/* <CommentsSection/> */}
         Comments Section
