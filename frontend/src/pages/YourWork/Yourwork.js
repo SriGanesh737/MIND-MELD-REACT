@@ -48,7 +48,7 @@ const Yourwork=()=>{
         return (
             <Link to={`/articles/${article._id}`} style={{textDecoration:"none",color:"black"}}>
             <div  className={styles.your_blog}>
-            <img className={styles.blog_image} src={require(`../../assets${article.image_link}`)} alt=""/>
+            <img className={styles.blog_image} src={article.image_link} alt=""/>
 
             <div className={styles.content}>
               <h2>
