@@ -93,6 +93,11 @@ i{
  background-color: #0066b2;
 }
 
+.like_btn{
+    border: none;
+    background: none;
+  }
+
 @media only screen and (max-width: 1000px){
     .heading{
         font-size: 20px;

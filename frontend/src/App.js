@@ -6,7 +6,7 @@ import SingleArticle from "./pages/SingleArticlePage/SingleArticle";
 import ContactUs from './pages/ContactUsPage/ContactUs'
 import Admin from "./pages/AdminPage/Admin";
 import Articles from "./pages/ArticlesPage/Articles";
-import LandingPage from "./pages/LandingPage/LandingPage";
+import LandingPage from "./pages/LandingPage/Landingpage";
 import ExpertProfile from "./pages/ExpertProfile/ExpertProfile";
 import Allarticles from "./pages/AllArticles/Allarticles";
 import AllExperts from "./pages/AllExperts/AllExperts";
