@@ -4,8 +4,8 @@ const Admin = require('../models/Admin');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {secretKey} = require('../secrets/secret');
-
-
+const randomstring=require('randomstring');
+const nodemailer=require('nodemailer')
 const register_post = async (req,res)=>{
     let firstname = req.body.fname;
     let lastname = req.body.lastname;
@@ -167,10 +167,70 @@ const updateblockedstate=async (req,res)=>{
         res.status(500).json({ status: false, error: 'Internal server error' });
       }
 }
+const forgotpassword=async (req,res)=>{
+    email=req.body.email;
+    person1= await User.findOne({email:email});
+    person2= await Expert.findOne({email:email});
+    if(person1==null && person2==null)
+    {
+    console.log('incorrect email not registered with us');
+    data1="Incorrect mail match"
+    res.json({success:false,data:data1})
+    }
+    else
+    {
+      
+    let mailtransporter=nodemailer.createTransport({
+      service:"gmail",
+     auth:{
+       user:"contactmindmeld2023@gmail.com",
+       pass:"wgnfqhvyawxeziab"
+     }
+  
+    })
+    string=randomstring.generate(6);
+    
+    let details={
+      from:"contactmindmeld2023@gmail.com",
+      to:email,
+      subject:"OTP for changing password",
+      text:"Your OTP is:"+string
+    }
+    mailtransporter.sendMail(details,(err)=>{
+      if(err)
+      console.log(err)
+      else
+      {
+        sentdata="Email has been sent successfully";
+        console.log('email has sent');
+        let type='user'
+        if(person2)
+        {
+           type='expert'
+        }
+        
+        res.json({success:true,data:string,type});
+      }
+    })
+  }
+}
+const changepassword=async (req,res)=>{
+        email=req.body.email
+        pswd=req.body.newPassword; 
+        type=req.body.type;                            
+        const hashedpswd = await bcrypt.hash(pswd, 12);
+        if(type=='user')
+        await User.updateOne({email:email},{$set:{password:hashedpswd}});
+        if(type=='expert')
+        await Expert.updateOne({email:req.session.email},{$set:{password:hashedpswd}});
+    res.json({success:true})
+       
+      
 
+}
 module.exports = {
     register_post,
     login_post,
     checkEmail_get,
-    remove_Expert,updateblockedstate
+    remove_Expert,updateblockedstate,forgotpassword,changepassword
 }
