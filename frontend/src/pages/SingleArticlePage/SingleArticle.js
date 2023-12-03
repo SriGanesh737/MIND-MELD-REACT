@@ -69,15 +69,15 @@ export default function SingleArticle() {
       <img className={Styles.image} src={image_link} alt="" width="1000px" height="500px"/>
       <h2 className={Styles.written}>-- Written by <i>{author_name}</i> --</h2>
       <h3 className={Styles.date}>{date_of_publish.getDate()}-{date_of_publish.getMonth()+1}-{date_of_publish.getFullYear()}</h3>
-      <button onClick={handleAddToBookmarks} className={Styles.addtowishlist}><i className="fa-solid fa-bookmark"></i>Add to Bookmarks</button>
+      <button onClick={handleAddToBookmarks} style={{border:"none"}} className={Styles.addtowishlist}><i className="fa-solid fa-bookmark"></i>Add to Bookmarks</button>
       <div className={Styles.content} dangerouslySetInnerHTML={{ __html: content }} />
       <div className={Styles.rating}>
         <div className={Styles.liked}>
-          <button type="submit" className={Styles.submitlike}><i style={{fontSize:"40px",paddingRight:"10px",color:"rgb(6, 108, 191)"}} className="fa-solid fa-thumbs-up rated"></i></button>
+          <button type="submit" className={`${Styles.submitlike} ${Styles.like_btn}`}><i style={{fontSize:"40px",paddingRight:"10px",color:"rgb(6, 108, 191)"}} className={`fa-solid fa-thumbs-up ${Styles.rated}`}></i></button>
           <h4>{likes}</h4>
         </div>
         <div className={Styles.disliked}>
-          <button type="submit" className={Styles.submitdislike}><i style={{fontSize:"40px",color:"rgb(6, 108, 191)"}} className="fa-solid fa-thumbs-down unrated"></i></button>
+          <button type="submit" className={`${Styles.submitdislike} ${Styles.like_btn}`}><i style={{fontSize:"40px",color:"rgb(6, 108, 191)"}} className={`fa-solid fa-thumbs-down ${Styles.unrated}`}></i></button>
           <h4>{dislikes}</h4>
         </div>
       </div>

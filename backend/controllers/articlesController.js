@@ -123,6 +123,7 @@ const filterHandler=async (req,res)=>{
 const article_post = async (req,res)=>{
   const articleId = req.query.id;
   const {topic,title,content,author_name,date_of_publish,tags,author_id,image_link} = req.body;
+  console.log(req.body)
   console.log(req.query)
   if(articleId){
     const article = await Article.findById(articleId);

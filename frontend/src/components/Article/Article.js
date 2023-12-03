@@ -32,7 +32,6 @@ export default function Article({setClickedId ,article_data, i}) {
   return (
         <div onClick={articleClickHandler} id="article_data['_id']" className={`${Styles[getArticleSize(i)]} ${Styles["article"]}`} >
           <div className={Styles["clip-img"]}>
-          {/* <img src={require("../../assets"+article_data["image_link"])} alt="H-1" /> */}
           <img src={article_data["image_link"]} alt="H-1" />
           </div>
           <div className={Styles["short-desc"]}>

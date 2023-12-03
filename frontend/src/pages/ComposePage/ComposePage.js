@@ -121,7 +121,8 @@ function addnewtag(){
 
 const handleSubmit = (e) => {
   e.preventDefault();
-  const url = articleId!==undefined ?`http://localhost:8000/articles?id=${articleId}`:"http://localhost:8000/articles";
+  const url = (articleId!==undefined && articleId!==null) ?`http://localhost:8000/articles?id=${articleId}`:"http://localhost:8000/articles";
+  console.log(url);
   const article_data = {
     topic:article.topic,
     title:article.title,

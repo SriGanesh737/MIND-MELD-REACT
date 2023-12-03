@@ -128,4 +128,39 @@ const articles_getbyuserid=async (req,res)=>{
 
 }
 
+const user_update_byId_put = async (req,res)=>{
+    const userId = req.params.userId;
+    const {name,email,phone} = req.body;
+    const user = await User.findById(userId);
+    const expert = await Expert.findById(userId);
+    const admin = await Admin.findById(userId);
+
+    if(user){
+        user.name = name;
+        user.email = email;
+        user.phone = phone;
+        await user.save();
+        res.status(200).json({message:"User updated successfully"});
+    }
+    else if(expert){
+        expert.name = name;
+        expert.email = email;
+        expert.phone = phone;
+        await expert.save();
+        res.status(200).json({message:"Expert updated successfully"});
+    }
+    else if(admin){
+        admin.name = name;
+        admin.email = email;
+        admin.phone = phone;
+        await admin.save();
+        res.status(200).json({message:"Admin updated successfully"});
+    }
+    else{
+        res.status(404).json({message:"User not found"});
+    }
+}
+
+
+
 module.exports = {bookmarks_byUserId_get,bookmark_add_byUserId_post,bookmark_remove_byUserId_delete,users_get,user_get_byId,user_get_byEmail,users_get_byRole,articles_getbyuserid}
