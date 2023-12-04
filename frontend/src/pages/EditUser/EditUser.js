@@ -4,6 +4,8 @@ import Footer from '../../components/Footer/Footer'
 import Styles from './EditUser.module.css'
 import { useUser } from '../../providers/UserProvider'
 
+import {toast} from 'sonner'
+
 export default function EditUser() {
     const { user,setUserDetails } = useUser();
     const data = user;
@@ -146,7 +148,9 @@ export default function EditUser() {
                     const url ="http://localhost:8000/user/email/"+formData.email;
                     fetch(url).then((res)=>res.json())
                     .then((data)=>{
-                       setUserDetails(data);  
+                       setUserDetails(data);
+                       toast.success("updated details successfully") 
+                        
                     })
                 })
                 .catch((err) => {

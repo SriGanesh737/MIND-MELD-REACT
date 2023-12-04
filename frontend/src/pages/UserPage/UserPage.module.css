@@ -4,7 +4,7 @@
     align-items: center;
     background-image: url(../../assets/images/subtle-prism.png);
     min-height: 100vh;
-    margin-bottom: -40px;
+    margin-bottom: -20px;
 }
 
 
@@ -22,7 +22,7 @@ a {
 }
 
 .desc {
-    min-width: 500px;
+    min-width: 400px;
     min-height: 500px;
     background-color: White;
     border-radius: 30px;

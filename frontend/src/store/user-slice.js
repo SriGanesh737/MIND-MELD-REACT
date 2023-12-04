@@ -22,11 +22,11 @@ const userSlice=createSlice({
         //   console.log(state.users)
         },
         addExpert(state,action){
-            console.log(action.payload)
+            // console.log(action.payload)
             state.experts.push(action.payload)
         },
         addUser(state,action){
-            console.log(action.payload)
+            // console.log(action.payload)
             state.users.push(action.payload)
         },
         updateExpertsdetails(state,action){
