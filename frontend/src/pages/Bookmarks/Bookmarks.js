@@ -9,6 +9,11 @@ export default function Bookmarks() {
   const [bookmarksData,setBookmarksData] = useState([])
   const {user} = useUser();
   const [loading,setLoading]=useState(false)
+  function removebookmark(id)
+  {
+    let newdata=bookmarksData.filter((bookmark)=>bookmark._id!=id)
+  setBookmarksData(newdata)
+  }
   useEffect(()=>{
     setLoading(true)
     const timeinterval=setTimeout(() => {
@@ -33,7 +38,7 @@ export default function Bookmarks() {
 
           {
            bookmarksData.length!==0 && bookmarksData.map((data,i)=>{
-              return <BookmarkCard key={i} data={data} />
+              return <BookmarkCard key={i} data={data} removebookmark={removebookmark}/>
             })
           }
           {

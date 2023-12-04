@@ -3,11 +3,11 @@ import Styles from './BookmarkCard.module.css';
 import { useUser } from '../../providers/UserProvider';
 import { useNavigate } from 'react-router-dom';
 
-export default function BookmarkCard({data}) {
+export default function BookmarkCard({data,removebookmark}) {
   const {user} = useUser();
   data.date_of_publish = new Date(data.date_of_publish);
   const navigate = useNavigate();
-
+  
   const handleRemoveBookmark = () => {
     // remove bookmark
     const url = "http://localhost:8000/user/"+user._id+"/bookmarks/"+data._id;
@@ -18,10 +18,10 @@ export default function BookmarkCard({data}) {
       }
     })
     .then((res)=>res.json())
-    .then((data)=>{
-      console.log(data);
-      // remove from frontend
-      document.getElementById(data._id).style.display = "none";
+    .then((_data)=>{
+      removebookmark(data._id)
+      
+
     })
     .catch((err)=>console.log(err));
   }

@@ -113,7 +113,7 @@ const router = createBrowserRouter(
         {role==="admin"&&<Route path="/admin/all_experts" element={<AllExperts></AllExperts>} />}
         {role==="admin"&&<Route path="/admin/query" element={<Query></Query>}></Route>}
         {role==="admin"&&<Route path="/admin/mail" element={<SendMail></SendMail>}></Route>}
-        {role==="expert"&&<Route path="/expert/:userId" element={<ExpertProfile/>}/>}
+        {(role==="expert"||role==="admin")&&<Route path="/expert/:userId" element={<ExpertProfile/>}/>}
         <Route path="/logout" element={<LandingPage></LandingPage>}></Route>
         <Route path="/user/:userid" element={<UserPage/>}> </Route>
         <Route path="/aboutus" element={<AboutUs/>}> </Route>

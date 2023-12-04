@@ -3,6 +3,7 @@ import MyNavbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 import Styles from './EditUser.module.css'
 import { useUser } from '../../providers/UserProvider'
+import {Link} from 'react-router-dom'
 
 import {toast} from 'sonner'
 
@@ -166,6 +167,7 @@ export default function EditUser() {
             <MyNavbar />
             <div className={Styles.body}>
                 <h1 className={Styles.h1}>All Personal Details</h1>
+               
                 <form onSubmit={handleSubmit} className={Styles.form}>
                     <div className={Styles.complete}>
                         <div className="one">

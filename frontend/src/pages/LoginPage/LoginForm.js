@@ -26,7 +26,7 @@ const LoginForm=()=>{
    const formSubmitHandler = (event)=>{
     event.preventDefault();
     // send post request to /api/login
-    setLoading(true)
+    setLoading(true)  
     axios.post('http://localhost:8000/auth/login',{
         email,
         password

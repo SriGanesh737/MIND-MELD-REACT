@@ -4,10 +4,10 @@ import useInput from "../../hooks/use-registerinput";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import { addUser,addExpert } from "../../store/user-slice";
+import { addUser, addExpert } from "../../store/user-slice";
 import { useDispatch } from "react-redux";
 const Signup = () => {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
     value: enteredfirstname,
@@ -92,7 +92,7 @@ const Signup = () => {
   };
   const [emailerror, setEmailerror] = useState(false);
   const checkEmailexistence = () => {
-    console.log(enteredEmail)
+    console.log(enteredEmail);
     axios
       .get(`http://localhost:8000/auth/checkEmail/${enteredEmail}`)
       .then((res) => {
@@ -101,7 +101,10 @@ const Signup = () => {
         } else {
           setEmailerror(true);
         }
-      }).catch((err) => { console.log(err) })
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const emailBlurfunction = () => {
@@ -116,7 +119,8 @@ const Signup = () => {
     emailIsValid &&
     contactnumberIsValid &&
     passwordIsValid &&
-    cnfpasswordIsValid && !emailerror
+    cnfpasswordIsValid &&
+    !emailerror
   ) {
     if (type === "user") formisvalid = true;
     else {
@@ -143,15 +147,13 @@ const Signup = () => {
         .post("http://localhost:8000/auth/register", details)
         .then((res) => {
           if (res.status === 201) {
-            console.log(res.data)
+            // console.log(res.data);
             console.log("successfully registered");
-            if(type==='user')
-            {
-              dispatch(addUser(res.data.data))
+            if (type === "user") {
+              dispatch(addUser(res.data.data));
             }
-            if(type==='expert')
-            {
-              dispatch(addExpert(res.data.data))
+            if (type === "expert") {
+              dispatch(addExpert(res.data.data));
             }
             navigate("/login");
           }
@@ -166,11 +168,11 @@ const Signup = () => {
       resetcontactnumberInput();
       resetemailInput();
       resetemailInput();
+      resetpasswordInput();
       setFile("");
       setType("user");
     } else console.log("wrong details");
   };
-
 
   return (
     <div className={`${styles.total_signup} ${styles.body}`}>
@@ -184,8 +186,9 @@ const Signup = () => {
           >
             <div className={styles["user-details"]}>
               <div
-                className={`${styles["input-box"]} ${firstnameInputHasError ? styles.invalid : ""
-                  } animated wow fadeInLeft`}
+                className={`${styles["input-box"]} ${
+                  firstnameInputHasError ? styles.invalid : ""
+                } animated wow fadeInLeft`}
               >
                 <span className={styles.details}>First Name</span>
                 <input
@@ -201,8 +204,9 @@ const Signup = () => {
                 {/* <span className={styles.incfn} style={{color:"red"}}></span> */}
               </div>
               <div
-                className={`${styles["input-box"]} ${lastnameInputHasError ? styles.invalid : ""
-                  } animated wow fadeInRight`}
+                className={`${styles["input-box"]} ${
+                  lastnameInputHasError ? styles.invalid : ""
+                } animated wow fadeInRight`}
               >
                 <span className={styles.details}>Last Name</span>
                 <input
@@ -218,8 +222,9 @@ const Signup = () => {
                 {/* <span className={styles.incln} style={{color:"red"}}></span> */}
               </div>
               <div
-                className={`${styles["input-box"]} ${emailInputHasError ? styles.invalid : ""
-                  } animated wow fadeInLeft`}
+                className={`${styles["input-box"]} ${
+                  emailInputHasError ? styles.invalid : ""
+                } animated wow fadeInLeft`}
               >
                 <span className={styles.details}>Email</span>
                 <input
@@ -232,11 +237,16 @@ const Signup = () => {
                   name="email"
                   required
                 />
-                {emailerror && <span className="incem" style={{ color: "red" }}>This email already exists</span>}
+                {emailerror && (
+                  <span className="incem" style={{ color: "red" }}>
+                    This email already exists
+                  </span>
+                )}
               </div>
               <div
-                className={`${styles["input-box"]} ${contactnumberInputHasError ? styles.invalid : ""
-                  } animated wow fadeInRight`}
+                className={`${styles["input-box"]} ${
+                  contactnumberInputHasError ? styles.invalid : ""
+                } animated wow fadeInRight`}
               >
                 <span className={styles.details}>Contact Number</span>
                 <input
@@ -251,8 +261,9 @@ const Signup = () => {
                 {/* <span  style={{color:"red"}}></span> */}
               </div>
               <div
-                className={` ${styles["input-box"]} ${passwordInputHasError ? styles.invalid : ""
-                  } animated wow fadeInLeft`}
+                className={` ${styles["input-box"]} ${
+                  passwordInputHasError ? styles.invalid : ""
+                } animated wow fadeInLeft`}
               >
                 <span className={styles.details}>Password</span>
                 <input
@@ -268,8 +279,9 @@ const Signup = () => {
                 {/* <span className="incpswd" style={{color:"red"}}></span> */}
               </div>
               <div
-                className={` ${styles["input-box"]} ${cnfpasswordInputHasError ? styles.invalid : ""
-                  }  animated wow fadeInRight`}
+                className={` ${styles["input-box"]} ${
+                  cnfpasswordInputHasError ? styles.invalid : ""
+                }  animated wow fadeInRight`}
               >
                 <span className={styles.details}>Confirm Password</span>
                 <input
@@ -336,7 +348,13 @@ const Signup = () => {
               >
                 Register
               </button>
-              <p style={{ textAlign: "center", marginTop: "10px", color: "black" }}>
+              <p
+                style={{
+                  textAlign: "center",
+                  marginTop: "10px",
+                  color: "black",
+                }}
+              >
                 Already a member?{" "}
                 <Link
                   to="/login"
