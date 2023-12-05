@@ -26,7 +26,7 @@ const LoginForm=()=>{
    const formSubmitHandler = (event)=>{
     event.preventDefault();
     // send post request to /api/login
-    setLoading(true)
+    setLoading(true)  
     axios.post('http://localhost:8000/auth/login',{
         email,
         password
@@ -73,7 +73,7 @@ const LoginForm=()=>{
     </div>
     <span style={{color:"red" ,marginTop: "10px",fontSize: "15px",display:'block'}} className={styles.errorMessage}>{emailerror!=='' && emailerror}</span> 
 
-    <Link to="/forgotpassword" style={{color: "white",marginTop:"2px"}}>Forgot(or)reset password?</Link>
+    <Link to="/forgotpassword" style={{color: "black",marginTop:"2px",fontSize:"16px",textDecoration:'none'}}>Forgot/Reset password?</Link>
     <button className={`${styles.field} ${styles.btn}`} id="loginsubmit" type="submit" style={{backgroundColor: "black",fontSize: "20px",color:"white"}} >
     Login
     </button>

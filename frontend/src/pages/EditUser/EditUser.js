@@ -3,6 +3,9 @@ import MyNavbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 import Styles from './EditUser.module.css'
 import { useUser } from '../../providers/UserProvider'
+import {Link} from 'react-router-dom'
+
+import {toast} from 'sonner'
 
 export default function EditUser() {
     const { user,setUserDetails } = useUser();
@@ -146,7 +149,9 @@ export default function EditUser() {
                     const url ="http://localhost:8000/user/email/"+formData.email;
                     fetch(url).then((res)=>res.json())
                     .then((data)=>{
-                       setUserDetails(data);  
+                       setUserDetails(data);
+                       toast.success("updated details successfully") 
+                        
                     })
                 })
                 .catch((err) => {
@@ -162,6 +167,7 @@ export default function EditUser() {
             <MyNavbar />
             <div className={Styles.body}>
                 <h1 className={Styles.h1}>All Personal Details</h1>
+               
                 <form onSubmit={handleSubmit} className={Styles.form}>
                     <div className={Styles.complete}>
                         <div className="one">

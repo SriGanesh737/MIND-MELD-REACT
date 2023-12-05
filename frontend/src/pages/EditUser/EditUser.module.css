@@ -1,6 +1,7 @@
 .body {
     background-color: rgb(223, 212, 220);
     margin-top: -25px;
+    padding-bottom: 25px;
 }
 
 .form {
@@ -16,8 +17,10 @@
     text-align: center;
     margin-bottom: 20px;
     font-size:3em;
+    padding-top: 25px;
 
 }
+
 
 .label {
     display: block;
@@ -74,4 +77,5 @@
 .complete{
     display: flex;
     gap: 30px;
+    padding-bottom: 10px;
 }

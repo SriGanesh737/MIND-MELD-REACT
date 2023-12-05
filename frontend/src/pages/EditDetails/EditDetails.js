@@ -3,12 +3,13 @@ import MyNavbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import Styles from './EditDetails.module.css'
 import { useUser } from "../../providers/UserProvider";
-
-
+import {toast} from 'sonner'
+import { useNavigate } from "react-router-dom";
 
 export default function EditDetails() {
   const {user,setUserDetails} = useUser();
   const data = user;
+  const navigate=useNavigate();
 
   const [formData, setFormData] = useState({
     firstname: data.firstname || '',
@@ -20,7 +21,7 @@ export default function EditDetails() {
     insta_link: data.insta_link || '',
     github_link: data.github_link || '',
     facebook_link: data.facebook_link || '',
-    dob: data.dateofbirth || '',
+    dob:  '19-7-1990',
     email: data.email || '',
     qualification: data.qualification || '',
   });
@@ -50,6 +51,8 @@ export default function EditDetails() {
             fetch(url).then((res)=>res.json())
             .then((data)=>{
                setUserDetails(data);  
+               toast.success("updated details successfully") 
+               navigate(`/expert/${user._id}`)
             })
             .catch((err)=>console.log(err));
     })
@@ -99,7 +102,7 @@ export default function EditDetails() {
               <label className={Styles.label} htmlFor="LinkedIn">LinkedIn Profile Link</label>
               <input className={Styles.input} type="text" value={formData.facebook_link} name="facebook_link" placeholder="LinkedIn Profile Link" onChange={handleChange} /> <br />
               <label className={Styles.label} htmlFor="dateofbirth">Date-of-birth</label>
-              <input className={Styles.input} type="date" placeholder="dateofbirth" name="dob" value={formData.dob} onChange={handleChange} /><br />
+              <input className={Styles.input} type="date" placeholder="dateofbirth" name="dob" value={"19-7-1990"} onChange={handleChange} /><br />
               <label className={Styles.label} htmlFor="email">Email</label>
               <input className={Styles.input} type="email" value={formData.email} name="email" placeholder="email" onChange={handleChange} /><br />
               <label className={Styles.label} htmlFor="education">Education</label>

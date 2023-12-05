@@ -4,6 +4,7 @@ import Footer from '../../components/Footer/Footer';
 import { useParams } from 'react-router-dom';
 import Styles from './UserPage.module.css';
 import {useUser} from '../../providers/UserProvider'
+import {Link} from 'react-router-dom'
 
 export default function UserPage() {
 
@@ -18,9 +19,9 @@ export default function UserPage() {
       <div className={`${Styles.desc} position-relative`}>
         <h3>Personal Information</h3>
 
-        <a href="/user/edit_u" style={{ display: 'none' }} className={`${Styles["edit_user_det"]} position-absolute ${userId === data._id ? 'show' : ''} show`}>
+        <Link to="/user/edit_u" style={{ display: 'none' }} className={`edit_text ${Styles["edit_user_det"]} position-absolute ${userId === data._id ? 'show' : ''} show`}>
         <i class="fa-solid fa-pen-to-square"></i> Edit Details
-        </a>
+        </Link>
 
         <img src={data.profile_image_link} alt="img" className={`${Styles["user_profile_image"]} rounded-circle d-block mx-auto`}/>
         

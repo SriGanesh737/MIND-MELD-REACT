@@ -116,6 +116,8 @@ function addnewtag(){
         ...prev,tags:tags
       })
     })
+    setNewtag("")
+    
   }
 }
 
@@ -257,7 +259,7 @@ const handleArticleChange = (e) => {
         <label style={{"fontWeight":"700","fontSize":"18px"}}>Markdown:</label>
         <br/>
         <div className={Styles.header}>
-          <input type="text" id="myInput" placeholder="Tag..." value={newtag} onChange={(e)=>{
+          <input type="text"  id="myInput" placeholder="Tag..." value={newtag} onChange={(e)=>{
             setNewtag(e.target.value)}}/>
           <button className={Styles.addBtn} type='button' onClick={addnewtag} 
           >Add</button>

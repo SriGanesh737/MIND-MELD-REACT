@@ -27,7 +27,7 @@ export default function MyNavbar() {
             <Nav.Link as={Link} to="/contactus" className={styles['nav-link']}>ContactUs</Nav.Link>
             <Nav.Link as={Link} to="/aboutus" className={styles['nav-link']}>AboutUs</Nav.Link>
             <Nav.Link as={Link} to="/queries" className={styles['nav-link']}>Questions</Nav.Link>
-            {user.role !== 'user'?(<Nav.Link as={Link} to="/compose" className={styles['nav-link']}>Compose</Nav.Link>):''}
+            {user.role !== 'user' && (!user.is_blocked)?(<Nav.Link as={Link} to="/compose" className={styles['nav-link']}>Compose</Nav.Link>):''}
             <Nav.Link as={Link} to="/bookmarks" className={styles['nav-link']}>Bookmarks</Nav.Link>
             {user.role !== 'user'?(<Nav.Link as={Link} to="/yourwork" className={styles['nav-link']}>Your Work</Nav.Link>) :''}
             {user.role === 'admin' ? (<Nav.Link as={Link} to="/admin" className={styles['nav-link']}>
