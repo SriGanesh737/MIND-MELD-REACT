@@ -13,6 +13,12 @@ router.post("/filter",articlesController.filterHandler)
 
 router.post('/',articlesController.article_post)
 
+router.get('/comments/:articleId',articlesController.getComments)
+
+router.post('/comments/:articleId',articlesController.postComment)
+
+router.delete('/comments/:commentId',articlesController.deleteComment)
+
 router.post('/liked/:articleid',articlesController.liked)
 router.post('/disliked/:articleid',articlesController.disliked)
 module.exports = router;

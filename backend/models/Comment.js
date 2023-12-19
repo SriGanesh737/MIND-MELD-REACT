@@ -40,6 +40,10 @@ const commentSchema = new Schema({
   replies_ids: {
     type: Array,
     default: []
+  },
+  main_comment_id:{
+    type:String,
+    default:""
   }
 });
 

@@ -8,11 +8,7 @@ export default function LandingPage() {
       <div className={styles["particlesjs"]}>
         <ParticleBackground></ParticleBackground>
         <div className={styles.project_name_container}>
-             
-               <h1 className={styles.mindmeld}>MIND MELD</h1>
-           
-            
-               
+               <h1 className={styles.mindmeld}>MIND MELD</h1>      
         </div>
         <div className={styles.hrefs}>
             <h2 className={styles.navi}> <Link to="/contactus">ContactUs</Link> </h2>

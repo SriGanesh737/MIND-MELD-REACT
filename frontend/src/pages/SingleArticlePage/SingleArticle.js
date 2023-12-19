@@ -209,8 +209,8 @@ export default function SingleArticle() {
         <h2 style={{ textAlign: "center" }}>***** Thank You *****</h2>
         {/* <h1 className={Styles['comments-title']}>Comments</h1> */}
         <div className={Styles["comments-section"]}>
-          {/* <CommentsSection/> */}
           Comments Section
+          <CommentsSection articleId={articleId} />
         </div>
       </div>
       <Footer />
