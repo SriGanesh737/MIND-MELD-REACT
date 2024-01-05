@@ -4,28 +4,32 @@ import Styles from './Bookmarks.module.css'
 import BookmarkCard from '../../components/BookmarkCard/BookmarkCard';
 import MyNavbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
+import axios from 'axios';
 
 export default function Bookmarks() {
   const [bookmarksData,setBookmarksData] = useState([])
   const {user} = useUser();
   const [loading,setLoading]=useState(false)
+
   function removebookmark(id)
   {
     let newdata=bookmarksData.filter((bookmark)=>bookmark._id!=id)
   setBookmarksData(newdata)
   }
+  
   useEffect(()=>{
     setLoading(true)
     const timeinterval=setTimeout(() => {
        setLoading(false)
     }, 500);
     const url = "http://localhost:8000/user/"+user._id+"/bookmarks";
-    // fetch bookmarks data
-    fetch(url).then((res)=>res.json())
-    .then((data)=>{
+
+    axios.get(url).then((res)=>{
+      const data=res.data;
       setBookmarksData(data);
     })
     .catch((err)=>console.log(err));
+
     return () => clearTimeout(timeinterval);
 
   },[user])

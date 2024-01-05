@@ -36,24 +36,31 @@ import NotFound from "./pages/NotFound";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
 function App() {
+  const token = localStorage.getItem("token");
   const dispatch=useDispatch()
   function getAllArticles() 
   {
     axios
-      .get("http://localhost:8000/articles")
+      .get("http://localhost:8000/articles",{
+        headers:{
+          Authorization:token,
+        }
+      })
       .then((res) => {
         return res.data;
       })
       .then((data) => {
         dispatch(setArticles(data))
         // console.log(data)
-        
-       
       });
   }
   function getAllExperts() {
     axios
-      .get("http://localhost:8000/user/role/expert")
+      .get("http://localhost:8000/user/role/expert",{
+        headers:{
+          Authorization:token,
+        }
+      })
       .then((response) => {
         return response.data;
       })
@@ -67,7 +74,11 @@ function App() {
   }
   function getAllusers() {
     axios
-      .get("http://localhost:8000/user/role/user")
+      .get("http://localhost:8000/user/role/user",{
+        headers:{
+          Authorization:token,
+        }
+      })
       .then((res) => {
         return res.data;
       })
@@ -79,7 +90,7 @@ function App() {
         console.log(err);
       });
   }
-function getwholedata(){
+  function getwholedata(){
     getAllArticles();
     getAllExperts();
     getAllusers();
@@ -92,9 +103,9 @@ if(user)
 {
    role=user.role
 }
-// console.log(role)
+
 const router = createBrowserRouter(
-  createRoutesFromElements(
+  createRoutesFromElements( 
     <Route path="/"  loader={getwholedata}>
      <Route index element={<LandingPage/>} />
     <Route path="/login" element={<Login />}></Route>

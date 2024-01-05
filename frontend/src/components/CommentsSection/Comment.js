@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Styles from './CommentsSection.module.css'
 import { useUser } from '../../providers/UserProvider'
+import axios from 'axios';
 
 export default function Comment({comment_info, isReply=false, main_comment_id=""}) {
 
@@ -20,19 +21,14 @@ export default function Comment({comment_info, isReply=false, main_comment_id=""
       main_comment_id:main_comment_id!==""?main_comment_id:comment_info._id,
       reply_for:comment_info.user_name
     }
-    console.log(data);
-    await fetch(url,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify(data)
-    }).then((res)=>{
-      console.log(res);
-      return res.json();
-    }).then((data)=>{
-      console.log(data);
+    // console.log(data);
+
+    axios.post(url,data).then((res)=>{
+      console.log(res.data);
+      window.location.reload();
     })
+    .catch((err)=>console.log(err));
+
     setShowReplyBox(false);
     setReplyBoxValue("");
   }
@@ -43,21 +39,13 @@ export default function Comment({comment_info, isReply=false, main_comment_id=""
 
   const handleDeleteComment = ()=>{
     const url = "http://localhost:8000/articles/comments/"+comment_info._id;
-    fetch(url,{
-      method:"DELETE",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        is_main_comment:comment_info.is_main_comment,
-        main_comment_id:comment_info.main_comment_id
-      })
-    }).then((res)=>{
-      return res.json();
-    }).then((data)=>{
-      console.log(data);
-      window.location.reload();
+
+    axios.delete(url,{
+      is_main_comment:comment_info.is_main_comment,
+      main_comment_id:comment_info.main_comment_id
     })
+    .then((res)=>window.location.reload());
+
   }
 
   return (

@@ -11,6 +11,8 @@ import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import {toast} from 'sonner'
 import Article from '../../components/Article/Article'
+import axios from 'axios'
+
 export default function ComposePage() {
 
   const articleId = useSearchParams()[0].get('articleId');
@@ -36,9 +38,9 @@ export default function ComposePage() {
 
   useEffect (()=>{
     if(articleId!==undefined && articleId!==null){
-      fetch(`http://localhost:8000/articles/${articleId}`)
-      .then((res)=>res.json())
-      .then((data)=>{
+      axios.get(`http://localhost:8000/articles/${articleId}`)
+      .then((res)=>{
+        const data = res.data;
         const requiredData = {
           topic:data.topic,
           title:data.title,
@@ -53,6 +55,7 @@ export default function ComposePage() {
         console.log(requiredData);
       })
       .catch((err)=>console.log(err));
+
     }
   },[articleId])
 
@@ -141,18 +144,14 @@ const handleSubmit = (e) => {
      toast.error('fill all details')
      return;
   }
-  fetch(url,{
-    method:"POST",
-    body: JSON.stringify(article_data),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then((res)=>res.json())
-  .then((data)=>{
-    console.log(data);
+
+  axios.post(url,article_data)
+  .then((res)=>{
+    console.log(res.data);
+    toast.success('Article posted successfully')
   })
   .catch((err)=>console.log(err));
+  
 }
 
 const handleArticleChange = (e) => {

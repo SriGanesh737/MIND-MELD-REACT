@@ -3,6 +3,7 @@ import MyNavbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 import { useParams } from 'react-router-dom';
 import Styles from './ExpertProfile.module.css';
+import axios from 'axios';
 
 export default function ExpertProfile() {
   const { userId } = useParams();
@@ -10,15 +11,21 @@ export default function ExpertProfile() {
   useEffect(() => {
     const loadProfileDetails = async () => {
       const url = `http://localhost:8000/user/${userId}`;
-      console.log(url)
-      fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-          setUserData(data);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+
+      // fetch(url)
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     setUserData(data);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   })
+
+      axios.get(url)
+      .then(res=>{
+        setUserData(res.data);
+      })
+      .catch(err=>console.log(err));
     }
 
     loadProfileDetails();

@@ -5,6 +5,7 @@ import Styles from './EditDetails.module.css'
 import { useUser } from "../../providers/UserProvider";
 import {toast} from 'sonner'
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function EditDetails() {
   const {user,setUserDetails} = useUser();
@@ -37,29 +38,18 @@ export default function EditDetails() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const url = "http://localhost:8000/user/" + user._id;
-    fetch(url,{
-      method:"PUT",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify(formData)
-    })
-    .then((res)=>res.json())
-    .then((data)=>{
-      console.log(data);
-      const url ="http://localhost:8000/user/email/"+formData.email;
-            fetch(url).then((res)=>res.json())
-            .then((data)=>{
-               setUserDetails(data);  
-               toast.success("updated details successfully") 
-               navigate(`/expert/${user._id}`)
-            })
-            .catch((err)=>console.log(err));
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
 
+    axios.put(url,formData)
+                .then((res)=>{
+                    const url ="http://localhost:8000/user/email/"+formData.email;
+                    axios.get(url)
+                    .then((res)=>{
+                        setUserDetails(res.data);
+                        toast.success("updated details successfully")
+                        navigate(`/expert/${user._id}`)
+                    })
+                })
+                .catch((err)=>console.log(err));
 
   };
 

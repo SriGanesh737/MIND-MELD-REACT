@@ -319,9 +319,10 @@ flex-direction: column;
 }
 
 .filter_select{
-  border-radius: 3px;
+  border-radius: 5px;
   padding: 5px;
   margin-right: 10px;
+  border: none;
 }
 
 .filter_apply{
@@ -337,6 +338,13 @@ flex-direction: column;
   color: white;
   transform: scale(1.1);
   transition: 0.5s ease-in-out;
+}
+
+.topic_choose_select{
+  border-radius: 5px;
+  padding: 5px;
+  margin-right: 10px;
+  border: none;
 }
 
 

@@ -3,7 +3,7 @@ import MyNavbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 import Styles from './EditUser.module.css'
 import { useUser } from '../../providers/UserProvider'
-import {Link} from 'react-router-dom'
+import axios from 'axios'
 
 import {toast} from 'sonner'
 
@@ -136,28 +136,17 @@ export default function EditUser() {
             return;
         } else {
             const url = "http://localhost:8000/user/"+user._id;
-            fetch(url, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
+
+                axios.put(url,formData)
+                .then((res)=>{
                     const url ="http://localhost:8000/user/email/"+formData.email;
-                    fetch(url).then((res)=>res.json())
-                    .then((data)=>{
-                       setUserDetails(data);
-                       toast.success("updated details successfully") 
-                        
+                    axios.get(url)
+                    .then((res)=>{
+                        setUserDetails(res.data);
+                        toast.success("updated details successfully")
                     })
                 })
-                .catch((err) => {
-                    console.log(err);
-                }
-                );
+                .catch((err)=>console.log(err));
         }
     };
 

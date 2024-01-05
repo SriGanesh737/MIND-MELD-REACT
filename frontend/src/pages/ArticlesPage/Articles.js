@@ -9,6 +9,7 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import Article from '../../components/Article/Article';
 import ModalImage from '../../components/ModalImage/ModalImage';
 import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
+import axios from 'axios';
 
 export default function Articles() {
   const [articles, setArticles] = useState([])
@@ -34,17 +35,20 @@ export default function Articles() {
       
     }, 500);
     const url = `http://localhost:8000/articles/topic/${topic}/page/${page}`;
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setArticles(data);
-        const highlights = highLightsArticles(data);
-        setHighlightArticles(highlights);
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    axios
+  .get(url)
+  .then((response) => {
+    const data = response.data;
+    setArticles(data);
+    
+    const highlights = highLightsArticles(data);
+    setHighlightArticles(highlights);
+
+    console.log(data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
       return () => clearTimeout(timeinterval);
 
   }, [page, topic])

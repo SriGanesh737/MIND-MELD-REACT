@@ -15,11 +15,9 @@ export default function CommentsSection({articleId}) {
     const fetchComments = async()=>{
       const url = "http://localhost:8000/articles/comments/"+articleId;
       const comments = await axios.get(url).then((res)=>{
-        console.log(res.data);
         return res.data;
       })
       setCommentsData(comments);
-      console.log(comments);
     }
     fetchComments();
   },[articleId])
@@ -36,17 +34,12 @@ export default function CommentsSection({articleId}) {
       main_comment_id:""
     }
     console.log(data);
-    await fetch(url,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify(data)
-    }).then((res)=>{
-      return res.json();
-    }).then((data)=>{
-      console.log(data);
+    
+    axios.post(url,data).then((res)=>{
+      console.log(res);
     })
+    .catch((err)=>console.log(err));
+
     setCommentBoxValue("");
   }
 
@@ -57,7 +50,7 @@ export default function CommentsSection({articleId}) {
 
     comments_data.map((comment_info,i)=>{
       return(
-          <div className={Styles["comment-parent-wrapper"]}>
+          <div key={i} className={Styles["comment-parent-wrapper"]}>
 
             <Comment comment_info={comment_info} />
 
@@ -66,7 +59,7 @@ export default function CommentsSection({articleId}) {
             {
               comment_info['replies'].map((single_reply,j)=>{
                 return(
-                  <Comment comment_info={single_reply}  isReply={true} main_comment_id={comment_info._id} />
+                  <Comment key={j} comment_info={single_reply}  isReply={true} main_comment_id={comment_info._id} />
                 )
               })
             }
@@ -82,9 +75,7 @@ export default function CommentsSection({articleId}) {
       <img className={`${Styles["comment-profile-image"]} rounded-circle`} src={user["profile_image_link"]} alt=""/>
       </a>
       <form>
-        <textarea onChange={(e)=>setCommentBoxValue(e.target.value)} placeholder='Add a comment...' name="comment-message" style={{height:"100px"}} cols="55" rows="3">
-          {commentBoxValue}
-        </textarea>
+        <textarea defaultValue={commentBoxValue} onChange={(e)=>setCommentBoxValue(e.target.value)} placeholder='Add a comment...' name="comment-message" style={{height:"100px"}} cols="55" rows="3" />
         <button onClick={handlePostComment} className={Styles["send-btn"]}>Send</button>
       </form>
     </div>

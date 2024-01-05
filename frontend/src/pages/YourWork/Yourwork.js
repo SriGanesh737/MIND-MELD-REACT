@@ -12,15 +12,15 @@ const Yourwork=()=>{
     const {user} = useUser();
     useEffect(()=>{
         const url = "http://localhost:8000/user/"+user._id+"/yourwork";
-        // fetch bookmarks data
-        fetch(url).then((res)=>res.json())
-        .then((data)=>{
-            console.log(data)
-         setArticles(data);
+
+        axios.get(url)
+        .then((res)=>{
+            setArticles(res.data)
         })
         .catch((err)=>console.log(err));
     
       },[user])
+
       function deleteArticle(e,id)
       {
         e.preventDefault();
@@ -56,7 +56,7 @@ const Yourwork=()=>{
               </h2>
               
             </div>
-            <Link to="/"> <button className={styles.edit}>EDIT</button></Link>                                               
+            <Link to={"/compose?articleId="+article._id}> <button className={styles.edit}>EDIT</button></Link>                                               
 
             <Link to="" className={styles["delete-btn-link"]}>
               <button className={styles.delete} onClick={(e)=>{
@@ -66,7 +66,7 @@ const Yourwork=()=>{
           </div>
           </Link>)
     })}
-    {articles.length===0 && <div style={{display:'flex',justifyContent:'center'}}><img  src={require('../../assets/images/null.png')}/></div>}
+    {articles.length===0 && <div style={{display:'flex',justifyContent:'center'}}><img alt=''  src={require('../../assets/images/null.png')}/></div>}
 
     </div>
     <Footer></Footer>
