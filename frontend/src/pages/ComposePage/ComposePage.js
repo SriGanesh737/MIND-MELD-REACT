@@ -12,6 +12,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import {toast} from 'sonner'
 import Article from '../../components/Article/Article'
 import axios from 'axios'
+import "./modalStyles.css"
 
 export default function ComposePage() {
 
@@ -165,13 +166,12 @@ const handleArticleChange = (e) => {
   return (
     <div className={Styles.composePage}>
       
-      <Modal show={show} onHide={handleClose} style={{ minWidth: '60vw', minHeight: '60vh' }} >
+      <Modal show={show} onHide={handleClose}  >
         <Modal.Header closeButton >
           <Modal.Title>Content</Modal.Title>
         </Modal.Header>
         <Modal.Body >
             <CKEditor
-            
                 onReady={handleReady}
                 onError={handleError}
                 onChange={handleChange}

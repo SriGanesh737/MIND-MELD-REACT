@@ -17,7 +17,7 @@ export default function MyNavbar() {
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary" bg='dark' data-bs-theme='dark' style={{backgroundColor:'#212529'}}>
-      <Navbar.Brand as={Link} to="/home">
+      <Navbar.Brand as={Link} to="/home">      
             <img src={BrandLogo} width="70" height="60" className={`d-inline-block align-top ${styles['brand-img']}`} alt="React Bootstrap logo"/>
           </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

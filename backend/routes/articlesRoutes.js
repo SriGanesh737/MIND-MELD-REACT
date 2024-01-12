@@ -6,7 +6,7 @@ router.get('/:articleId',authMiddleware,articlesController.article_get_byId);
 
 router.get('/topic/:topic/page/:page',authMiddleware,articlesController.articles_get_byTopicAndPage);
 
-router.get('/',authMiddleware,articlesController.articles_get);
+router.get('/',articlesController.articles_get);
 
 router.delete('/:articleid',authMiddleware,articlesController.deleteArticle);  // check whether only the writer / admin can delete the article.
 
