@@ -18,7 +18,7 @@ export default function EditDetails() {
     domain: data.domain || '',
     gender: data.gender || '',
     mobile: data.phone || '',
-    profile_picture: data.profile_image_link || '',
+    profile_picture: null,
     insta_link: data.insta_link || '',
     github_link: data.github_link || '',
     facebook_link: data.facebook_link || '',
@@ -35,11 +35,23 @@ export default function EditDetails() {
     }));
   };
 
+  const handleImageChange = (e)=>{
+    const file = e.target.files[0];
+    setFormData((prevData) => ({
+      ...prevData,
+      profile_picture: file,
+    }));
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const url = "http://localhost:8000/user/" + user._id;
 
-    axios.put(url,formData)
+    axios.put(url,formData,{
+      headers:{
+        'Content-Type':'multipart/form-data'
+      }
+    })
                 .then((res)=>{
                     const url ="http://localhost:8000/user/email/"+formData.email;
                     axios.get(url)
@@ -50,7 +62,6 @@ export default function EditDetails() {
                     })
                 })
                 .catch((err)=>console.log(err));
-
   };
 
 
@@ -81,7 +92,8 @@ export default function EditDetails() {
               <span className={Styles.inccn} style={{ color: "red" }}></span>
               <input className={Styles.input} type="tel" id="mobile" name="mobile" value={formData.mobile} pattern="[0-9]{10}" placeholder="10 digit mobile number" onChange={handleChange} required /><br />
               <label className={`${Styles.label} ${Styles.profilePicture}`} htmlFor="profile_picture">Profile image Link:</label>
-              <input className={Styles.input} type="text" id="profile_picture" value={formData.profile_picture} name="profile_picture" onChange={handleChange} /><br />
+              {/* <input className={Styles.input} type="text" id="profile_picture" value={formData.profile_picture} name="profile_picture" onChange={handleChange} /><br /> */}
+              <input className={Styles.input} type="file" id="profile_picture" name="profile_picture" onChange={handleImageChange} /><br />
               <small className={Styles.small}><pre> </pre></small><br />
             </div>
             <div className={Styles.two}>

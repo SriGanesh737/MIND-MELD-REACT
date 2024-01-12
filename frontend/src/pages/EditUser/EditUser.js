@@ -22,7 +22,7 @@ export default function EditUser() {
         gender: data.gender || "",
         email: data.email || "",
         mobile: data.phone || "",
-        profile_image_link: data.profile_image_link || "",
+        profile_picture: null,
     });
 
     function onlyLetters(str) {
@@ -79,9 +79,11 @@ export default function EditUser() {
     }
 
     const handleprofileimageChange = (e)=>{
+        const file = e.target.files[0];
         setFormData((prev) => {
-            const newdata = { ...prev, profile_image_link: e.target.value }
-            // setProfile_image_link(newdata)
+            const newdata = { ...prev,
+                profile_picture: file 
+            }
             return newdata
         })
         
@@ -137,7 +139,11 @@ export default function EditUser() {
         } else {
             const url = "http://localhost:8000/user/"+user._id;
 
-                axios.put(url,formData)
+                axios.put(url,formData,{
+                    headers:{
+                        'Content-Type':'multipart/form-data'
+                    }
+                })
                 .then((res)=>{
                     const url ="http://localhost:8000/user/email/"+formData.email;
                     axios.get(url)
@@ -179,7 +185,8 @@ export default function EditUser() {
                             <span className="inccn" style={{ color: "red" }}></span>
                             <input className={Styles.input} type="tel" id="mobile" name="mobile" value={formData.mobile} pattern="[0-9]{10}" placeholder="10 digit mobile number" onChange={handlePhoneNumberChange} required /><span className="incph" style={{ color: "rgba(243, 26, 26, 0.819)" }}>{phoneNumberError}</span><br />
                             <label htmlFor="link" className={Styles.label}>Profile image link</label>
-                            <input className={Styles.input} type="text" id="link" name="link" value={formData.profile_image_link} onChange={handleprofileimageChange} />
+                            {/* <input className={Styles.input} type="text" id="link" name="link" value={formData.profile_image_link} onChange={handleprofileimageChange} /> */}
+                            <input className={Styles.input} type="file" id="profile_picture" name="profile_picture" onChange={handleprofileimageChange} /><br />
                         </div>
                     </div>
                     <button className={`${Styles.register} ${Styles.button}`} type="submit">Save Changes</button>
