@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const articlesController = require('../controllers/articlesController');
 const authMiddleware = require('../middleware/authMiddleware');
+const { handleImageUpload } = require('../middleware/fileHandleMiddleware');
+const upload = require('../utility/multer');
 
 router.get('/:articleId',authMiddleware,articlesController.article_get_byId);
 
@@ -12,7 +14,7 @@ router.delete('/:articleid',authMiddleware,articlesController.deleteArticle);  /
 
 router.post("/filter",authMiddleware,articlesController.filterHandler)
 
-router.post('/',authMiddleware,articlesController.article_post) // restrict this route to admin and expert.
+router.post('/',authMiddleware,upload.single('image'),handleImageUpload,articlesController.article_post) // restrict this route to admin and expert.
 
 router.get('/comments/:articleId',authMiddleware,articlesController.getComments)
 

@@ -135,7 +135,8 @@ const user_update_byId_put = async (req,res)=>{
     const admin = await Admin.findById(userId);
 
     if(user){
-        const {firstname,lastname,gender,email,mobile,profile_image_link} = req.body;
+        const {firstname,lastname,gender,email,mobile,image_link} = req.body;
+        const profile_image_link = image_link;
         console.log(req.body)
         user.firstname = firstname;
         user.lastname = lastname;
@@ -148,7 +149,8 @@ const user_update_byId_put = async (req,res)=>{
     }
     else if(expert){
         console.log(req.body)
-        const {firstname,lastname,domain,gender,email,mobile,profile_image_link,insta_link,facebook_link,github_link,qualification,dateofbirth} = req.body;
+        const {firstname,lastname,domain,gender,email,mobile,image_link,insta_link,facebook_link,github_link,qualification,dateofbirth} = req.body;
+        const profile_image_link = image_link;
         expert.firstname = firstname;
         expert.lastname = lastname;
         expert.domain = domain;
@@ -167,7 +169,8 @@ const user_update_byId_put = async (req,res)=>{
     }
     else if(admin){
         console.log(req.body)
-        const {firstname,lastname,domain,gender,email,mobile,profile_image_link,insta_link,facebook_link,github_link,qualification,dateofbirth} = req.body;
+        const {firstname,lastname,domain,gender,email,mobile,image_link,insta_link,facebook_link,github_link,qualification,dateofbirth} = req.body;
+        const profile_image_link = image_link;
         admin.firstname = firstname;
         admin.lastname = lastname;
         admin.domain = domain;

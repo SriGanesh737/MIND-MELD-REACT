@@ -10,7 +10,6 @@ import {Button} from 'react-bootstrap';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import {toast} from 'sonner'
-import Article from '../../components/Article/Article'
 import axios from 'axios'
 import "./modalStyles.css"
 
@@ -26,7 +25,7 @@ export default function ComposePage() {
     date_of_publish:new Date(),
     tags:[],
     author_id:user._id,
-    image_link:'',
+    image:null
   });
 
   const [show, setShow] = useState(false);
@@ -125,10 +124,18 @@ function addnewtag(){
   }
 }
 
+const handleImageChange = (e) => {
+  const file = e.target.files[0];
+  setArticle({
+    ...article,
+    image: file
+  })
+};
+
+
 const handleSubmit = (e) => {
   e.preventDefault();
   const url = (articleId!==undefined && articleId!==null) ?`http://localhost:8000/articles?id=${articleId}`:"http://localhost:8000/articles";
-  console.log(url);
   const article_data = {
     topic:article.topic,
     title:article.title,
@@ -137,8 +144,11 @@ const handleSubmit = (e) => {
     date_of_publish:article.date_of_publish,
     tags:article.tags,
     author_id:article.author_id,
-    image_link:article.image_link,
+    image:article.image
   } 
+
+  console.log(article_data)
+
   if(article_data.title==='' || article_data.content==='' ||article_data.image_link==='' )
   {
     console.log(article_data)
@@ -146,7 +156,11 @@ const handleSubmit = (e) => {
      return;
   }
 
-  axios.post(url,article_data)
+  axios.post(url,article_data,{
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
   .then((res)=>{
     console.log(res.data);
     toast.success('Article posted successfully')
@@ -276,13 +290,13 @@ const handleArticleChange = (e) => {
         </ul>
         <br/>
         <label style={{"fontWeight":"700","fontSize":"18px","marginBottom":"15px"}}>Image Attachment:</label>
-        {/* <input type="file" className="form-control" id="image" name="image" accept="image/png, image/jpeg" style={{"width":"400px"}}/> */}
-        <input className="form-control" type='text' style={{width:'450px'}} value={Article.image_link} onChange={(e)=>{
+        <input type="file" className="form-control" id="image" name="image" onChange={handleImageChange} accept="image/png, image/jpeg" style={{"width":"300px"}}/>
+        {/* <input className="form-control" type='text' style={{width:'450px'}} value={Article.image_link} onChange={(e)=>{
           setArticle((olddata)=>{
             console.log(e.target.value)
             return {...olddata,image_link:e.target.value}
           })
-        }}/>
+        }}/> */}
         <br/>
         
         <button type="button" onClick={handleSubmit} className={Styles.submit}>POST ARTICLE</button>
