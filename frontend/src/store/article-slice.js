@@ -10,10 +10,8 @@ const articleSlice=createSlice({
             const newarticles= state.articles.filter((article) => article._id !== action.payload);  
             state.articles=newarticles
         },
-        setArticles(state,action){
-            
+        setArticles(state,action){     
             state.articles=action.payload
-            
         },
         addArticle(state,action){
             state.articles.push(action.payload)

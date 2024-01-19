@@ -8,12 +8,13 @@
 
 .bodyss {
     /* background-image: url('../images/querypageimg.jpg'); */
-    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+    /* background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1); */
     background-repeat: no-repeat;
     background-size: cover;
     object-fit: cover;
     min-height: 100vh;
     background-position: center;
+    background-color: #c2e2ff;
     /* font-family: ; */
 }
 
@@ -21,7 +22,7 @@
     text-align: center;
     font-size: 60px;
     font-weight: bold;
-    color: rgb(168, 65, 22);
+    color: Black;
     padding: 20px;
     font-family: Helvetica;
 }
@@ -34,9 +35,9 @@
 
 .query {
     margin: 2% 20% 2% 20%;
-    border: 5px solid rgb(104, 100, 100);
-    border-radius: 10px;
-    background-color: rgb(221, 205, 219);
+    /* border: 5px solid rgb(104, 100, 100); */
+    border-radius: 15px;
+    background-color: white;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -50,13 +51,16 @@
     text-decoration: none;
 }
 .resolve_btn{
-    background-color: #79b3f4;
+    background-color: #2d4c82;
     padding: 10px;
     border-radius: 2px;
-    font-size: 20px;
-    margin-top: 10px;
+    font-size: 22px;
+    margin-top: 10px;   
     margin-left: auto;
     margin-right: auto;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
 }
 
 .null-image{
