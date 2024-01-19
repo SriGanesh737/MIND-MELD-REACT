@@ -6,6 +6,7 @@ import QnaUnsolvedQuestion from '../../components/Qna/QnaUnsolvedQuestion';
 import MyNavbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import { useUser } from '../../providers/UserProvider';
+import axios from 'axios';
 
 export default function QnA() {
 
@@ -41,33 +42,50 @@ export default function QnA() {
   const handleApplyFilter = ()=>{
     
     const url = "http://localhost:8000/queries/filters";
-    fetch(url,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify(filters)
-    })
-    .then((res)=>res.json())
-    .then((data)=>{
+    // fetch(url,{
+    //   method:"POST",
+    //   headers:{
+    //     "Content-Type":"application/json"
+    //   },
+    //   body:JSON.stringify(filters)
+    // })
+    // .then((res)=>res.json())
+    // .then((data)=>{
+    //   setFaqData(data);
+    // })
+
+    axios.post(url,filters)
+    .then((res)=>{
+      const data = res.data;
       setFaqData(data);
     })
+    .catch((err)=>console.log(err));
 
   }
 
   const handlePostQuestion = () => {
     // post question
     const url = "http://localhost:8000/queries";
-    fetch(url,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify(query)
-    })
-    .then((res)=>res.json())
-    .then((data)=>{
-      console.log(data);
+    // fetch(url,{
+    //   method:"POST",
+    //   headers:{
+    //     "Content-Type":"application/json"
+    //   },
+    //   body:JSON.stringify(query)
+    // })
+    // .then((res)=>res.json())
+    // .then((data)=>{
+    //   console.log(data);
+    //   setQuery({
+    //     question: "",
+    //     topic: "Health",
+    //     user_id: user._id
+    //   });
+    // })
+    // .catch((err)=>console.log(err));
+
+    axios.post(url,query)
+    .then((res)=>{
       setQuery({
         question: "",
         topic: "Health",

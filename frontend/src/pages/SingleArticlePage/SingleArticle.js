@@ -37,7 +37,7 @@ export default function SingleArticle() {
         likes: data.likes,
         dislikes: data.dislikes,
       });
-      console.log(data.liked_userids);
+      // console.log(data.liked_userids);
       if (data.liked_userids.includes(user._id)) {
         setLiked(true);
       }
@@ -61,17 +61,10 @@ export default function SingleArticle() {
     // add to bookmarks
     const url =
       "http://localhost:8000/user/" + user._id + "/bookmarks/" + articleId;
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
+      axios.post(url).then((res)=>{
         toast.success("successfully added to your bookmarks");
       })
-      .catch((err) => console.log(err));
+      .catch((err)=>console.log(err));
   };
   function userdislike() {
     if (disliked) return;
@@ -207,10 +200,11 @@ export default function SingleArticle() {
           </div>
         </div>
         <h2 style={{ textAlign: "center" }}>***** Thank You *****</h2>
-        {/* <h1 className={Styles['comments-title']}>Comments</h1> */}
         <div className={Styles["comments-section"]}>
-          {/* <CommentsSection/> */}
-          {/* Comments Section */}
+
+          Comments Section
+          <CommentsSection articleId={articleId} />
+
         </div>
       </div>
       <Footer />

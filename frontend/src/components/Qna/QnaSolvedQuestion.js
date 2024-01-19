@@ -39,7 +39,7 @@ export default function QnaSolvedQuestion({data, i}) {
                   <div className={Styles["faq-right-part"]}>
                     Answered by :
                     <br />
-                    <a href={`/user?id=${data.expert_id}`}>
+                    <a href={`/expert/${data.expert_id}`}>
                       <img src={data["profile-image-link"]} alt="" className={Styles["faq-profile"]} />
                     </a>
                   </div>

@@ -1,4 +1,7 @@
+const { get } = require('mongoose');
 const Article = require('../models/Article');
+const Comment = require('../models/Comment');
+
 
 const article_get_byId = (req,res)=>{
       const articleId = req.params.articleId;
@@ -155,6 +158,7 @@ const article_post = async (req,res)=>{
     res.status(200).json({message:"Article added successfully"});
   }
 }
+
 const liked=async (req,res)=>{
   let articleid = req.params.articleid
   let userid=req.body.userid
@@ -192,6 +196,7 @@ const liked=async (req,res)=>{
     });
 
 }
+
 const disliked=async (req,res)=>{
   articleid = req.params.articleid
   userid=req.body.userid
@@ -236,4 +241,79 @@ const disliked=async (req,res)=>{
     });
 
 }
-module.exports = {article_get_byId,articles_get_byTopicAndPage,articles_get,deleteArticle,filterHandler,article_post,liked,disliked}
+
+const getComments = async (req, res) => {
+  try {
+    const articleId = req.params.articleId;
+
+    // Step 1: Fetch main comments
+    const mainComments = await Comment.find({ article_id: articleId, is_main_comment: true });
+
+    // Step 2: Fetch reply comments for each main comment
+    const mainCommentsWithReplies = await Promise.all(mainComments.map(async (mainComment) => {
+      const replies = await Comment.find({ _id: { $in: mainComment.replies_ids } });
+      return { ...mainComment.toObject(), replies };
+    }));
+
+    // Step 3: Send the response
+    res.send(mainCommentsWithReplies);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+const postComment = async(req,res) =>{
+    const { articleId } = req.params;
+    const { user_id, comment_info, profile_image_link, user_name, is_main_comment, reply_for, main_comment_id } = req.body;
+    console.log(req.body)
+    // Step 1: Create a new comment
+    const newComment = new Comment({
+      article_id: articleId,
+      user_id,
+      comment_info,
+      profile_image_link,
+      user_name,
+      is_main_comment,
+      reply_for,
+      main_comment_id
+    });
+
+    // Step 2: Save the new comment
+    const savedComment = await newComment.save();
+
+    // // Step 3: If the comment is a reply, update the replies_ids array of the main comment
+    if (!is_main_comment) {
+      await Comment.findByIdAndUpdate(main_comment_id, {
+        $push: { replies_ids: savedComment._id },
+      });
+    }
+
+    res.send({
+      "message": "Comment posted successfully",
+    });
+};
+
+const deleteComment = async(req,res)=>{
+  const {commentId} = req.params; 
+  const {is_main_comment,main_comment_id} = req.body;
+  if(is_main_comment){
+    await Comment.findByIdAndDelete(commentId);
+    // delete all its replies
+    await Comment.deleteMany({main_comment_id:commentId});
+  }
+  else{
+    console.log(main_comment_id)
+    await Comment.findByIdAndDelete(commentId);
+    await Comment.findByIdAndUpdate(main_comment_id,{
+      $pull:{replies_ids:commentId}
+    })
+  }
+
+  res.send({
+    "message":"Comment deleted successfully"
+  })
+
+}
+
+module.exports = {article_get_byId,articles_get_byTopicAndPage,articles_get,deleteArticle,filterHandler,article_post,liked,disliked, getComments, postComment, deleteComment}

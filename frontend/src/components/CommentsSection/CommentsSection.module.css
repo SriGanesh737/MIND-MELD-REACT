@@ -145,13 +145,13 @@
   margin-right: auto;
   border-left: 2px solid hsl(239, 57%, 85%);
 }
-.replies-container .single-reply {
+ .single-reply {
   width: 700px;
   position: relative;
   margin-left: 0;
   left: 55px;
 }
-.replies-container .tag-person {
+.tag-person {
   color: hsl(238, 40%, 52%);
   font-weight: 500;
   margin-right: 5px;
@@ -161,9 +161,16 @@
   padding-top: 30px;
   padding-left: 20px;
 }
+
+.write-comment form {
+  display: flex;
+  align-items: center;
+}
+
 .write-comment .send-btn {
   background-color: hsl(238, 40%, 52%);
-  margin-top: 35px;
+  /* margin-top: 35px; */
+  /* margin-bottom: 35px; */
   margin-left: 20px;
   height: 40px;
   width: 100px;
@@ -173,7 +180,7 @@
   font-weight: 500;
 }
 .write-comment textarea {
-  border: 1px solid hsl(212, 24%, 26%);
+  border: 1px solid hsl(0, 0%, 27%);
   padding: 10px;
   font-size: 17px;
   border-radius: 3px;
@@ -187,13 +194,21 @@
   display: none !important;
 }
 
+.plus{
+  border:none;
+}
+
+.minus{
+border: none;
+}
+
 @media only screen and (max-width: 850px) {
   .comment-parent-wrapper, .comment-container, .replies-container {
     width: 90vw;
     margin-left: auto;
     margin-right: auto;
   }
-  .replies-container .single-reply {
+   .single-reply {
     width: 80vw;
   }
   .comment-container .comment-info {
@@ -239,7 +254,7 @@
     margin-left: auto;
     margin-right: auto;
   }
-  .replies-container .single-reply {
+   .single-reply {
     width: 80vw;
     left: 30px;
   }

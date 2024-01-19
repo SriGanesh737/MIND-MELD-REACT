@@ -1,4 +1,6 @@
-const verifyToken = (req, res, next) => {
+const jwt = require('jsonwebtoken');
+
+const authMiddleware = (req, res, next) => {
   const token = req.headers.authorization;
   const secretKey = process.env.secret_key;
   if (!token) {
@@ -15,4 +17,4 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-module.exports = verifyToken;
+module.exports = authMiddleware;
