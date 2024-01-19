@@ -20,7 +20,7 @@ export default function UserPage() {
         <h3>Personal Information</h3>
 
         <Link to="/user/edit_u" style={{ display: 'none' }} className={`edit_text ${Styles["edit_user_det"]} position-absolute ${userId === data._id ? 'show' : ''} show`}>
-        <i class="fa-solid fa-pen-to-square"></i> Edit Details
+        <i className="fa-solid fa-pen-to-square"></i> Edit Details
         </Link>
 
         <img src={data.profile_image_link} alt="img" className={`${Styles["user_profile_image"]} rounded-circle d-block mx-auto`}/>
@@ -39,12 +39,12 @@ export default function UserPage() {
             <h4>{data.gender === 'M' ? 'Male' : data.gender === 'F' ? 'Female' : data.gender === 'Trans' ? 'Transgender' : ' '}</h4>
           </div>
           <div className={Styles.emailicon}>
-          <i class="fa-solid fa-envelope"></i>
-            <h4><a href={`mailto:${data.email}`}>{data.email}</a></h4>
+          <i className="fa-solid fa-envelope"></i>
+            <h4 style={{display:'flex',alignItems:'center'}}><a href={`mailto:${data.email}`} style={{textDecoration:'none'}}>{data.email}</a></h4>
           </div>
           <div className={Styles.phoneicon}>
-          <i class="fa-solid fa-phone"></i>
-            <h4>+91 {data.phone}</h4>
+          <i className="fa-solid fa-phone"></i>
+            <h4 style={{display:'flex',alignItems:'center'}}>+91 {data.phone}</h4>
           </div>
         </div>
       </div>
