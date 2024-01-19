@@ -46,7 +46,7 @@ const Allarticles = () => {
       <AdminNavbar></AdminNavbar>
       <div className={styles.right}>
         <div className={styles.heading}>
-          <h2>All articles</h2>
+          <h2>All Articles</h2>
         </div>
         <div className={styles.allcards}>
           {articles &&
@@ -55,7 +55,7 @@ const Allarticles = () => {
                 <div>
                   <Link
                     to={`/articles/${article._id}`}
-                    style={{ textDecoration: "none", color: "black" }}
+                    style={{ textDecoration: "none", color: "#0f1c60" }}
                   >
                     <div className={styles.singlecard}>
                       <div className={styles.image}>

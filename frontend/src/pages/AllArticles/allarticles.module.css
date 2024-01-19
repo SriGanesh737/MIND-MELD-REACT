@@ -1,12 +1,13 @@
 
 .body {
     font-family: 'Schibsted Grotesk', sans-serif;
-    background: rgb(242, 239, 240);
-    background: ;
+    /* background: rgb(242, 239, 240); */
+    background: #DAE2F8;
     min-height: 100vh;
     width: 100vw;
     padding: 10px;
     padding-left: 60px;
+    color:#0f1c60;
 }
 
 .allcards {
@@ -28,7 +29,7 @@
     height: 470px;
     overflow-y: auto;
     padding-bottom: 5px;
-    background-color: rgb(238, 238, 238);
+    background-color: white;
     margin-bottom: 20px !important;
 }
 
@@ -90,7 +91,7 @@
 
 a {
     text-decoration: none;
-    color: black;
+    color: #0f1c60;
 }
 
 .titler {
@@ -101,8 +102,8 @@ a {
 }
 
 .title {
-    font-size: 22px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .tags {
@@ -165,6 +166,6 @@ Link .delete {
 }
 Link{
     text-decoration: none;
-    color: black;
+    color: #0f1c60;
 }
 
