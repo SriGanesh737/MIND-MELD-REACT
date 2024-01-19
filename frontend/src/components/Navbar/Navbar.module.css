@@ -1,7 +1,11 @@
 .nav-link{
   font-size: 1.3rem !important;
-  font-weight: 400 !important;
+  font-weight: 600 !important;
   color: white !important;
+}
+.navbarstyle{
+  /* background-color: rgba(0, 0, 0, 0.5)!important; */
+  background-color: #113065!important;
 }
 
 .nav-link :visited{
@@ -15,24 +19,26 @@
 
 }
 .profileimg{
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
   width: 50px;
   height: 50px;
   color: white;
-  border:2px solid white;
-  border-radius: 50%;
+  /* border:2px solid white; */
+  /* border-radius: 50%; */
   display: flex;
   padding-top: 10px;
-  margin-top: 12px;
-  align-self: normal;
+  /* margin-top: 12px; */
+  align-self: right;
   justify-content: center;
-  margin-right: 2%;
+  margin-right: 7%;
   transition: all 0.3s ease-in-out;
 
 }
 
 
 .navbar-container{
-  background-color:#212529;
+  background-color:#439bf3;
   display: flex;
   justify-content: space-between;
   align-items: center;

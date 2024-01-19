@@ -1,8 +1,8 @@
 
 .body{
   background: #DAE2F8;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #D6A4A4, #DAE2F8);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #D6A4A4, #DAE2F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* background: -webkit-linear-gradient(to right, #D6A4A4, #DAE2F8);  
+  background: linear-gradient(to right, #D6A4A4, #DAE2F8);  */
 }
 
 
@@ -29,7 +29,11 @@
   height: 100%;
   object-fit: contain;
 }
-
+.heading{
+  margin-left: 70px;
+  padding: 20px;
+  color: #0f1c60;
+}
 .right-box{
   height: 60vh;
   width: 40vw;
@@ -158,6 +162,7 @@ textarea:focus {
 }
 
 .filter_form_faq_page{
+  margin-left: 70px;
   margin-bottom: 30px;
 }
 

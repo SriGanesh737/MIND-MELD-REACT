@@ -2,7 +2,7 @@
 .body {
     font-family: 'Schibsted Grotesk', sans-serif;
     background: rgb(242, 239, 240);
-    background: radial-gradient(circle, rgba(242, 239, 240, 1) 0%, rgba(230, 231, 182, 1) 100%);
+    background: ;
     min-height: 100vh;
     width: 100vw;
     padding: 10px;

@@ -1,13 +1,16 @@
 .bookmarksBody{
-  background-color: #c2e2ff;
+  background-color: #d1e9ff;
+  color: #0f1c60;
 }
 
 .bookmarked-heading{
-color:#333333;
+/* color:#333333; */
 font-family: 'Oswald', sans-serif;
 font-size: 3rem;
 margin-top: 20px;
 margin-bottom: 50px;
+margin-left: 50px;
+/* text-align: center; */
 }
 
 

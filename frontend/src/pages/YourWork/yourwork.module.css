@@ -1,13 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
 
 .body{
-    background-color: #E6E4E4;
+    background-color: #DAE2F8;
+    color: #0f1c60;
     font-family: 'Source Sans Pro', sans-serif;
+    height: 100vh;
+    width: 100vw;
 }
 .your_blogs
 {
     margin-top: 50px;
-    background-color: #E6E4E4;
+    /* background-color: #E6E4E4; */
     /* padding-bottom: 30px; */
     margin-bottom: -100px;
     padding-bottom: 50px;
@@ -18,6 +21,7 @@
     font-size: 50px;
     font-weight: 600;
     margin-bottom: 30px;
+    margin-top: 30px;
 }
 .your_blog
 {

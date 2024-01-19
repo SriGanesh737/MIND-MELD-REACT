@@ -56,7 +56,7 @@ const Yourwork=()=>{
               </h2>
               
             </div>
-            <Link to="/"> <button className={styles.edit}>EDIT</button></Link>                                               
+            <Link to={"/compose?articleId="+article._id}> <button className={styles.edit}>EDIT</button></Link>                                               
 
             <Link to="" className={styles["delete-btn-link"]}>
               <button className={styles.delete} onClick={(e)=>{

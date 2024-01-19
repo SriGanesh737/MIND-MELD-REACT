@@ -78,7 +78,7 @@ const Admin = () => {
           <div className={styles["recently-joined"]}>
             <h2>Recently Joined</h2>
             <div className={styles["recent-items"]}>
-              <h3 style={{ fontSize: "30px" }}>Experts</h3>
+              <h3 style={{ fontSize: "30px",fontFamily:"600" }}>Experts</h3>
               {experts.slice(0,2).map((eachone) => {
                 return (
                   <div className={styles["recent-item"]}>

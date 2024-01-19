@@ -210,7 +210,7 @@ export default function SingleArticle() {
         {/* <h1 className={Styles['comments-title']}>Comments</h1> */}
         <div className={Styles["comments-section"]}>
           {/* <CommentsSection/> */}
-          Comments Section
+          {/* Comments Section */}
         </div>
       </div>
       <Footer />

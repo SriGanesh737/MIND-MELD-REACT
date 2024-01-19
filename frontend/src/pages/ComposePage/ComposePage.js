@@ -151,6 +151,7 @@ const handleSubmit = (e) => {
   .then((res)=>res.json())
   .then((data)=>{
     console.log(data);
+    toast.success("updated or added blog successfully")
   })
   .catch((err)=>console.log(err));
 }
@@ -278,7 +279,7 @@ const handleArticleChange = (e) => {
         <br/>
         <label style={{"fontWeight":"700","fontSize":"18px","marginBottom":"15px"}}>Image Attachment:</label>
         {/* <input type="file" className="form-control" id="image" name="image" accept="image/png, image/jpeg" style={{"width":"400px"}}/> */}
-        <input className="form-control" type='text' style={{width:'450px'}} value={Article.image_link} onChange={(e)=>{
+        <input className="form-control" type='text' style={{width:'450px'}} value={article.image_link} onChange={(e)=>{
           setArticle((olddata)=>{
             console.log(e.target.value)
             return {...olddata,image_link:e.target.value}

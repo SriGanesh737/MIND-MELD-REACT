@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import {useUser} from '../../providers/UserProvider';
 
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
 export default function MyNavbar() { 
   const [isDropDown,setIsDropDown] = useState(false)
   const {user} = useUser();
@@ -16,8 +18,9 @@ export default function MyNavbar() {
   }
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary" bg='dark' data-bs-theme='dark' style={{backgroundColor:'#212529'}}>
-      <Navbar.Brand as={Link} to="/home">
+
+    <Navbar expand="lg"   className={`  ${styles.navbarstyle}`}>
+      <Navbar.Brand as={Link} to="/home"> 
             <img src={BrandLogo} width="70" height="60" className={`d-inline-block align-top ${styles['brand-img']}`} alt="React Bootstrap logo"/>
           </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -35,7 +38,7 @@ export default function MyNavbar() {
           </Nav>
         </Navbar.Collapse>
         <div className={styles.profileimg} onClick={toggleDropDown}>
-          <div className={styles["profileDropdownContainer"]}>
+          {/* <div className={styles["profileDropdownContainer"]}>
             <i className="fa-solid fa-user"></i>
             {isDropDown && (
               <div className={styles.dd_menu}>
@@ -53,8 +56,20 @@ export default function MyNavbar() {
               </div>
              </div>
             )}
-          </div>
+          </div> */}
+          <NavDropdown title="Profile" id="navbarScrollingDropdown">
+              <NavDropdown.Item><Link to={user.role==='user'?"/user/"+user._id:"/expert/"+user._id} style={{ textDecoration: 'none', color: 'black' }}>View</Link></NavDropdown.Item>
+              <NavDropdown.Item >
+              <Link to={user.role==='user'?"/user/edit_u":"/user/edit_e"} style={{ textDecoration: 'none', color: 'black' }}>Edit</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item >
+              
+              <Link to="/logout" style={{ textDecoration: 'none', color: 'black' }}>Logout</Link>
+              </NavDropdown.Item>
+            </NavDropdown>
         </div>
     </Navbar>
+
   )
 }

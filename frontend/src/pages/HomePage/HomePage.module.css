@@ -2,11 +2,12 @@
 
 
 .body{
-  background-image: url('../../assets/images/frontbackground4.jpeg');
+  /* background-image: url('../../assets/images/frontbackground4.jpeg'); */
     /* background-repeat:repeat-y; */
     padding-bottom: 100px;
      background-size: cover;
     background-position: center; 
+    background: #d4ddf8;
 }
 
 
@@ -16,6 +17,7 @@
     font-size: 87.5px;
     text-align: center;
     margin-bottom: 20px;
+   
 }
 
 
