@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Oswald:wght@500&family=Playfair+Display:wght@700&display=swap');
 
 .body{
-    background-color: rgb(189, 255, 255);
+    background-color: #c2e2ff;
     min-height: 100vh;
     /* min-width: 100vw; */
 }
@@ -23,6 +23,7 @@
     margin-bottom: 5px;
     font-family: 'Oswald', sans-serif;
     font-weight: 200;
+    color: black;
 }
 
 .contactus-links .single-link i{
@@ -37,7 +38,7 @@
 .contactus-left{
     width: 500px;
     height: 620px;
-    background-color: rgb(249, 212, 212);
+    background-color: #1616d728;
     padding: 5px 20px;
     color: rgb(45, 17, 17);
     border-radius: 7px;
@@ -50,7 +51,7 @@
     overflow-y: auto;
     width: 500px;
     height: 620px;
-    background-color: rgb(181 250 161);
+    background-color: #c6b8cd;
 
     border-radius: 7px;
     border: 0.3px solid rgb(41, 2, 2);
@@ -65,7 +66,7 @@
     margin-bottom: 15px;
     font-size: 30px;
     text-align: center;
-    color: rgb(45, 17, 17);
+    color: black;
 }
 
 .contactus-right input{
