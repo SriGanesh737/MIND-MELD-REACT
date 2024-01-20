@@ -95,7 +95,7 @@ const AllExperts = () => {
             fontSize: "35px",
           }}
         >
-          All experts
+          All Experts
         </h1>
         <div className={styles.total_experts}>
           {experts.map((expert,index) => (
@@ -103,7 +103,7 @@ const AllExperts = () => {
               <div className={styles.single_expert}>
                 <div className={styles.detailss}>
                   <h3>
-                    {expert.firstname} {expert.lastname}
+                    <b>{expert.firstname} {expert.lastname} </b>
                   </h3>
                   <div className={styles.box}>
                     <h4>Expert</h4>

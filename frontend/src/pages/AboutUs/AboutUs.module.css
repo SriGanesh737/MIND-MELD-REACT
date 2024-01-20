@@ -1,8 +1,10 @@
 
 .body {
     text-align: center;
-    background-image: linear-gradient(to right top, #e3e3e3, #e5e5e5, #e7e7e7, #eaeaea, #ececec);
+    /* background-image: linear-gradient(to right top, #e3e3e3, #e5e5e5, #e7e7e7, #eaeaea, #ececec); */
     padding-bottom: 60px;
+    /* background-color: aliceblue; */
+    background-color: #c2e2ff;
   }
   
   footer{
@@ -43,11 +45,11 @@
   }
   
    .member {
-    background-color: rgb(252 229 193 / 85%);;
+    background-color: aliceblue;
     border-radius: 15px;
     padding: 10px;
     width: 300px;
-    border: 1px solid cornflowerblue;
+    /* border: 1px solid cornflowerblue; */
     margin: 40px;
     margin-bottom: 0;
     height: fit-content;
@@ -56,6 +58,7 @@
   .team .member .member-img {
     margin: 0 50px;
     border-radius: 50%;
+    
   }
   
   .team .member .member-img img {
@@ -91,6 +94,7 @@
   
   .team .member .member-info {
     margin-top: 30px;
+    color: #113065;
   }
   
   .team .member .member-info h4 {
@@ -100,6 +104,7 @@
   }
   .team .member p{
     font-size: 20px;
+  
   }
   
   @media only screen and (max-width:1000px)

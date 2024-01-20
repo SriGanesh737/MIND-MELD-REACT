@@ -161,9 +161,11 @@ const handleSubmit = (e) => {
       'Content-Type': 'multipart/form-data',
     },
   })
+
   .then((res)=>{
     console.log(res.data);
     toast.success('Article posted successfully')
+
   })
   .catch((err)=>console.log(err));
   
@@ -290,8 +292,10 @@ const handleArticleChange = (e) => {
         </ul>
         <br/>
         <label style={{"fontWeight":"700","fontSize":"18px","marginBottom":"15px"}}>Image Attachment:</label>
+
         <input type="file" className="form-control" id="image" name="image" onChange={handleImageChange} accept="image/png, image/jpeg" style={{"width":"300px"}}/>
         {/* <input className="form-control" type='text' style={{width:'450px'}} value={Article.image_link} onChange={(e)=>{
+>>>>>>> d3c08147b0b9d90af7964ced4160cf0588f28b47
           setArticle((olddata)=>{
             console.log(e.target.value)
             return {...olddata,image_link:e.target.value}

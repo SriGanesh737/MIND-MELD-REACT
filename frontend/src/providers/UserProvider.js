@@ -19,8 +19,12 @@ export default function UserProvider({children}) {
         localStorage.setItem('user',JSON.stringify(userDetails));
         setUser(userDetails);
     }
+    const logouthandler=()=>{
+        localStorage.removeItem('user')
+    }
 
-    return <userContext.Provider value={{user,setUserDetails}}>
+
+    return <userContext.Provider value={{user,setUserDetails,logouthandler}}>
         {children}
     </userContext.Provider>
 }

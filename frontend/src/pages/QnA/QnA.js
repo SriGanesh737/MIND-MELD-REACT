@@ -147,9 +147,9 @@ export default function QnA() {
         </div>
 
         <div className={Styles.faqs}>
-          <h1>Frequently Asked Questions</h1>
+          <h1 className={Styles.heading}>Frequently Asked Questions</h1>
           <form  className={Styles["filter_form_faq_page"]} >
-            <label className={Styles.label_show} htmlFor="show_dontshow">
+            <label className={Styles.label_show} htmlFor="show_dontshow" >
               Filter:
             </label>
             <select value={filters.is_solved} onChange={handleFilterChange} className={Styles.filter_select} name="is_solved" id="show_dontshow">
