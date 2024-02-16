@@ -8,7 +8,6 @@ const userSchema = new Schema({
   },
   password:{
     type: String,
-    required: [true, 'Password is required']
   },
   firstname:{
     type: String,
@@ -20,7 +19,7 @@ const userSchema = new Schema({
   },
   phone:{
     type: String,
-    required: [true, 'Phone number is required']
+    default: "1234567890"
   },
   gender:{
     type: String,
@@ -41,6 +40,10 @@ const userSchema = new Schema({
   role:{
     type: String,
     default: 'user'
+  },
+  is_outh_user:{
+    type: Boolean,
+    default: false
   },
 }, {timestamps: true});
 

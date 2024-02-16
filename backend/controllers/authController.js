@@ -104,6 +104,46 @@ const login_post = async (req,res)=>{
 
 }
 
+const googleSignIn_post = async (req,res)=>{
+    const{email, given_name:firstname, family_name:lastname, picture:profile_image_link} = req.body;
+
+
+    let user = await User.findOne({email:email,is_outh_user:true});
+
+    // check if user already exists
+    if(user!=null && user!=undefined){
+        console.log("existing oauth user");
+        // create jwt token (expires in 24 hours)
+        const payload = {
+            id: user._id,
+            role: 'user'
+        }
+        let token = jwt.sign(payload,secretKey,{expiresIn:86400});
+        let BearerToken = 'Bearer '+token;
+        res.status(200).json({token:BearerToken});
+    }
+    else{
+        console.log("new oauth user");
+        try{
+            user = await User.create({email,firstname,lastname,profile_image_link,is_outh_user:true});
+            // create jwt token (expires in 24 hours)
+            const payload = {
+                id: user._id,
+                role: 'user'
+            }
+
+            let token = jwt.sign(payload,secretKey,{expiresIn:86400});
+            let BearerToken = 'Bearer '+token;
+            res.status(200).json({token:BearerToken});
+        }
+        catch(err){
+            console.log(err);
+            res.status(400).json({err});
+        }
+    }
+
+}
+
 const checkEmail_get = async(req,res)=>
 {
     const email = req.params.email;
@@ -232,5 +272,9 @@ module.exports = {
     register_post,
     login_post,
     checkEmail_get,
-    remove_Expert,updateblockedstate,forgotpassword,changepassword
+    remove_Expert,
+    updateblockedstate,
+    forgotpassword,
+    changepassword,
+    googleSignIn_post
 }

@@ -67,7 +67,7 @@ export default function ExpertProfile() {
             </div>
           </div>
           <div className={Styles.desc}>
-            <h3>Personal Information</h3>
+            <h3 style={{fontSize:'30px',color:'#113065',fontFamily:'cursive'}}>Personal Information</h3>
             <div className={Styles.info}>
               <div className={`edit_details ${userId === userData._id && userData.role !== 'admin' ? 'show' : ''}`}>
                 <a style={{ display: 'none' }} href="/user/edit_e">
@@ -89,7 +89,7 @@ export default function ExpertProfile() {
               </div>
               <div className={Styles["Date-of-birth"]}>
                 <h4 style={{ fontWeight: 500 }}>
-                  <b>Date-of-birth:</b>
+                  <b>DOB:</b>
                 </h4>
                 <h4>
                   {userData.doj}
@@ -106,7 +106,7 @@ export default function ExpertProfile() {
               <div className={Styles.emailicon} style={{ marginBottom: '10px' }}>
               <i class="fa-solid fa-envelope"></i>
                 <h4 style={{ display: 'flex', alignItems: 'center' }}>
-                  <a href={userData.email}>{userData.email}</a>
+                  <a style={{textDecoration:'none'}} href={userData.email}>{userData.email}</a>
                   <br />
                 </h4>
               </div>
@@ -118,7 +118,7 @@ export default function ExpertProfile() {
               <i class="fa-solid fa-book"></i>
                 <h4 style={{ display: 'flex', alignItems: 'center' }}>{userData.qualification}<br /></h4>
               </div>
-              <a href={`/download_pdf?id=${userData._id}`}>Resume</a>
+              <a href={`/download_pdf?id=${userData._id}`} style={{textDecoration:'none'}}>Resume</a>
             </div>
           </div>
         </div>

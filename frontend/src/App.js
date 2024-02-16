@@ -34,6 +34,9 @@ import {
 } from 'react-router-dom'
 import NotFound from "./pages/NotFound";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import GoogleLogin from "./GoogleLoginPage";
+import GoogleLoginPage from "./GoogleLoginPage";
+
 
 function App() {
   const token = localStorage.getItem("token");
@@ -109,6 +112,7 @@ const router = createBrowserRouter(
     <Route path="/"  loader={getwholedata}>
      <Route index element={<LandingPage/>} />
     <Route path="/login" element={<Login />}></Route>
+    <Route path="/googleLogin" element={<GoogleLogin/>} />
     <Route path="/register" element={<Signup/>}/>
     {(role==="admin" || role==="expert"|| role=='user')&&<Route path="/home" element={<HomePage/>} />}
     <Route path="/articles/:articleId" element={<SingleArticle/>}/>
