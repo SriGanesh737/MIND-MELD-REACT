@@ -13,7 +13,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
   <GoogleOAuthProvider clientId='1063743694247-t00n5c4akg71fj4h2qpp3mdsgum0eem6.apps.googleusercontent.com'>
-  <React.StrictMode>
   <Toaster  position="bottom-center" expand={true} richColors/>
     <Provider store={store}>
     <AuthProvider>
@@ -22,7 +21,6 @@ root.render(
     </UserProvider> 
     </AuthProvider>
     </Provider>
-  </React.StrictMode>
   </GoogleOAuthProvider>
 );
 

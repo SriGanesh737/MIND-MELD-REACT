@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Styles from '../../pages/QnA/QnA.module.css';
 import { useUser } from '../../providers/UserProvider';
+import Axios from 'axios';
 export default function QnaUnsolvedQuestion({ data, i, role }) {
 
   const [toggleAnswerBox, setToggleAnswerBox] = useState("none");
@@ -24,25 +25,20 @@ export default function QnaUnsolvedQuestion({ data, i, role }) {
     e.preventDefault();
     // post answer
     const url = "http://localhost:8000/queries/answer";
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        answer: answer,
-        faq_id: data._id,
-        expert_id: user._id
-      })
+
+    Axios.post(url,{
+      answer: answer,
+      faq_id: data._id,
+      expert_id: user._id
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        window.location.reload();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    .then((res)=>{
+      console.log(res.data);
+      window.location.reload();
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+
   }
 
   return (

@@ -19,7 +19,7 @@ const userSchema = new Schema({
   },
   phone:{
     type: String,
-    default: "+91 1234567890"
+    default: "1234567890"
   },
   gender:{
     type: String,

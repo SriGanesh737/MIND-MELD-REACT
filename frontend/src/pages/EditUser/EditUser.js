@@ -174,7 +174,7 @@ export default function EditUser() {
                             <input className={Styles.input} type="text" id="lastname" name="lastname" placeholder="Last Name" value={formData.lastname} onChange={handleLastNameChange} required /><span className="incph" style={{ color: "rgba(243, 26, 26, 0.819)" }}>{lastNameError}</span><br />
                             <label htmlFor="gender" className={Styles.label}>Gender</label>
                             <select id="gender" name="gender" value={formData.gender} onChange={handlegenderChange} required >
-                                <option value="" disabled selected>Select Gender</option>
+                                <option value="" selected>Select Gender</option>
                                 <option value="M">Male</option>
                                 <option value="F">Female</option>
                                 <option value="Trans">Transgender</option>
