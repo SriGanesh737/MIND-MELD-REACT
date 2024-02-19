@@ -54,29 +54,44 @@ const users_get = async (req,res)=>{
     res.status(200).json({...users,experts});    
 }
 
-const user_get_byId = async (req,res)=>{
+const user_get_byId = async (req, res) => {
     const userId = req.params.userId;
-    const user = await User.findById(userId);
-    const expert = await Expert.findById(userId);
-    const admin = await Admin.findById(userId);
 
-    if(user){
-        // remove password key itself from user object
+    const [user, expert, admin] = await Promise.all([
+        User.findById(userId),
+        Expert.findById(userId),
+        Admin.findById(userId)
+    ]);
+
+    if (user) {
         delete user.password;
         res.status(200).json(user);
-    }
-    else if(expert){
+    } else if (expert) {
         delete expert.password;
-        res.status(200).json(expert);
-    }
-    else if(admin){
+
+        const articles = await Article.find({ author_id: userId });
+
+        let totalLikes = 0;
+        let totalDislikes = 0;
+
+        // Iterate over each article to calculate total likes and dislikes
+        articles.forEach(article => {
+            totalLikes += article.likes;
+            totalDislikes += article.dislikes;
+        });
+        newexpert=expert.toObject();
+        newexpert.totalLikes = totalLikes;
+        newexpert.totalDislikes = totalDislikes;
+        console.log(newexpert)
+        res.status(200).json(newexpert);
+    } else if (admin) {
         delete admin.password;
         res.status(200).json(admin);
+    } else {
+        res.status(404).json({ message: "User not found" });
     }
-    else{
-        res.status(404).json({message:"User not found"});
-    }
-}
+};
+
 
 const user_get_byEmail = async(req,res) =>{
     const email = req.params.email;

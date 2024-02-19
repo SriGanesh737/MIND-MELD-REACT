@@ -1,11 +1,9 @@
-import React from 'react';
-import { Pie } from 'react-chartjs-2';
-const PieChart=(props)=>{
-    return(
-        <div>
-            <h1>Pie Chart</h1>
-            <Pie data={props.data} />
-        </div>
-    )   
+import React from "react";
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS } from "chart.js/auto";
+
+function PieChart({ data }) {
+  return <Pie data={data} />;
 }
+
 export default PieChart;

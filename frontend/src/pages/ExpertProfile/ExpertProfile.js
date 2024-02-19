@@ -4,26 +4,49 @@ import Footer from '../../components/Footer/Footer'
 import { useParams } from 'react-router-dom';
 import Styles from './ExpertProfile.module.css';
 import axios from 'axios';
+import PieChart from '../../components/Charts/PieChart';
 
 export default function ExpertProfile() {
   const { userId } = useParams();
-  const [userData, setUserData] = useState({})
+  const [userData, setUserData] = useState({});
+  const [usersData, setUsersData] = useState({
+    labels: ["Likes","Dislikes"], // Example years
+    datasets: [
+      {
+        label: "Likes/Dislikes Statistics",
+        data: [userData.totalLikes,userData.totalDislikes], // Example user gain data corresponding to each year
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "#ecf0f1",
+        ],
+        borderColor: "black",
+        borderWidth: 2,
+      },
+    ],
+  });
   useEffect(() => {
     const loadProfileDetails = async () => {
       const url = `http://localhost:8000/user/${userId}`;
 
-      // fetch(url)
-      //   .then((res) => res.json())
-      //   .then((data) => {
-      //     setUserData(data);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   })
-
       axios.get(url)
       .then(res=>{
+        console.log(res.data)
         setUserData(res.data);
+        setUsersData({
+          labels: ["Likes","Dislikes"], // Example years
+          datasets: [
+            {
+              label: "count",
+              data: [res.data.totalLikes,res.data.totalDislikes], // Example user gain data corresponding to each year
+              backgroundColor: [
+                "rgba(75,192,192,1)",
+                "#ecf0f1",
+              ],
+              borderColor: "black",
+              borderWidth: 2,
+            },
+          ],
+        })
       })
       .catch(err=>console.log(err));
     }
@@ -34,8 +57,9 @@ export default function ExpertProfile() {
 
   return (
     <>
-      <div>
+      <div style={{backgroundColor:"#c2e2ff"}}>
         <MyNavbar />
+        <div>
         <div className={Styles.bigDiv}>
           <div className={Styles.card}>
             <div className={Styles.imgbox}>
@@ -121,6 +145,15 @@ export default function ExpertProfile() {
               <a href={`/download_pdf?id=${userData._id}`} style={{textDecoration:'none'}}>Resume</a>
             </div>
           </div>
+          
+        </div>
+        <br></br>
+        <br></br>
+        <div style={{width:"400px",margin:"auto"}}>
+        <h2 style={{fontSize:"30px",fontWeight:"600",fontFamily:"inherit"}}> Likes/Dislikes Statistics</h2>
+         {(userData.totalLikes===0 && userData.totalDislikes===0)?<h4>No likes/dislikes added yet</h4>:<PieChart data={usersData} />}
+          <br></br>
+        </div>
         </div>
         <Footer />
       </div>
