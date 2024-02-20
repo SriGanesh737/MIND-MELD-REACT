@@ -1,9 +1,7 @@
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
 
 const myUri = process.env.myUri;
 const secretKey = process.env.secret_key;
 
-
-
-module.exports = {myUri,secretKey};
+module.exports = { myUri, secretKey };
