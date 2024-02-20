@@ -48,11 +48,13 @@ const faq_post = async (req,res)=>{
 }
 
 const faq_answer_post = async (req,res)=>{
+  console.log(req.body)
   const {faq_id,expert_id,answer} = req.body;
   const faq = await Faq.findById(faq_id);
   faq.expert_id = expert_id;
   faq.answer = answer;
   faq.is_answered = true;
+  // faq['profile-image-link']=req.body['profile-image-link'];
   await faq.save();
   res.status(200).json({message:"Answer added successfully"});
 }

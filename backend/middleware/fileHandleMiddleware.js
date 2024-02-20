@@ -8,7 +8,11 @@ cloudinary.config({
 
 const handleImageUpload = (req, res, next) => {
     console.log(req.file);
+    if(!req.file){
+        next()
+    }
     // convert this image into url by uploading it to cloudinary.
+    else{
     cloudinary.uploader.upload(req.file.path, (err, result) => {
         if (err) {
             console.log(err);
@@ -18,7 +22,7 @@ const handleImageUpload = (req, res, next) => {
         req.body.image_link = result.url;
         next();
     })
-    
+}
 }
 
 module.exports = {handleImageUpload}

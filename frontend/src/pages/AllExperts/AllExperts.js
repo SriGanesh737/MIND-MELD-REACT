@@ -99,7 +99,7 @@ const AllExperts = () => {
         </h1>
         <div className={styles.total_experts}>
           {experts.map((expert,index) => (
-            <Link to={`/expertshow/${expert._id}`} key={expert._id}>
+            <Link to={`/expert/${expert._id}`} key={expert._id}>
               <div className={styles.single_expert}>
                 <div className={styles.detailss}>
                   <h3>
