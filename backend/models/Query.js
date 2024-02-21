@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+//Query Schema
 const queryScema = new Schema({
   firstname: {
     type: String,

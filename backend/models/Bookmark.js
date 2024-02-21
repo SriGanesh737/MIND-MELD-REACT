@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+//Bookmark Schema
 const bookmarkSchema = new Schema({
   user_id: {
     type: String,

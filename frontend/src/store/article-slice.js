@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
+//ArticleSlice defines reducers for deleting, adding, setting a articles array
 const articleSlice=createSlice({
     name:'allArticles',
     initialState:{

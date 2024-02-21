@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
+//Expert Schema
 const expertSchema = new Schema(
   {
     email: {

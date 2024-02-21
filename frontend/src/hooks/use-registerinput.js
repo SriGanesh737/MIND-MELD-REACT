@@ -5,6 +5,7 @@ const initialstate = {
   isTouched: false,
 };
 
+//Manages the state of an input field, handles action for updating the input value
 const inputStateReducer = (state, action) => {
   if (action.type === "INPUT") {
     return { value: action.value, isTouched: state.isTouched };

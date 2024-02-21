@@ -1,6 +1,7 @@
 import {useContext, useState, createContext, useEffect} from 'react';
 const userContext = createContext();
 
+//Manages user authentication state , storing and updating user details in both component state and Local Storage
 export default function UserProvider({children}) {
     const [user,setUser] = useState(localStorage.getItem('user')?JSON.parse(localStorage.getItem('user')):{});
 

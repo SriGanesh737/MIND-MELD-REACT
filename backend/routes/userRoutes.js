@@ -44,6 +44,6 @@ router.put(
   upload.single("profile_picture"),
   handleImageUpload,
   userController.user_update_byId_put
-);
+); //Route handles the PUT request for updating a users profile 
 
 module.exports = router;
