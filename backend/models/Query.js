@@ -1,33 +1,34 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+//Query Schema
 const queryScema = new Schema({
   firstname: {
     type: String,
-    required: [true, 'first name is required']
+    required: [true, "first name is required"],
   },
   lastname: {
     type: String,
-    required: [true, 'last name is required']
+    required: [true, "last name is required"],
   },
   email: {
     type: String,
-    required: [true, 'email is required']
+    required: [true, "email is required"],
   },
   phone: {
     type: String,
-    required: [true, 'phone number is required']
+    required: [true, "phone number is required"],
   },
   message: {
     type: String,
-    required: [true, 'message is required']
+    required: [true, "message is required"],
   },
   isresolved: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
-const Query = mongoose.model('query_model',queryScema);
+const Query = mongoose.model("query_model", queryScema);
 
 module.exports = Query;

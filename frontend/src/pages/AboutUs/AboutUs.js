@@ -11,16 +11,19 @@ export default function AboutUs() {
   
     <MyNavbar />
     <div className={Styles.body}>
+      <div className={Styles["aboutus-container"]}>
       <div className={Styles["aboutus_image"]}>
         <img src={aboutUsImage} alt="about us pic" />
       </div>
 
-      <div id="team" className={Styles.team}>
-        <h2>Our Motive</h2>
+      <div className={Styles["aboutus_team"]}>
+        <h2 style={{fontWeight:"600",fontFamily:'inherit'}}>Our Motive</h2>
         <p className={Styles.motive}>
           Our website is a platform dedicated to sharing informative and engaging content related to education, health, and lifestyle. It provides a wealth of resources for readers who are seeking to improve their knowledge and understanding of various topics in these areas. One of the key features of your website is its blog section, which features articles written by knowledgeable writers. In addition to its blog section, our website also offers a comprehensive FAQ section where readers can find answers to common questions related to education, health, and lifestyle. This section is designed to help readers quickly and easily find the information they need, without having to spend hours searching the internet.
         </p>
-
+      </div>
+      </div>
+      <div id="team" className={Styles.team}>
         <div className={Styles.totalabout}>
           <div className={Styles.member}>
             <div className={Styles["member-img"]}>

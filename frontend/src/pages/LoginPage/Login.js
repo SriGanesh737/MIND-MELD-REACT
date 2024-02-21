@@ -3,7 +3,7 @@ import LefttLogin from './Leftlogin.js'
 import LoginSlider from './Loginslider'
 import mmicon from '../../assets/images/mm.jpg'
 import { Link } from 'react-router-dom'
-
+import GoogleLoginPage from '../../GoogleLoginPage.jsx'
 import LoginForm from './LoginForm'
 const Login=()=>{
    
@@ -21,6 +21,7 @@ const Login=()=>{
       </div>
       <div className={styles.wrapper}>
         <h1>LOGIN PAGE</h1>
+        
         <div className={styles["form-container"]}>
            <div className={styles["slide-controls"]}>
             <input type="radio" name="slide" id="login" defaultChecked/>
@@ -28,9 +29,11 @@ const Login=()=>{
             <Link to="/register" className={styles.slide} style={{textDecoration: "none"}}>SignUp</Link>
             <div className={styles["slider-tab"]}></div>
           </div>
+          <GoogleLoginPage/>
           <div className={styles["form-inner"]}>
             <LoginForm></LoginForm>
           </div>
+            
         </div> 
       </div>
 

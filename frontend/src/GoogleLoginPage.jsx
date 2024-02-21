@@ -78,7 +78,7 @@ function GoogleLoginPage() {
 
     return (
         <div>
-            <button onClick={() => login()}>Sign in with Google 🚀 </button>
+            <button style={{backgroundColor:"black",color:"white",border:"2px solid gray","borderRadius":"5px","padding":"5px"}} onClick={() => login()}>Google SignIn 🚀 </button>
         </div>
     );
 }

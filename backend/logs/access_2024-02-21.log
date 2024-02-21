@@ -1,0 +1,17 @@
+OPTIONS /articles 204 0 - 3.026 ms
+OPTIONS /user/role/expert 204 0 - 0.375 ms
+OPTIONS /user/role/user 204 0 - 0.282 ms
+GET /user/role/expert 200 4349 - 303.184 ms
+GET /user/role/user 200 38595 - 699.053 ms
+GET /articles 200 85053 - 2350.760 ms
+OPTIONS /auth/login 204 0 - 0.150 ms
+POST /auth/login 200 210 - 1208.581 ms
+GET /user/email/adminmeld@gmail.com 200 572 - 687.466 ms
+OPTIONS /articles 204 0 - 0.491 ms
+OPTIONS /user/role/expert 204 0 - 0.309 ms
+OPTIONS /user/role/user 204 0 - 0.278 ms
+GET /user/role/expert 200 4349 - 365.015 ms
+GET /user/role/user 200 38595 - 2368.072 ms
+GET /articles 304 - - 3344.528 ms
+OPTIONS /utility/queries 204 0 - 0.197 ms
+GET /utility/queries 304 - - 242.237 ms

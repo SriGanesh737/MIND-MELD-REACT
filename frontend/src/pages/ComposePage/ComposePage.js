@@ -279,28 +279,24 @@ const handleArticleChange = (e) => {
           <button className={Styles.addBtn} type='button' onClick={addnewtag} 
           >Add</button>
         </div>
+        <div className='tags'>
         <ul id="myUL">
           {
             article.tags.map((tag,i)=>{
               return(
-                <li key={i}>{tag} <button className={Styles.close} onClick={(e)=>{
+                <li  key={i} >{tag} <button className={Styles.close} onClick={(e)=>{
                   handleClosetags(e,i)
                 }}>&times;</button> </li>
               )
             })
           }
         </ul>
+        </div>
         <br/>
         <label style={{"fontWeight":"700","fontSize":"18px","marginBottom":"15px"}}>Image Attachment:</label>
 
         <input type="file" className="form-control" id="image" name="image" onChange={handleImageChange} accept="image/png, image/jpeg" style={{"width":"300px"}}/>
-        {/* <input className="form-control" type='text' style={{width:'450px'}} value={Article.image_link} onChange={(e)=>{
->>>>>>> d3c08147b0b9d90af7964ced4160cf0588f28b47
-          setArticle((olddata)=>{
-            console.log(e.target.value)
-            return {...olddata,image_link:e.target.value}
-          })
-        }}/> */}
+       
         <br/>
         
         <button type="button" onClick={handleSubmit} className={Styles.submit}>POST ARTICLE</button>
