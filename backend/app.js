@@ -9,6 +9,7 @@ const articlesRoutes = require("./routes/articlesRoutes");
 const userRoutes = require("./routes/userRoutes");
 const queriesRoutes = require("./routes/queriesRoutes");
 const utilityRoutes = require("./routes/utilityRoutes");
+const helmet = require("helmet")
 
 // Function to generate the log file name based on the current date
 function getLogFileName() {
@@ -25,6 +26,9 @@ app.use(
     stream: fs.createWriteStream(getLogFileName(), { flags: "a" }),
   })
 );
+
+// Set up helmet middleware to secure the app by setting various HTTP headers
+app.use(helmet());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
