@@ -1,12 +1,15 @@
 const Faq = require("../models/Faq");
-const User = require("../models/user");
+const User = require("../models/User");
 const Expert = require("../models/Expert");
 const nodemailer = require("nodemailer");
+
+//FAQ controller
 const faq_get = async (req, res) => {
   const faqs = await Faq.find({});
   res.status(200).json(faqs);
 };
 
+//FAQ filter controller
 const faq_filters_post = async (req, res) => {
   const { is_solved, all_or_your, choose_topic, search_value, userId } =
     req.body;
@@ -19,13 +22,13 @@ const faq_filters_post = async (req, res) => {
   } else if (all_or_your == "solved") {
     searchFilters.expert_id = userId;
   }
-
+  //Based on Topic
   if (choose_topic != "") {
     searchFilters.topic = choose_topic;
   }
 
   const faqs = await Faq.find(searchFilters);
-
+  //Based on tags
   if (search_value != "") {
     const searchResults = faqs.filter((faq) => {
       return faq.question.toLowerCase().includes(search_value.toLowerCase());
@@ -34,6 +37,7 @@ const faq_filters_post = async (req, res) => {
   } else res.status(200).json(faqs);
 };
 
+//FAQ post controller
 const faq_post = async (req, res) => {
   const { user_id, topic, question } = req.body;
   console.log(req.body);
@@ -46,6 +50,7 @@ const faq_post = async (req, res) => {
   res.status(200).json({ message: "Question added successfully" });
 };
 
+//Answer post for FAQ controller
 const faq_answer_post = async (req, res) => {
   console.log(req.body);
   const { faq_id, expert_id, answer } = req.body;
@@ -57,6 +62,8 @@ const faq_answer_post = async (req, res) => {
   await faq.save();
   res.status(200).json({ message: "Answer added successfully" });
 };
+
+//Nodemailer controller
 const email_members = async (req, res) => {
   let subject = req.body.subject;
   let text = req.body.message;
@@ -100,6 +107,7 @@ const email_members = async (req, res) => {
   });
 };
 
+//Exporting all the controllers
 module.exports = {
   faq_get,
   faq_filters_post,

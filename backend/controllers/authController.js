@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 const { secretKey } = require("../secrets/secret");
 const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
+
+//Signup controller
 const register_post = async (req, res) => {
   let firstname = req.body.fname;
   let lastname = req.body.lastname;
@@ -52,6 +54,7 @@ const register_post = async (req, res) => {
   }
 };
 
+//Controller for login
 const login_post = async (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
@@ -90,7 +93,6 @@ const login_post = async (req, res) => {
   } else if (admin) {
     let didMatch = await bcrypt.compare(password, admin.password);
     if (didMatch) {
-      // create jwt token (expires in 24 hours)
       const payload = {
         id: admin._id,
         role: "admin",
@@ -106,6 +108,7 @@ const login_post = async (req, res) => {
   }
 };
 
+//Controller for logging in using Google
 const googleSignIn_post = async (req, res) => {
   const {
     email,
@@ -153,6 +156,7 @@ const googleSignIn_post = async (req, res) => {
   }
 };
 
+//Email checking controller
 const checkEmail_get = async (req, res) => {
   const email = req.params.email;
   const user = await User.findOne({ email: email });
@@ -167,6 +171,7 @@ const checkEmail_get = async (req, res) => {
   }
 };
 
+//Deleting a expert account controller
 const remove_Expert = async (req, res) => {
   try {
     const expertId = req.params.expertid;
@@ -188,6 +193,7 @@ const remove_Expert = async (req, res) => {
   }
 };
 
+//Blocked State updation controller
 const updateblockedstate = async (req, res) => {
   try {
     const expertId = req.params.expertid;
@@ -214,6 +220,8 @@ const updateblockedstate = async (req, res) => {
     res.status(500).json({ status: false, error: "Internal server error" });
   }
 };
+
+//Forgot password controller
 const forgotpassword = async (req, res) => {
   email = req.body.email;
   person1 = await User.findOne({ email: email });
@@ -253,6 +261,8 @@ const forgotpassword = async (req, res) => {
     });
   }
 };
+
+//Change password controller
 const changepassword = async (req, res) => {
   email = req.body.email;
   pswd = req.body.newPassword;
@@ -267,6 +277,8 @@ const changepassword = async (req, res) => {
     );
   res.json({ success: true });
 };
+
+//Exporting all the controllers
 module.exports = {
   register_post,
   login_post,

@@ -4,6 +4,7 @@ const Expert = require("../models/Expert");
 const User = require("../models/User");
 const Admin = require("../models/Admin");
 
+//Bookmarks retreival controller
 const bookmarks_byUserId_get = async (req, res) => {
   const userId = req.params.userId;
   const bookmarks = await Bookmark.findOne({ user_id: userId });
@@ -16,6 +17,7 @@ const bookmarks_byUserId_get = async (req, res) => {
   res.status(200).json(bookmarkedArticles);
 };
 
+//Bookmarks adding controller
 const bookmark_add_byUserId_post = async (req, res) => {
   const userId = req.params.userId;
   const articleId = req.params.articleId;
@@ -38,6 +40,7 @@ const bookmark_add_byUserId_post = async (req, res) => {
   res.status(200).json({ message: "Bookmark added successfully" });
 };
 
+//Deleting Bookmarks controller
 const bookmark_remove_byUserId_delete = async (req, res) => {
   const userId = req.params.userId;
   const articleId = req.params.articleId;
@@ -56,6 +59,7 @@ const users_get = async (req, res) => {
   res.status(200).json({ ...users, experts });
 };
 
+//User by ID getter controller
 const user_get_byId = async (req, res) => {
   const userId = req.params.userId;
 
@@ -94,6 +98,7 @@ const user_get_byId = async (req, res) => {
   }
 };
 
+//User by email getter controller
 const user_get_byEmail = async (req, res) => {
   const email = req.params.email;
   const user = await User.findOne({ email: email });
@@ -115,6 +120,7 @@ const user_get_byEmail = async (req, res) => {
   }
 };
 
+//User by Role getter controller
 const users_get_byRole = async (req, res) => {
   const role = req.params.role;
   if (role === "user") {
@@ -131,12 +137,14 @@ const users_get_byRole = async (req, res) => {
   }
 };
 
+//Articles by user id controller
 const articles_getbyuserid = async (req, res) => {
   const userId = req.params.userId;
   const yourarticles = await Article.find({ author_id: userId });
   res.status(200).json(yourarticles);
 };
 
+//Update profile by ID controller
 const user_update_byId_put = async (req, res) => {
   const userId = req.params.userId;
   const user = await User.findById(userId);
@@ -223,6 +231,7 @@ const user_update_byId_put = async (req, res) => {
   }
 };
 
+//Exporting all the controllers
 module.exports = {
   bookmarks_byUserId_get,
   bookmark_add_byUserId_post,

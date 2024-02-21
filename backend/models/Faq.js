@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
+//FAQ schema
 const faqSchema = new Schema({
   user_id: {
     type: String,

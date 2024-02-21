@@ -36,7 +36,7 @@ router.post(
   "/comments/:articleId",
   authMiddleware,
   articlesController.postComment
-);
+); //Router used for posting the comment for specific article when a POST request is made
 
 router.delete(
   "/comments/:commentId",

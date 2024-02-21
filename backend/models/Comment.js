@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+//Comment Schema
 const commentSchema = new Schema({
   article_id: {
     type: String,

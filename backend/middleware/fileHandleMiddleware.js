@@ -6,6 +6,7 @@ cloudinary.config({
   secure: true,
 });
 
+//Image upload middleware
 const handleImageUpload = (req, res, next) => {
   console.log(req.file);
   if (!req.file) {

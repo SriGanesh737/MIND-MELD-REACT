@@ -1,4 +1,6 @@
 const Query = require("../models/Query");
+
+//Contact us controller
 const contact_us = (req, res) => {
   const query = new Query({
     firstname: req.body.firstname,
@@ -19,10 +21,14 @@ const contact_us = (req, res) => {
       res.json({ success: false });
     });
 };
+
+//All Queries retreival controller
 const all_queries = async (req, res) => {
   query_data = await Query.find({ isresolved: false });
   res.json({ data: query_data });
 };
+
+//Post query controller
 const postquery = (req, res) => {
   id = req.params.id;
   //  console.log(id);
@@ -35,4 +41,5 @@ const postquery = (req, res) => {
     });
 };
 
+//Exporting all the controllers
 module.exports = { contact_us, all_queries, postquery };
