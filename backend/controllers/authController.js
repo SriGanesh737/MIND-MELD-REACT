@@ -7,8 +7,8 @@ const { secretKey } = require("../secrets/secret");
 const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
 
-const bodyParser=require('body-parser')
-const parseForm=bodyParser.urlencoded({extended:false})
+const bodyParser = require("body-parser");
+const parseForm = bodyParser.urlencoded({ extended: false });
 
 //Signup controller
 const register_post = async (req, res) => {
@@ -29,7 +29,7 @@ const register_post = async (req, res) => {
         password: hashedpswd,
         phone: phoneno,
       });
-      console.log(user);
+
       res.status(201).json({ user: user._id, data: user });
     } catch (err) {
       console.log(err);
@@ -59,6 +59,7 @@ const register_post = async (req, res) => {
 
 //Controller for login
 const login_post = async (req, res) => {
+  console.log();
   let email = req.body.email;
   let password = req.body.password;
   const user = await User.findOne({ email: email });
@@ -281,10 +282,9 @@ const changepassword = async (req, res) => {
   res.json({ success: true });
 };
 
-const getCSRFToken=(req,res)=>{
-  res.json({csrfToken:req.csrfToken()})
-}
-
+const getCSRFToken = (req, res) => {
+  res.json({ csrfToken: req.csrfToken() });
+};
 
 //Exporting all the controllers
 module.exports = {
@@ -295,5 +295,6 @@ module.exports = {
   updateblockedstate,
   forgotpassword,
   changepassword,
-  googleSignIn_post,getCSRFToken
+  googleSignIn_post,
+  getCSRFToken,
 };

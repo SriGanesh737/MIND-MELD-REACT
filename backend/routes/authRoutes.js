@@ -9,5 +9,4 @@ router.delete("/:expertid", authController.remove_Expert); // restrict to admin.
 router.put("/:expertid/updateblocked", authController.updateblockedstate); //restrict to admin.
 router.post("/forgotpassword", authController.forgotpassword);
 router.post("/passwordchange", authController.changepassword);
-// router.get('/csrf-token', authController.getCSRFToken)
 module.exports = router;

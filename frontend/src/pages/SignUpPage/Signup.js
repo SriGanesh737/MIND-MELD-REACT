@@ -40,7 +40,7 @@ const Signup = () => {
   });
   const [csrfToken, setcsrfToken] = useState("");
   const gettoken = () => {
-    axios.get("http://localhost:8000/auth/csrf-token", {withCredentials: true}).then((res) => {
+    axios.get("http://localhost:8000/log/csrf-token", {withCredentials: true}).then((res) => {
       
       console.log(res.data.csrfToken);
       setcsrfToken(res.data.csrfToken);
@@ -156,10 +156,10 @@ const Signup = () => {
       if (type === "expert") {
         details = { ...details, resume: file };
       }
-
+      
       console.log(details);
       axios
-        .post("http://localhost:8000/log/register", details,{withCredentials: true})
+        .post("http://localhost:8000/log/register", details,{withCredentials: true,headers:{'Content-Type':'multipart/form-data', 'X-CSRF-Token': csrfToken}})
         .then((res) => {
           if (res.status === 201) {
             // console.log(res.data);

@@ -14,18 +14,7 @@ function GoogleLoginPage() {
     const {setUserDetails} = useUser();
     const navigate = useNavigate();
     const [csrfToken, setcsrfToken] = useState("");
-  const gettoken = () => {
-    axios.get("http://localhost:8000/auth/csrf-token", {withCredentials: true}).then((res) => {
-      
-      console.log(res.data.csrfToken);
-      setcsrfToken(res.data.csrfToken);
-      // axios.defaults.headers.post["X-CSRF-Token"] = res.data.csrfToken;
-    }).catch((err) => console.log(err))
-  };
-
-  useEffect(() => {
-    gettoken(); 
-  }, []);
+  
     const loginSuccessHandler = (codeResponse)=>{
 
         const user = codeResponse;
@@ -39,12 +28,12 @@ function GoogleLoginPage() {
                         // access profile data.
                         console.log(res.data);
                         let data=res.data
-                        data._csrf=csrfToken
+  
                         // fetch user details using email
                         const userEmail = res.data.email;
                         
                         // google signin post request
-                        axios.post('http://localhost:8000/auth/googleSignIn',data,{withCredentials: true})
+                        axios.post('http://localhost:8000/auth/googleSignIn',data)
                         .then((res)=>{
                             if(res.status===200)
                             {

@@ -29,7 +29,7 @@ const LoginForm = () => {
       
       console.log(res.data.csrfToken);
       setcsrfToken(res.data.csrfToken);
-      // axios.defaults.headers.post["X-CSRF-Token"] = res.data.csrfToken;
+      
     }).catch((err) => console.log(err))
   };
 
@@ -70,14 +70,6 @@ const LoginForm = () => {
       })
       .catch((err) => {
         const errorMessage = err.response.data.message;
-        // if (
-        //   errorMessage.includes("Email") ||
-        //   errorMessage.includes("password")
-        // ) {
-        //   setLoading(false);
-        //   toast.error(errorMessage);
-        //   // setEmailerror(errorMessage);
-        // }
         console.log(err);
       });
     setLoading(false);
