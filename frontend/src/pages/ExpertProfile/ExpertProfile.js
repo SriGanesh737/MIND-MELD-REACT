@@ -142,7 +142,7 @@ export default function ExpertProfile() {
               <i class="fa-solid fa-book"></i>
                 <h4 style={{ display: 'flex', alignItems: 'center' }}>{userData.qualification}<br /></h4>
               </div>
-              <a href={`/download_pdf?id=${userData._id}`} style={{textDecoration:'none'}}>Resume</a>
+              <a href={userData.resume} target='_blank' rel='noreferrer' style={{textDecoration:'none'}}>Resume</a>
             </div>
           </div>
           

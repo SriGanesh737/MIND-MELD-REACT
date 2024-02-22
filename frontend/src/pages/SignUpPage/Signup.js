@@ -83,12 +83,12 @@ const Signup = () => {
     reset: resetcnfpasswordInput,
   } = useInput((value) => value === enteredpassword);
   const [type, setType] = useState("user");
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState(null);
   const typeChangehandler = (ev) => {
     setType(ev.target.value);
   };
   const fileChangehandler = (ev) => {
-    setFile(ev.target.value);
+    setFile(ev.target.files[0]);
   };
   const [emailerror, setEmailerror] = useState(false);
   const checkEmailexistence = () => {
@@ -127,6 +127,7 @@ const Signup = () => {
       if (file !== "") formisvalid = true;
     }
   }
+
   const submitHandler = (event) => {
     event.preventDefault();
     if (formisvalid) {
@@ -144,7 +145,11 @@ const Signup = () => {
 
       console.log(details);
       axios
-        .post("http://localhost:8000/auth/register", details)
+        .post("http://localhost:8000/auth/register", details,{
+          headers:{
+            'Content-Type':'multipart/form-data'
+          }
+        })
         .then((res) => {
           if (res.status === 201) {
             // console.log(res.data);

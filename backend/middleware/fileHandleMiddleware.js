@@ -8,8 +8,8 @@ cloudinary.config({
 
 //Image upload middleware
 const handleImageUpload = (req, res, next) => {
-  console.log(req.file);
   if (!req.file) {
+    console.log("No file uploaded")
     next();
   }
   // convert this image into url by uploading it to cloudinary.
@@ -26,4 +26,23 @@ const handleImageUpload = (req, res, next) => {
   }
 };
 
-module.exports = { handleImageUpload };
+const resumeUpload = (req, res, next) => {
+  if (!req.file) {
+    console.log("No file uploaded")
+    next();
+  }
+  // convert this image into url by uploading it to cloudinary.
+  else {
+    cloudinary.uploader.upload(req.file.path, (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.json({ success: false });
+      }
+
+      req.body.resume = result.url;
+      next();
+    });
+  }
+};
+
+module.exports = { handleImageUpload, resumeUpload};
