@@ -6,8 +6,10 @@ const jwt = require("jsonwebtoken");
 const { secretKey } = require("../secrets/secret");
 const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
+
 const bodyParser=require('body-parser')
 const parseForm=bodyParser.urlencoded({extended:false})
+
 //Signup controller
 const register_post = async (req, res) => {
   let firstname = req.body.fname;
@@ -282,6 +284,7 @@ const changepassword = async (req, res) => {
 const getCSRFToken=(req,res)=>{
   res.json({csrfToken:req.csrfToken()})
 }
+
 
 //Exporting all the controllers
 module.exports = {

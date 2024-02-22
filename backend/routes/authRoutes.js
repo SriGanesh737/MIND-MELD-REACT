@@ -1,10 +1,8 @@
 const router = require("express").Router();
 const authController = require("../controllers/authController");
+const upload = require("../utility/multer");
+const { resumeUpload } = require("../middleware/fileHandleMiddleware");
 
-
-
-// router.post("/login", authController.login_post);
-// router.post("/register", authController.register_post);
 router.post("/googleSignIn", authController.googleSignIn_post);
 router.get("/checkEmail/:email", authController.checkEmail_get);
 router.delete("/:expertid", authController.remove_Expert); // restrict to admin.
