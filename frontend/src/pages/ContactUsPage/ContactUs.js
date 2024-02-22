@@ -1,11 +1,12 @@
 import MyNavbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import Styles from './ContactUs.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import contactUsImage from "../../assets/images/Contact us-rafiki.svg";
-
-export default function ContactUs({data}) {
-
+import axios from 'axios';
+export default function ContactUs({data}) 
+{
+  const [token, setToken] = useState("");
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState(''); 
@@ -100,14 +101,8 @@ export default function ContactUs({data}) {
     if (firstNameError || lastNameError || emailError || phoneNumberError || messageError){
       return;
     }else{
-      fetch('http://localhost:8000/utility/contact', {
-    method: 'POST', 
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({firstname:firstName,lastname:lastName,email:email,phone:phoneNumber,message:message}),
-  }).then((response)=>{
-    return response.json()
+      axios.post('http://localhost:8000/utility/contact',{firstname:firstName,lastname:lastName,email:email,phone:phoneNumber,message:message}).then((response)=>{
+    return response.data
   }).then((data)=>{
     console.log(data.success)
     if (data.success){
@@ -120,6 +115,18 @@ export default function ContactUs({data}) {
   })
     }
   }
+
+  const gettoken = () => {
+    axios.get("http://localhost:8000/auth/csrf-token", {withCredentials: true}).then((res) => {
+      
+      setToken(res.data.csrfToken);
+      // axios.defaults.headers.post["X-CSRF-Token"] = res.data.csrfToken;
+    }).catch((err) => console.log(err))
+  };
+  
+  useEffect(() => {
+    gettoken(); 
+  }, []);
 
   return (
     <>
