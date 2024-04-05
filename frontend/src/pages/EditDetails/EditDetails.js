@@ -69,8 +69,8 @@ export default function EditDetails() {
     <>
       <MyNavbar />
       <div className={Styles.body}>
-        <h1 className={Styles.h1}>All Personal Details</h1>
         <form onSubmit={handleSubmit} className={Styles.form}>
+        <h1 className={Styles.h1}>All Personal Details</h1>
           <div className={Styles.complete}>
             <div className={`${Styles.one} ${Styles.marginRightZero}`}>
               <label className={Styles.label} htmlFor="firstname">First Name:</label>

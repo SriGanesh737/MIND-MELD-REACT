@@ -18,7 +18,7 @@ const AllExperts = () => {
     return acc;
   }, {});
  articleCounts=counts
-  
+
   function removeExpert(id,e) {
     e.preventDefault();
    

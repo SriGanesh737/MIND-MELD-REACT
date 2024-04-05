@@ -29,7 +29,7 @@ const Login=()=>{
             <Link to="/register" className={styles.slide} style={{textDecoration: "none"}}>SignUp</Link>
             <div className={styles["slider-tab"]}></div>
           </div>
-          <GoogleLoginPage/>
+          {/* <GoogleLoginPage/> */}
           <div className={styles["form-inner"]}>
             <LoginForm></LoginForm>
           </div>

@@ -1,18 +1,21 @@
 
 .body {
     background-color: #c2e2ff;
+    /* background-color: white; */
     margin-top: -15px;
     padding-bottom: 10px;
+    padding-top: 30px;
 }
 
 .form {
     max-width: 800px;
     margin: 0 auto;
+   
     
-    /* background-color: white; */
+    background-color: white;
     border-radius: 5px;
     margin-bottom: 10px;
-    padding: 20px 20px 20px 20px;
+    padding: 5px 20px 20px 20px;
     /* box-shadow: 1px 1px 1px 1px rgb(196, 216, 255); */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     
@@ -47,7 +50,7 @@
     border-radius: 5px;
     border: 1px solid aliceblue;
     margin-bottom: 20px;
-    background-color: #ecf4fc;
+    /* background-color: #ecf4fc; */
     font-weight: 400;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
 }

@@ -6,14 +6,15 @@ import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {toast} from 'sonner'
 
-
+import { useEffect } from 'react';
 
 function GoogleLoginPage() {
     const [loading,setLoading]=useState(false)
     const {setToken} = useAuth();
     const {setUserDetails} = useUser();
     const navigate = useNavigate();
-
+    const [csrfToken, setcsrfToken] = useState("");
+  
     const loginSuccessHandler = (codeResponse)=>{
 
         const user = codeResponse;
@@ -26,11 +27,13 @@ function GoogleLoginPage() {
                     .then((res) => {
                         // access profile data.
                         console.log(res.data);
+                        let data=res.data
+  
                         // fetch user details using email
                         const userEmail = res.data.email;
                         
                         // google signin post request
-                        axios.post('http://localhost:8000/auth/googleSignIn',res.data)
+                        axios.post('http://localhost:8000/auth/googleSignIn',data)
                         .then((res)=>{
                             if(res.status===200)
                             {

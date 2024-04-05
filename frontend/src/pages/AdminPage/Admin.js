@@ -33,10 +33,10 @@ const Admin = () => {
       <div className={styles.right}>
         <h1 class={styles["admin-panel"]}>Admin Dashboard</h1>
         <div class={styles.stats}>
-          <div className={styles.users_stats}>
+          <div className={styles.users_stats} style={{backgroundColor:"rgb(255, 95, 31)"}}>
             <div className={styles.symbol}>
               <i class="fa-solid fa-user"></i>
-              <CountUp start={0} end={usersize} >
+              <CountUp start={0} end={usersize} delay={0}>
                 {({ countUpRef }) => (
                   <div>
                     <span ref={countUpRef} />
@@ -47,10 +47,10 @@ const Admin = () => {
             </div>
           </div>
 
-          <div class={styles.experts_stats}>
+          <div class={styles.experts_stats} style={{backgroundColor:"rgb(255, 165, 0)"}}>
             <div class={styles.symbol}>
               <i class="fa-solid fa-user-tie"></i>
-              <CountUp start={0} end={expertsize}>
+              <CountUp start={0} end={expertsize} delay={0}>
                 {({ countUpRef }) => (
                   <div>
                     <span ref={countUpRef} />
@@ -60,7 +60,7 @@ const Admin = () => {
               <h2>Experts Registered</h2>
             </div>
           </div>
-          <div className={styles.articles_stats}>
+          <div className={styles.articles_stats} style={{backgroundColor:"rgb(250, 128, 114)"}}>
             <div className={styles.symbol}>
               <i class="fa-sharp fa-solid fa-newspaper"></i>
               <CountUp start={0} end={articlesize} delay={0}>

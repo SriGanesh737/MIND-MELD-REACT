@@ -8,8 +8,6 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
-
-    console.log('token changed');
     if(token){
       axios.defaults.headers.common['Authorization'] = token;
       localStorage.setItem('token', token);

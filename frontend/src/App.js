@@ -35,10 +35,11 @@ import {
 import NotFound from "./pages/NotFound";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import GoogleLogin from "./GoogleLoginPage";
-import GoogleLoginPage from "./GoogleLoginPage";
 
 
-function App() {
+
+function App() 
+{
   const token = localStorage.getItem("token");
   const dispatch=useDispatch()
   function getAllArticles() 

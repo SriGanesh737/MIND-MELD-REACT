@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { addUser, addExpert } from "../../store/user-slice";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,7 +38,19 @@ const Signup = () => {
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     return emailRegex.test(value);
   });
+  const [csrfToken, setcsrfToken] = useState("");
+  const gettoken = () => {
+    axios.get("http://localhost:8000/log/csrf-token", {withCredentials: true}).then((res) => {
+      
+      console.log(res.data.csrfToken);
+      setcsrfToken(res.data.csrfToken);
+      // axios.defaults.headers.post["X-CSRF-Token"] = res.data.csrfToken;
+    }).catch((err) => console.log(err))
+  };
 
+  useEffect(() => {
+    gettoken(); 
+  }, []);
   const {
     value: enteredcontactnumber,
     isValid: contactnumberIsValid,
@@ -132,6 +145,7 @@ const Signup = () => {
     event.preventDefault();
     if (formisvalid) {
       let details = {
+        _csrf:csrfToken,
         fname: enteredfirstname,
         lastname: enteredLastname,
         email: enteredEmail,
@@ -142,14 +156,10 @@ const Signup = () => {
       if (type === "expert") {
         details = { ...details, resume: file };
       }
-
+      
       console.log(details);
       axios
-        .post("http://localhost:8000/auth/register", details,{
-          headers:{
-            'Content-Type':'multipart/form-data'
-          }
-        })
+        .post("http://localhost:8000/log/register", details,{withCredentials: true,headers:{'Content-Type':'multipart/form-data', 'X-CSRF-Token': csrfToken}})
         .then((res) => {
           if (res.status === 201) {
             // console.log(res.data);
