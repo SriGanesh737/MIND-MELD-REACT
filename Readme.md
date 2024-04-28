@@ -30,6 +30,10 @@
 - Profile Page: Admins have their own profile pages with additional administrative controls and insights.
 ### Overall, our platform offers a dynamic and interactive environment for users to explore, learn, and engage with a community of experts and fellow enthusiasts. Whether you're seeking information, sharing knowledge, or managing the platform, there's something here for everyone!
 
+## Tech Stack Used
+![image](https://github.com/SriGanesh737/MIND-MELD-REACT/assets/108012282/3af17d39-1a8f-4766-abbb-cd80e12fbf04)
+
+
 
 ### Design 
 ![image](https://github.com/SriGanesh737/MIND-MELD-REACT/assets/108012282/a3df96bd-976a-4de9-9349-ab315edbf930)
