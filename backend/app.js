@@ -13,7 +13,41 @@ const cookieParser = require("cookie-parser");
 const csrf = require("csurf");
 const loginroutes = require("./routes/login_routes");
 const helmet = require("helmet");
+const swaggerUI = require("swagger-ui-express");
+const swaggerJsDoc = require("swagger-jsdoc");
 
+
+const options={
+  definition:{
+    openapi: "3.0.0",
+    info:{
+      title: "MINDMELD API",
+      version: "1.0.0",
+      description: "A blogging and question and answering platform"
+  },
+  servers: [
+    {
+      url: "http://localhost:8000",
+    },
+  ],
+  components:{
+    securitySchemes:{
+      bearerAuth:{
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+        value:"Bearer <JWT token here>"
+  }
+}
+  },
+},
+  apis: ["./routes/*.js"],
+
+
+}
+const specs = swaggerJsDoc(options);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+//third party middleware
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
@@ -26,7 +60,7 @@ function getLogFileName() {
 }
 app.use(
   cors({
-    origin: ["http://localhost:3000", "*"],
+    origin: ["http://localhost:3000"],
     methods: ["POST", "GET", "HEAD", "PUT", "DELETE"],
     credentials: true,
   })
@@ -45,8 +79,12 @@ app.use(
   })
 );
 app.use(cookieParser());
+
+//inbuilt middlware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
 
 app.use("/auth", authRoutes);
 app.use("/articles", articlesRoutes);
@@ -54,6 +92,8 @@ app.use("/user", userRoutes);
 app.use("/queries", queriesRoutes);
 app.use("/utility", utilityRoutes);
 app.use("/log", loginroutes);
+
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.log("error occured")
@@ -63,4 +103,6 @@ app.use((err, req, res, next) => {
   // Set the HTTP status code and send an error response
   res.status(500).send("Internal Server Error");
 });
+
+
 module.exports = app;
