@@ -1,3 +1,4 @@
+# Steps to download and view the project
 - First unzip the zip folder
 - open the two folders frontend and backend in two different terminals
 - run `npm install` command in both the terminals to install the required packages
