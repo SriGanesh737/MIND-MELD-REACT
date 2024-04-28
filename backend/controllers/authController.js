@@ -12,6 +12,7 @@ const parseForm = bodyParser.urlencoded({ extended: false });
 
 //Signup controller
 const register_post = async (req, res) => {
+  console.log(req.body)
   let firstname = req.body.fname;
   let lastname = req.body.lastname;
   let email = req.body.email;
@@ -21,6 +22,7 @@ const register_post = async (req, res) => {
 
   if (registeras === "user") {
     try {
+      
       const hashedpswd = await bcrypt.hash(password, 12);
       const user = await User.create({
         firstname,
@@ -29,6 +31,7 @@ const register_post = async (req, res) => {
         password: hashedpswd,
         phone: phoneno,
       });
+      console.log(user);
 
       res.status(201).json({ user: user._id, data: user });
     } catch (err) {
@@ -58,8 +61,11 @@ const register_post = async (req, res) => {
 };
 
 //Controller for login
+
+
+
 const login_post = async (req, res) => {
-  console.log();
+  console.log(req.body) 
   let email = req.body.email;
   let password = req.body.password;
   const user = await User.findOne({ email: email });

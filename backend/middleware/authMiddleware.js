@@ -2,10 +2,12 @@ const jwt = require("jsonwebtoken");
 
 //Authorization Middleware - Grants access to the route if the token is valid
 const authMiddleware = (req, res, next) => {
+  console.log(req.body)
   const token = req.headers.authorization;
   const secretKey = process.env.secret_key;
   if (!token) {
-    return res.status(401).json({
+    return res.status(401).json(
+    {
       message: "Unauthorized, Token Not Found",
     });
   }
