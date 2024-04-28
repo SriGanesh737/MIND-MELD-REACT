@@ -29,3 +29,22 @@
 - Announcements: Admins can send out announcements and important updates to both experts and users, ensuring effective communication.
 - Profile Page: Admins have their own profile pages with additional administrative controls and insights.
 ### Overall, our platform offers a dynamic and interactive environment for users to explore, learn, and engage with a community of experts and fellow enthusiasts. Whether you're seeking information, sharing knowledge, or managing the platform, there's something here for everyone!
+
+
+### Design 
+![image](https://github.com/SriGanesh737/MIND-MELD-REACT/assets/108012282/a3df96bd-976a-4de9-9349-ab315edbf930)
+![image](https://github.com/SriGanesh737/MIND-MELD-REACT/assets/108012282/6c6e68c0-1e37-4914-a9c4-0045b5658f7a)
+![image](https://github.com/SriGanesh737/MIND-MELD-REACT/assets/108012282/065ca347-230a-4571-ad6c-a13cc6a2bf6b)
+![image](https://github.com/SriGanesh737/MIND-MELD-REACT/assets/108012282/d73b4ea0-4639-40cc-be38-371865e3a873)
+![image](https://github.com/SriGanesh737/MIND-MELD-REACT/assets/108012282/ee7eee0b-5ced-4850-8dcd-832eb37ff74b)
+![image](https://github.com/SriGanesh737/MIND-MELD-REACT/assets/108012282/e7a9d821-6b37-4c94-82e4-5cf8cfc08a33)
+![image](https://github.com/SriGanesh737/MIND-MELD-REACT/assets/108012282/897d2ec4-8168-44fe-8855-0143ae3d7604)
+![image](https://github.com/SriGanesh737/MIND-MELD-REACT/assets/108012282/b511ce4a-7287-4ece-aee7-3bc9e7d1e4a3)
+
+
+
+
+
+
+
+
