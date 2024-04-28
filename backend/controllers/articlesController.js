@@ -133,7 +133,7 @@ const filterHandler = async (req, res) => {
             }
           }
         });
-        console.log(filtered_data[0]._id);
+        // console.log(filtered_data[0]._id);
         res.json({ success: true, filtered_data });
       })
       .catch((err) => {
@@ -286,6 +286,9 @@ const disliked = async (req, res) => {
       console.log(err);
     });
 };
+
+
+
 
 //get comments controller
 const getComments = async (req, res) => {
