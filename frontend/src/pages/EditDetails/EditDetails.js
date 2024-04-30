@@ -6,6 +6,7 @@ import { useUser } from "../../providers/UserProvider";
 import {toast} from 'sonner'
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { backendUrl } from "../../backendUrl";
 
 export default function EditDetails() {
   const {user,setUserDetails} = useUser();
@@ -45,7 +46,7 @@ export default function EditDetails() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const url = "http://localhost:8000/user/" + user._id;
+    const url = backendUrl+"/user/" + user._id;
 
     axios.put(url,formData,{
       headers:{
@@ -53,7 +54,7 @@ export default function EditDetails() {
       }
     })
                 .then((res)=>{
-                    const url ="http://localhost:8000/user/email/"+formData.email;
+                    const url =backendUrl+"/user/email/"+formData.email;
                     axios.get(url)
                     .then((res)=>{
                         setUserDetails(res.data);
