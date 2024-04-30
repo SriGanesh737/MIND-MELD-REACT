@@ -43,7 +43,7 @@ const LoginForm = () => {
     // send post request to /api/login
     setLoading(true);
     axios
-      .post(backendUrl+"/log/login", {
+      .post(backendUrl+'/log/login', {
         _csrf: csrfToken,
         email,
         password,
