@@ -2,9 +2,12 @@
 const roleMiddleware = (allowedRoles) => {
   return (req, res, next) => {
     const role = req.user.role;
+    console.log(req.user)
     if (allowedRoles.includes(role)) {
+     
       next();
     } else {
+     
       res.status(403).json({ message: "Forbidden" });
     }
   };

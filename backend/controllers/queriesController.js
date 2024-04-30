@@ -4,6 +4,7 @@ const Expert = require("../models/Expert");
 const nodemailer = require("nodemailer");
 
 //FAQ controller
+
 const faq_get = async (req, res) => {
   const faqs = await Faq.find({});
   res.status(200).json(faqs);
@@ -14,7 +15,7 @@ const faq_filters_post = async (req, res) => {
   const { is_solved, all_or_your, choose_topic, search_value, userId } =
     req.body;
   const searchFilters = {
-    is_answered: is_solved == "true",
+    is_answered: is_solved ,
   };
 
   if (all_or_your == "your") {
@@ -36,6 +37,7 @@ const faq_filters_post = async (req, res) => {
     res.status(200).json(searchResults);
   } else res.status(200).json(faqs);
 };
+
 
 //FAQ post controller
 const faq_post = async (req, res) => {

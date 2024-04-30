@@ -73,6 +73,83 @@ router.post("/login", authController.login_post);
 
 
 
+/**
+ * @swagger
+ * /log/register:
+ *   post:
+ *     summary: Register a User or Expert
+ *     description: Register a new user or expert account.
+ *     consumes:
+ *       - multipart/form-data
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - fname
+ *               - lastname
+ *               - email
+ *               - pswd
+ *               - phno
+ *               - registeras
+ *             properties:
+ *               resume:
+ *                 type: string
+ *                 format: binary
+ *                 description: The resume file for expert registration.
+ *               fname:
+ *                 type: string
+ *                 description: First name of the user or expert.
+ *               lastname:
+ *                 type: string
+ *                 description: Last name of the user or expert.
+ *               email:
+ *                 type: string
+ *                 description: Email address of the user or expert.
+ *               pswd:
+ *                 type: string
+ *                 description: Password for the user or expert account.
+ *               phno:
+ *                 type: string
+ *                 description: Phone number of the user or expert.
+ *               registeras:
+ *                 type: string
+ *                 enum: [user, expert]
+ *                 description: Type of account to register ("user" or "expert").
+ *     responses:
+ *       201:
+ *         description: Success response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: string
+ *                   description: ID of the registered user.
+ *                 expert:
+ *                   type: string
+ *                   description: ID of the registered expert.
+ *                 data:
+ *                   type: object
+ *                   description: Details of the registered user.
+ *       400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 err:
+ *                   type: object
+ *                   description: Error object indicating the cause of the bad request.
+ *     tags:
+ *       - Authentication
+ */
+
+
 
 
 
