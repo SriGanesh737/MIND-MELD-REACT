@@ -1,66 +1,186 @@
 const { get } = require("mongoose");
 const Article = require("../models/Article");
 const Comment = require("../models/Comment");
-
+const redis = require('redis');
+const client = require('../redis/redis');
 
 //get article by id controller
-const article_get_byId = (req, res) => {
-  const articleId = req.params.articleId;
-  Article.findOne({ _id: articleId })
-    .then((article) => {
-      if (!article) {
-        // If the article is not found, return a 404 Not Found response
-        return res.status(404).json({ message: "Article not found" });
+// const article_get_byId = (req, res) => {
+//   const articleId = req.params.articleId;
+//   Article.findOne({ _id: articleId })
+//     .then((article) => {
+//       if (!article) {
+//         // If the article is not found, return a 404 Not Found response
+//         return res.status(404).json({ message: "Article not found" });
+//       }
+
+//       // If the article is found, return a 200 OK response with the article data
+//       res.status(200).json(article);
+//     })
+//     .catch((error) => {
+//       // Handle any errors that occur during the database query
+//       console.error(error);
+//       res.status(500).json({ message: "Internal Server Error" });
+//     });
+// };
+
+
+
+//redis cached data
+const article_get_byId = async (req, res) => {
+  try {
+    const articleId = req.params.articleId;
+    const cacheKey = 'articles';
+
+    // Check if the list of articles exists in the cache
+    let articles = await client.get(cacheKey);
+    
+    if (!articles) {
+      // If the list of articles doesn't exist in the cache, fetch all articles from the database
+      articles = await Article.find({});
+      
+      if (!articles || articles.length === 0) {
+        return res.status(404).json({ message: "No articles found" });
       }
 
-      // If the article is found, return a 200 OK response with the article data
-      res.status(200).json(article);
-    })
-    .catch((error) => {
-      // Handle any errors that occur during the database query
-      console.error(error);
-      res.status(500).json({ message: "Internal Server Error" });
-    });
+      // Store the fetched articles in the cache
+      await client.set(cacheKey, JSON.stringify(articles));
+      console.log(`Articles set into Redis cache`);
+    } else {
+      console.log(`Retrieving articles from Redis cache`);
+      articles = JSON.parse(articles);
+    }
+
+    // Find the requested article from the list
+    const article = articles.find(article => article._id == articleId);
+
+    if (!article) {
+      return res.status(404).json({ message: "Article not found" });
+    }
+
+    // Send the article as a response
+    res.status(200).json(article);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
+
+
+
+
+
+
+
+
+
 
 //get articles by topic and page controller
-const articles_get_byTopicAndPage = (req, res) => {
-  //pagination in backend
-  const topic = req.params.topic;
-  const page = req.params.page;
-  const articlesPerPage = 9;
-  Article.find({ topic: topic })
-    .skip((page - 1) * articlesPerPage)
-    .limit(articlesPerPage)
-    .then((articles) => {
-      res.status(200).json(articles);
-    })
-    .catch((err) => {
-      res.status(500).json({ message: "Internal Server Error" });
-    });
+// const articles_get_byTopicAndPage = (req, res) => {
+//   //pagination in backend
+//   const topic = req.params.topic;
+//   const page = req.params.page;
+//   const articlesPerPage = 9;
+//   Article.find({ topic: topic })
+//     .skip((page - 1) * articlesPerPage)
+//     .limit(articlesPerPage)
+//     .then((articles) => {
+//       res.status(200).json(articles);
+//     })
+//     .catch((err) => {
+//       res.status(500).json({ message: "Internal Server Error" });
+//     });
+// };
+
+
+const articles_get_byTopicAndPage = async (req, res) => {
+  try {
+    // Pagination in the backend
+    const topic = req.params.topic;
+    const page = req.params.page;
+    const articlesPerPage = 9;
+    const cacheKey = 'articles';
+
+    // Check if the list of articles exists in the cache
+    let articles = await client.get(cacheKey);
+    
+    if (!articles) {
+      // If the list of articles doesn't exist in the cache, fetch all articles from the database
+      articles = await Article.find({ topic: topic });
+      
+      if (!articles || articles.length === 0) {
+        return res.status(404).json({ message: "No articles found" });
+      }
+
+      // Store the fetched articles in the cache
+      await client.set(cacheKey, JSON.stringify(articles));
+      console.log(`Articles set into Redis cache`);
+    } else {
+      console.log(`Retrieving articles from Redis cache`);
+      articles = JSON.parse(articles);
+    }
+
+    // Perform pagination on the cached articles
+    const startIndex = (page - 1) * articlesPerPage;
+    const endIndex = startIndex + articlesPerPage;
+    const paginatedArticles = articles.slice(startIndex, endIndex);
+
+    // Send the paginated articles as a response
+    res.status(200).json(paginatedArticles);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 
+
+
+
 //get all articles controller
-const articles_get = (req, res) => {
-  Article.find({})
-    .then((articles) => {
-      res.status(200).json(articles);
-    })
-    .catch((err) => {
-      res.status(500).json({ message: "Internal Server Error" });
-    });
+const articles_get = async (req, res) => {
+  const cacheKey = 'articles';
+  let articles = await client.get(cacheKey);
+ 
+  if (!articles) {
+    console.log('Data not found in Redis cache, fetching from database...');
+    Article.find({})
+      .then((articles) => {
+        // Store articles array as a JSON string in the Redis cache
+        client.set(cacheKey, JSON.stringify(articles));
+        console.log('Articles data set into Redis cache');
+        console.log(articles);
+        res.status(200).json(articles);
+      })
+      .catch((err) => {
+        console.error('Error fetching articles from database:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+      });
+  } else {
+    // Parse the JSON string retrieved from the Redis cache
+    articles = JSON.parse(articles);
+    console.log('Articles data fetched from Redis cache');
+    console.log(articles);
+    res.status(200).json(articles);
+  }
 };
+
 
 
 //delete article controller
-const deleteArticle = (req, res) => {
+const deleteArticle =async  (req, res) => {
   const { articleid } = req.params;
 
   // Use the findByIdAndDelete method provided by Mongoose
+  
   Article.findByIdAndDelete(articleid)
     .then((deletedArticle) => {
       if (deletedArticle) {
-        res.json({ message: "Article deleted successfully", status: true });
+        const cachekey='articles'
+        client.del(cachekey).then(()=>{
+          res.json({ message: "Article deleted successfully", status: true });
+        })
+        
+
       } else {
         res.status(404).json({ error: "Article not found", status: false });
       }
@@ -80,6 +200,7 @@ const filterHandler = async (req, res) => {
   let sort_basis = -1;
   if (filter_option == "oldest first") sort_basis = 1;
    //if filter option is most liked then sort the articles based on likes
+   
   if (filter_option == "most liked") {
     Article.find({ topic: topic_lower })
       .sort({ likes: -1 })
@@ -146,6 +267,50 @@ const filterHandler = async (req, res) => {
 
 
 //post article controller
+// const article_post = async (req, res) => {
+//   const articleId = req.query.id;
+//   const {
+//     topic,
+//     title,
+//     content,
+//     author_name,
+//     date_of_publish,
+//     tags,
+//     author_id,
+//     image_link,
+//   } = req.body;
+//   console.log(req.body);
+//   console.log(req.query);
+//   if (articleId) {
+//     const article = await Article.findById(articleId);
+//     article.topic = topic;
+//     article.title = title;
+//     article.content = content;
+//     article.author_name = author_name;
+//     article.date_of_publish = date_of_publish;
+//     article.tags = tags;
+//     article.author_id = author_id;
+//     article.image_link = image_link;
+//     await article.save();
+//     console.log("Article updated successfully");
+//     res.status(200).json({ message: "Article updated successfully" });
+//   } else {
+//     const article = new Article({
+//       topic,
+//       title,
+//       content,
+//       author_name,
+//       date_of_publish,
+//       tags,
+//       author_id,
+//       image_link,
+//     });
+//     await article.save();
+//     console.log("Article added successfully");
+//     res.status(200).json({ message: "Article added successfully" });
+//   }
+// };
+
 const article_post = async (req, res) => {
   const articleId = req.query.id;
   const {
@@ -159,41 +324,73 @@ const article_post = async (req, res) => {
     image_link,
   } = req.body;
   console.log(req.body);
-  console.log(req.query);
+
   if (articleId) {
-    const article = await Article.findById(articleId);
-    article.topic = topic;
-    article.title = title;
-    article.content = content;
-    article.author_name = author_name;
-    article.date_of_publish = date_of_publish;
-    article.tags = tags;
-    article.author_id = author_id;
-    article.image_link = image_link;
-    await article.save();
-    console.log("Article updated successfully");
-    res.status(200).json({ message: "Article updated successfully" });
+    try {
+      const article = await Article.findById(articleId);
+      if (!article) {
+        return res.status(404).json({ message: "Article not found" });
+      }
+      article.topic = topic;
+      article.title = title;
+      article.content = content;
+      article.author_name = author_name;
+      article.date_of_publish = date_of_publish;
+      article.tags = tags;
+      article.author_id = author_id;
+      article.image_link = image_link;
+      await article.save();
+      console.log("Article updated successfully");
+
+      // Clear or update the cached articles
+      await clearArticleCache();
+      
+      res.status(200).json({ message: "Article updated successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   } else {
-    const article = new Article({
-      topic,
-      title,
-      content,
-      author_name,
-      date_of_publish,
-      tags,
-      author_id,
-      image_link,
-    });
-    await article.save();
-    console.log("Article added successfully");
-    res.status(200).json({ message: "Article added successfully" });
+    try {
+      const article = new Article({
+        topic,
+        title,
+        content,
+        author_name,
+        date_of_publish,
+        tags,
+        author_id,
+        image_link,
+      });
+      await article.save();
+      console.log("Article added successfully");
+
+      // Clear or update the cached articles
+      await clearArticleCache();
+      
+      res.status(200).json({ message: "Article added successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 };
+
+// Helper function to clear the cached articles
+const clearArticleCache = async () => {
+  const cacheKey = 'articles';
+  await client.del(cacheKey);
+  console.log("Cached articles cleared");
+};
+
+
 
 //like  controller
 const liked = async (req, res) => {
   let articleid = req.params.articleid;
   let userid = req.body.userid;
+  const cachedKey = 'articles';
+  await client.del(cachedKey);
   Article.find({ _id: articleid })
     .then((data) => {
       newarray1 = data[0].liked_userids;
@@ -233,10 +430,18 @@ const liked = async (req, res) => {
     });
 };
 
-//dislike controller
+
+
+
+
+
+
+
 const disliked = async (req, res) => {
   articleid = req.params.articleid;
   userid = req.body.userid;
+  const cachedKey = 'articles';
+  await client.del(cachedKey);
   Article.find({ _id: articleid })
     .then((data) => {
       // console.log(data)
@@ -286,6 +491,9 @@ const disliked = async (req, res) => {
       console.log(err);
     });
 };
+
+
+
 
 
 

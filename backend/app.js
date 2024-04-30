@@ -49,9 +49,7 @@ const options={
 
 
 
-
 module.exports = options;
-
 const specs = swaggerJsDoc(options);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 //third party middleware

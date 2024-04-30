@@ -79,7 +79,7 @@ const Admin = () => {
             <h2>Recently Joined</h2>
             <div className={styles["recent-items"]}>
               <h3 style={{ fontSize: "30px",fontFamily:"600" }}>Experts</h3>
-              {experts.slice(0,2).map((eachone) => {
+              {experts.length>0 &&experts.slice(0,2).map((eachone) => {
                 return (
                   <div className={styles["recent-item"]}>
                     <div className={styles["name-container"]}>
@@ -117,7 +117,8 @@ const Admin = () => {
           <div className={styles["recently-posted"]}>
                  <h2>Recently Posted</h2>
                 <div class={styles["recent-items"]}>
-                {articles.slice(0,5).map((article)=>{
+                {/* {console.log(JSON.parse(articles))} */}
+                {articles.length>0 && articles.slice(0,5).map((article)=>{
                          return (<div className={styles["recent-item"]}>
                         <div class={styles["title-container"]}>
                             <div class={styles["blog-title"]}>{article.title.substring(0,30)}...</div>

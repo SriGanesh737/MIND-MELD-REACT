@@ -54,6 +54,7 @@ function App()
         return res.data;
       })
       .then((data) => {
+        console.log(data)
         dispatch(setArticles(data))
         // console.log(data)
       });
