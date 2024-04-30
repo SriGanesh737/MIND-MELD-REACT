@@ -3,6 +3,7 @@ import styles from "./ForgotPassword.module.css"; // Import your CSS file
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
+import { backendUrl } from "../../backendUrl";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -17,7 +18,7 @@ const ForgotPassword = () => {
     try {
       
       axios
-        .post("http://localhost:8000/auth/forgotpassword", { email })
+        .post(backendUrl+"/auth/forgotpassword", { email })
         .then((res) => {
           return res.data;
         })
@@ -62,7 +63,7 @@ const ForgotPassword = () => {
         toast.error("wrong otp entered");
       } else if (storeotp === otp) {
         axios
-          .post("http://localhost:8000/auth/passwordchange", {
+          .post(backendUrl+"/auth/passwordchange", {
             email,
             newPassword,
             type,

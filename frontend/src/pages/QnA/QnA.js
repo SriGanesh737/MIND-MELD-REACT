@@ -7,6 +7,7 @@ import MyNavbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import { useUser } from '../../providers/UserProvider';
 import axios from 'axios';
+import { backendUrl } from '../../backendUrl';
 
 export default function QnA() {
 
@@ -41,7 +42,7 @@ export default function QnA() {
 
   const handleApplyFilter = ()=>{
     
-    const url = "http://localhost:8000/queries/filters";
+    const url = backendUrl+"/queries/filters";
     // fetch(url,{
     //   method:"POST",
     //   headers:{
@@ -65,7 +66,7 @@ export default function QnA() {
 
   const handlePostQuestion = () => {
     // post question
-    const url = "http://localhost:8000/queries";
+    const url = backendUrl+"/queries";
     // fetch(url,{
     //   method:"POST",
     //   headers:{
