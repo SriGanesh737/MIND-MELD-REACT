@@ -4,6 +4,7 @@ import Styles from './ContactUs.module.css';
 import { useEffect, useState } from 'react';
 import contactUsImage from "../../assets/images/Contact us-rafiki.svg";
 import axios from 'axios';
+import { backendUrl } from '../../backendUrl';
 export default function ContactUs({data}) 
 {
   const [token, setToken] = useState("");
@@ -101,7 +102,7 @@ export default function ContactUs({data})
     if (firstNameError || lastNameError || emailError || phoneNumberError || messageError){
       return;
     }else{
-      axios.post('http://localhost:8000/utility/contact',{firstname:firstName,lastname:lastName,email:email,phone:phoneNumber,message:message}).then((response)=>{
+      axios.post(backendUrl+'/utility/contact',{firstname:firstName,lastname:lastName,email:email,phone:phoneNumber,message:message}).then((response)=>{
     return response.data
   }).then((data)=>{
     console.log(data.success)
@@ -117,7 +118,7 @@ export default function ContactUs({data})
   }
 
   const gettoken = () => {
-    axios.get("http://localhost:8000/auth/csrf-token", {withCredentials: true}).then((res) => {
+    axios.get(backendUrl+"/auth/csrf-token", {withCredentials: true}).then((res) => {
       
       setToken(res.data.csrfToken);
       // axios.defaults.headers.post["X-CSRF-Token"] = res.data.csrfToken;

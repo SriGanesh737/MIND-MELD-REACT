@@ -7,6 +7,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { addUser, addExpert } from "../../store/user-slice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { backendUrl } from "../../backendUrl";
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const Signup = () => {
   });
   const [csrfToken, setcsrfToken] = useState("");
   const gettoken = () => {
-    axios.get("http://localhost:8000/log/csrf-token", {withCredentials: true}).then((res) => {
+    axios.get(backendUrl+"/log/csrf-token", {withCredentials: true}).then((res) => {
       
       console.log(res.data.csrfToken);
       setcsrfToken(res.data.csrfToken);
@@ -107,7 +108,7 @@ const Signup = () => {
   const checkEmailexistence = () => {
     console.log(enteredEmail);
     axios
-      .get(`http://localhost:8000/auth/checkEmail/${enteredEmail}`)
+      .get(`${backendUrl}/auth/checkEmail/${enteredEmail}`)
       .then((res) => {
         if (res.data.status === "false") {
           setEmailerror(false);
@@ -159,7 +160,7 @@ const Signup = () => {
       
       console.log(details);
       axios
-        .post("http://localhost:8000/log/register", details,{withCredentials: true,headers:{'Content-Type':'multipart/form-data', 'X-CSRF-Token': csrfToken}})
+        .post(backendUrl+"/log/register", details,{withCredentials: true,headers:{'Content-Type':'multipart/form-data', 'X-CSRF-Token': csrfToken}})
         .then((res) => {
           if (res.status === 201) {
             // console.log(res.data);

@@ -3,6 +3,7 @@ import Styles from "./BookmarkCard.module.css";
 import { useUser } from "../../providers/UserProvider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { backendUrl } from "../../backendUrl";
 
 export default function BookmarkCard({ data, removebookmark }) {
   const { user } = useUser();
@@ -12,7 +13,7 @@ export default function BookmarkCard({ data, removebookmark }) {
   const handleRemoveBookmark = () => {
     // remove bookmark
     const url =
-      "http://localhost:8000/user/" + user._id + "/bookmarks/" + data._id;
+     backendUrl+ "/user/" + user._id + "/bookmarks/" + data._id;
 
     axios
       .delete(url)

@@ -7,11 +7,12 @@ import { useUser } from '../../providers/UserProvider';
 import { useEffect } from 'react';
 import {toast} from "sonner"
 import axios from 'axios';
+import { backendUrl } from '../../backendUrl';
 const Yourwork=()=>{
     const [articles,setArticles]=useState([])
     const {user} = useUser();
     useEffect(()=>{
-        const url = "http://localhost:8000/user/"+user._id+"/yourwork";
+        const url = backendUrl+"/user/"+user._id+"/yourwork";
 
         axios.get(url)
         .then((res)=>{
@@ -25,7 +26,7 @@ const Yourwork=()=>{
       {
         e.preventDefault();
         axios
-      .delete(`http://localhost:8000/articles/${id}`)
+      .delete(`${backendUrl}/articles/${id}`)
       .then((res) => {
         return res.data;
       })

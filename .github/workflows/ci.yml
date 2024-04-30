@@ -30,16 +30,17 @@ jobs:
     needs: build-and-push
     runs-on: self-hosted
     steps:
+      - name: Delete old docker containers and images.
+        run: |
+          docker stop $(docker ps -a -q)
+          docker rm $(docker ps -a -q)
+          docker rmi $(docker images -q)
+
       - name: Pull images from docker hub
         run: |
           docker pull sriganesh737/mind-meld-react-frontend:latest
           docker pull sriganesh737/mind-meld-react-backend:latest
       
-      - name: Delete old containers
-        run: |
-          docker stop $(docker ps -a -q)
-          docker rm $(docker ps -a -q)
-
       - name: Run new containers
         run: |
           docker run -d -p 3000:80 sriganesh737/mind-meld-react-frontend:latest

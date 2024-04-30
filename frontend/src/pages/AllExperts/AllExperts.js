@@ -7,6 +7,7 @@ import {toast} from 'sonner'
 import { useSelector,useDispatch } from "react-redux";
 import {deleteExpert,updateExpertsdetails} from '../../store/user-slice'
 import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation.js'
+import { backendUrl } from "../../backendUrl.js";
 const AllExperts = () => {
   const dispatch=useDispatch();
   const experts= useSelector((state)=>state.users.experts)
@@ -23,7 +24,7 @@ const AllExperts = () => {
     e.preventDefault();
    
     axios
-      .delete(`http://localhost:8000/auth/${id}`)
+      .delete(backendUrl+'/auth/${id}')
       .then((response) => {
         // Check the status property sent by the backend
         const { status } = response.data;
@@ -48,7 +49,7 @@ const AllExperts = () => {
   }
   function approveExpert(e, id, index) {
     e.preventDefault();
-    axios.put(`http://localhost:8000/auth/${id}/updateblocked`)
+    axios.put(`${backendUrl}/auth/${id}/updateblocked`)
     .then((response) => {
       // Check the status property received from the backend
       const { status, expert } = response.data;

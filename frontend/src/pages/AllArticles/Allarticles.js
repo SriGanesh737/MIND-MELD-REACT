@@ -7,6 +7,7 @@ import {toast} from 'sonner'
 import { useDispatch, useSelector } from "react-redux";
 import { deleteArticle } from "../../store/article-slice";
 import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation.js'
+import { backendUrl } from "../../backendUrl.js";
 const Allarticles = () => {
   
   const articles=useSelector((state)=>state.articles.articles)
@@ -14,7 +15,7 @@ const Allarticles = () => {
   function deletearticle(id, e) {
     e.preventDefault();
     axios
-      .delete(`http://localhost:8000/articles/${id}`)
+      .delete(`${backendUrl}/articles/${id}`)
       .then((res) => {
         return res.data;
       })

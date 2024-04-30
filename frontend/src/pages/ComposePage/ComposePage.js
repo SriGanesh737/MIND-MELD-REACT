@@ -12,6 +12,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import {toast} from 'sonner'
 import axios from 'axios'
 import "./modalStyles.css"
+import { backendUrl } from '../../backendUrl'
 
 export default function ComposePage() {
 
@@ -38,7 +39,7 @@ export default function ComposePage() {
 
   useEffect (()=>{
     if(articleId!==undefined && articleId!==null){
-      axios.get(`http://localhost:8000/articles/${articleId}`)
+      axios.get(`${backendUrl}/articles/${articleId}`)
       .then((res)=>{
         const data = res.data;
         const requiredData = {
@@ -135,7 +136,7 @@ const handleImageChange = (e) => {
 
 const handleSubmit = (e) => {
   e.preventDefault();
-  const url = (articleId!==undefined && articleId!==null) ?`http://localhost:8000/articles?id=${articleId}`:"http://localhost:8000/articles";
+  const url = (articleId!==undefined && articleId!==null) ?`${backendUrl}/articles?id=${articleId}`:`${backendUrl}/articles`;
   const article_data = {
     topic:article.topic,
     title:article.title,
