@@ -27,7 +27,7 @@ const options={
   },
   servers: [
     {
-      url: "http://localhost:8000",
+      url: "http://3.108.54.68:8000",
     },
   ],
   components:{
