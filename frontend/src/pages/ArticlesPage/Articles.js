@@ -10,6 +10,7 @@ import Article from '../../components/Article/Article';
 import ModalImage from '../../components/ModalImage/ModalImage';
 import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
 import axios from 'axios';
+import { backendUrl } from '../../backendUrl';
 
 export default function Articles() {
   const [articles, setArticles] = useState([])
@@ -34,7 +35,7 @@ export default function Articles() {
       setLoading(false)
       
     }, 500);
-    const url = `http://localhost:8000/articles/topic/${topic}/page/${page}`;
+    const url = `${backendUrl}/articles/topic/${topic}/page/${page}`;
     axios
   .get(url)
   .then((response) => {
