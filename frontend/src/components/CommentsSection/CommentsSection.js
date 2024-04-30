@@ -3,6 +3,7 @@ import Styles from './CommentsSection.module.css'
 import { useUser } from '../../providers/UserProvider'
 import axios from 'axios';
 import Comment from './Comment';
+import { backendUrl } from '../../backendUrl';
 
 export default function CommentsSection({articleId}) {
   const {user} = useUser();
@@ -13,7 +14,7 @@ export default function CommentsSection({articleId}) {
   useEffect(()=>{
     console.log("article id is "+articleId);
     const fetchComments = async()=>{
-      const url = "http://localhost:8000/articles/comments/"+articleId;
+      const url = backendUrl+"/articles/comments/"+articleId;
       const comments = await axios.get(url).then((res)=>{
         return res.data;
       })
@@ -24,7 +25,7 @@ export default function CommentsSection({articleId}) {
 
 
   const handlePostComment = async ()=>{
-    const url = "http://localhost:8000/articles/comments/"+articleId;
+    const url = backendUrl+"/articles/comments/"+articleId;
     const data = {
       user_id:user._id,
       comment_info:commentBoxValue,

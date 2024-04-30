@@ -185,6 +185,7 @@ const checkEmail_get = async (req, res) => {
 const remove_Expert = async (req, res) => {
   try {
     const expertId = req.params.expertid;
+    console.log(expertId)
 
     // Check if the expert with the given ID exists
     const existingExpert = await Expert.findById(expertId);

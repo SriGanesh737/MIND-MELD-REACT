@@ -24,7 +24,7 @@ const AllExperts = () => {
     e.preventDefault();
    
     axios
-      .delete(backendUrl+'/auth/${id}')
+      .delete(backendUrl+`/auth/${id}`)
       .then((response) => {
         // Check the status property sent by the backend
         const { status } = response.data;
