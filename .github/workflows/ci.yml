@@ -25,3 +25,22 @@ jobs:
         run: |
           docker build -t sriganesh737/mind-meld-react-backend:latest ./backend
           docker push sriganesh737/mind-meld-react-backend:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: self-hosted
+    steps:
+      - name: Pull images from docker hub
+        run: |
+          docker pull sriganesh737/mind-meld-react-frontend:latest
+          docker pull sriganesh737/mind-meld-react-backend:latest
+      
+      - name: Delete old containers
+        run: |
+          docker stop $(docker ps -a -q)
+          docker rm $(docker ps -a -q)
+
+      - name: Run new containers
+        run: |
+          docker run -d -p 3000:80 sriganesh737/mind-meld-react-frontend:latest
+          docker run -d -p 8000:8000 sriganesh737/mind-meld-react-backend:latest
