@@ -55,6 +55,8 @@ router.get("/checkEmail/:email", authController.checkEmail_get);
  *   delete:
  *     summary: Delete an expert by ID
  *     description: Delete an expert from the database using its unique identifier (ID).
+ *     security:
+ *      - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: expertid
@@ -113,6 +115,8 @@ router.delete("/:expertid",authMiddleware,roleMiddleware(["admin"]), authControl
  *   put:
  *     summary: Toggle the blocked state of an expert
  *     description: Toggle the blocked state of an expert by updating the `is_blocked` property in the database.
+ *     security:
+ *      - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: expertid
