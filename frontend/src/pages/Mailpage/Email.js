@@ -3,6 +3,7 @@ import AdminNavbar from "../../components/AdminNavbar/AdminNavbar";
 import styles from "./sendmail.module.css";
 import axios from 'axios'
 import {toast} from 'sonner'
+import { backendUrl } from "../../backendUrl";
 const SendMail = () => {
   const [emaildetails, setEmaildetails] = useState({
     users: false,
@@ -12,7 +13,7 @@ const SendMail = () => {
   });
   function submithandler(e) {
     e.preventDefault();
-    axios.post('http://localhost:8000/queries/email',emaildetails).then((res)=>{
+    axios.post(backendUrl+'/queries/email',emaildetails).then((res)=>{
       return res
     }).then((data)=>{
       // console.log(data)

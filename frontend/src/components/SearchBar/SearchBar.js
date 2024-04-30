@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Styles from './SearchBar.module.css'
 import axios from 'axios'
+import { backendUrl } from '../../backendUrl'
 export default function SearchBar({topic,page,handlefilters}) {
   const [searchvalues,setSearchvalues]=useState({
     searchinput:"",based_on:"title",filter_option:"newest first",topic:topic
@@ -11,7 +12,7 @@ export default function SearchBar({topic,page,handlefilters}) {
        
        console.log(searchvalues)
         axios
-        .post('http://localhost:8000/articles/filter',searchvalues)
+        .post(backendUrl+'/articles/filter',searchvalues)
         .then((response) => {
           const { success, filtered_data } = response.data;
   

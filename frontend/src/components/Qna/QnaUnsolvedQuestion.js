@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Styles from '../../pages/QnA/QnA.module.css';
 import { useUser } from '../../providers/UserProvider';
 import Axios from 'axios';
+import { backendUrl } from '../../backendUrl';
 export default function QnaUnsolvedQuestion({ data, i, role }) {
 
   const [toggleAnswerBox, setToggleAnswerBox] = useState("none");
@@ -24,7 +25,7 @@ export default function QnaUnsolvedQuestion({ data, i, role }) {
   const handlePostAnswer = (e) => {
     e.preventDefault();
     // post answer
-    const url = "http://localhost:8000/queries/answer";
+    const url = backendUrl+"/queries/answer";
 
     Axios.post(url,{
       answer: answer,

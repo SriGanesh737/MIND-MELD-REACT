@@ -3,11 +3,12 @@ import styles from "./querypage.module.css";
 import AdminNavbar from "../../components/AdminNavbar/AdminNavbar";
 import axios from "axios";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
+import { backendUrl } from "../../backendUrl";
 const Query = () => {
   const [queries, setQueries] = useState([]);
   function getQueries()
   {
-    axios.get("http://localhost:8000/utility/queries").then((res)=>{
+    axios.get(backendUrl+"/utility/queries").then((res)=>{
       return res.data;
     }).then((data)=>{
       // console.log(data)
@@ -16,7 +17,7 @@ const Query = () => {
   }
   function resolvequery(id)
   {
-    axios.put(`http://localhost:8000/utility/query/${id}`).then((res)=>{
+    axios.put(`${backendUrl}/utility/query/${id}`).then((res)=>{
       return res.data;
     }).then((data)=>{
       console.log(data.success)
