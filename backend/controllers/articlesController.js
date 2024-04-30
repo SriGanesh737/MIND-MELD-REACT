@@ -75,63 +75,24 @@ const article_get_byId = async (req, res) => {
 
 
 
-//get articles by topic and page controller
-// const articles_get_byTopicAndPage = (req, res) => {
-//   //pagination in backend
-//   const topic = req.params.topic;
-//   const page = req.params.page;
-//   const articlesPerPage = 9;
-//   Article.find({ topic: topic })
-//     .skip((page - 1) * articlesPerPage)
-//     .limit(articlesPerPage)
-//     .then((articles) => {
-//       res.status(200).json(articles);
-//     })
-//     .catch((err) => {
-//       res.status(500).json({ message: "Internal Server Error" });
-//     });
-// };
-
-
-const articles_get_byTopicAndPage = async (req, res) => {
-  try {
-    // Pagination in the backend
-    const topic = req.params.topic;
-    const page = req.params.page;
-    const articlesPerPage = 9;
-    const cacheKey = 'articles';
-
-    // Check if the list of articles exists in the cache
-    let articles = await client.get(cacheKey);
-    
-    if (!articles) {
-      // If the list of articles doesn't exist in the cache, fetch all articles from the database
-      articles = await Article.find({ topic: topic });
-      
-      if (!articles || articles.length === 0) {
-        return res.status(404).json({ message: "No articles found" });
-      }
-
-      // Store the fetched articles in the cache
-      await client.set(cacheKey, JSON.stringify(articles));
-      console.log(`Articles set into Redis cache`);
-    } else {
-      console.log(`Retrieving articles from Redis cache`);
-      articles = JSON.parse(articles);
-    }
-
-    // Perform pagination on the cached articles
-    const startIndex = (page - 1) * articlesPerPage;
-    const endIndex = startIndex + articlesPerPage;
-    const paginatedArticles = articles.slice(startIndex, endIndex);
-
-    // Send the paginated articles as a response
-    res.status(200).json(paginatedArticles);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
+const articles_get_byTopicAndPage = (req, res) => {
+  //pagination in backend
+  const topic = req.params.topic;
+  const page = req.params.page;
+  const articlesPerPage = 9;
+  Article.find({ topic: topic })
+    .skip((page - 1) * articlesPerPage)
+    .limit(articlesPerPage)
+    .then((articles) => {
+      res.status(200).json(articles);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "Internal Server Error" });
+    });
 };
+
+
+
 
 
 
