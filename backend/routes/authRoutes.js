@@ -2,8 +2,11 @@ const router = require("express").Router();
 const authController = require("../controllers/authController");
 const upload = require("../utility/multer");
 const { resumeUpload } = require("../middleware/fileHandleMiddleware");
-
+const roleMiddleware = require("../middleware/roleMiddleware");
+const authMiddleware = require("../middleware/authMiddleware");
 router.post("/googleSignIn", authController.googleSignIn_post);
+
+
 /**
  * @swagger
  * /auth/checkEmail/{email}:
@@ -103,7 +106,7 @@ router.get("/checkEmail/:email", authController.checkEmail_get);
  *       - Admin
  */
 
-router.delete("/:expertid", authController.remove_Expert); // restrict to admin.
+router.delete("/:expertid",authMiddleware,roleMiddleware(["admin"]), authController.remove_Expert); // restrict to admin.
 /**
  * @swagger
  * /auth/{expertid}/updateblocked:
@@ -160,7 +163,7 @@ router.delete("/:expertid", authController.remove_Expert); // restrict to admin.
  *       - Admin
  */
 
-router.put("/:expertid/updateblocked", authController.updateblockedstate); //restrict to admin.
+router.put("/:expertid/updateblocked",authMiddleware,roleMiddleware(["admin"]), authController.updateblockedstate); //restrict to admin.
 /**
  * @swagger
  * /auth/forgotpassword:
