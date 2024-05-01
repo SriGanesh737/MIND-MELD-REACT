@@ -4,7 +4,7 @@ import Footer from '../../components/Footer/Footer'
 import Styles from './EditUser.module.css'
 import { useUser } from '../../providers/UserProvider'
 import axios from 'axios'
-
+import { backendUrl } from '../../backendUrl'
 import {toast} from 'sonner'
 
 export default function EditUser() {
@@ -137,7 +137,7 @@ export default function EditUser() {
         if (firstNameError || lastNameError || emailError || phoneNumberError) {
             return;
         } else {
-            const url = "http://localhost:8000/user/"+user._id;
+            const url = backendUrl+"/user/"+user._id;
 
                 axios.put(url,formData,{
                     headers:{
@@ -145,7 +145,7 @@ export default function EditUser() {
                     }
                 })
                 .then((res)=>{
-                    const url ="http://localhost:8000/user/email/"+formData.email;
+                    const url =backendUrl+"/user/email/"+formData.email;
                     axios.get(url)
                     .then((res)=>{
                         setUserDetails(res.data);

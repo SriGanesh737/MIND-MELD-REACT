@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Styles from './Slideshow.module.css' 
 import {useNavigate} from 'react-router-dom';
 
+
 const Slideshow = ({ sliderData: highLightArticles }) => {
 
   const navigate = useNavigate();

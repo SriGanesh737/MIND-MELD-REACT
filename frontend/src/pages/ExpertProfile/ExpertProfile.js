@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import Styles from './ExpertProfile.module.css';
 import axios from 'axios';
 import PieChart from '../../components/Charts/PieChart';
-
+import { backendUrl } from '../../backendUrl';
 export default function ExpertProfile() {
   const { userId } = useParams();
   const [userData, setUserData] = useState({});
@@ -26,7 +26,7 @@ export default function ExpertProfile() {
   });
   useEffect(() => {
     const loadProfileDetails = async () => {
-      const url = `http://localhost:8000/user/${userId}`;
+      const url = `${backendUrl}/user/${userId}`;
 
       axios.get(url)
       .then(res=>{
@@ -142,6 +142,7 @@ export default function ExpertProfile() {
               <i class="fa-solid fa-book"></i>
                 <h4 style={{ display: 'flex', alignItems: 'center' }}>{userData.qualification}<br /></h4>
               </div>
+              {console.log(userData.resume)}
               <a href={userData.resume} target='_blank' rel='noreferrer' style={{textDecoration:'none'}}>Resume</a>
             </div>
           </div>

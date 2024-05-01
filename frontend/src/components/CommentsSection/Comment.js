@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Styles from './CommentsSection.module.css'
 import { useUser } from '../../providers/UserProvider'
 import axios from 'axios';
+import { backendUrl } from '../../backendUrl';
 
 export default function Comment({comment_info, isReply=false, main_comment_id=""}) {
 
@@ -11,7 +12,7 @@ export default function Comment({comment_info, isReply=false, main_comment_id=""
 
 
   const handlePostComment = async()=>{
-    const url = "http://localhost:8000/articles/comments/"+comment_info.article_id;
+    const url = backendUrl+"/articles/comments/"+comment_info.article_id;
     const data = {
       user_id:user._id,
       comment_info:replyBoxValue,
@@ -38,7 +39,7 @@ export default function Comment({comment_info, isReply=false, main_comment_id=""
   }
 
   const handleDeleteComment = ()=>{
-    const url = "http://localhost:8000/articles/comments/"+comment_info._id;
+    const url = backendUrl+"/articles/comments/"+comment_info._id;
 
     axios.delete(url,{
       is_main_comment:comment_info.is_main_comment,

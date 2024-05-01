@@ -5,7 +5,7 @@ import BookmarkCard from '../../components/BookmarkCard/BookmarkCard';
 import MyNavbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import axios from 'axios';
-
+import { backendUrl } from '../../backendUrl';
 export default function Bookmarks() {
   const [bookmarksData,setBookmarksData] = useState([])
   const {user} = useUser();
@@ -22,7 +22,7 @@ export default function Bookmarks() {
     const timeinterval=setTimeout(() => {
        setLoading(false)
     }, 500);
-    const url = "http://localhost:8000/user/"+user._id+"/bookmarks";
+    const url = backendUrl+"/user/"+user._id+"/bookmarks";
 
     axios.get(url).then((res)=>{
       const data=res.data;

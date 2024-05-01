@@ -8,6 +8,7 @@ import Styles from "./SingleArticle.module.css";
 import CommentsSection from "../../components/CommentsSection/CommentsSection";
 import { toast } from "sonner";
 import { useUser } from "../../providers/UserProvider";
+import { backendUrl } from "../../backendUrl";
 
 export default function SingleArticle() {
   const { user } = useUser();
@@ -26,7 +27,7 @@ export default function SingleArticle() {
 
   useEffect(() => {
     // fetch data from backend
-    axios.get(`http://localhost:8000/articles/${articleId}`).then((res) => {
+    axios.get(`${backendUrl}/articles/${articleId}`).then((res) => {
       const data = res.data;
       setArticle({
         title: data.title,
@@ -60,7 +61,7 @@ export default function SingleArticle() {
   const handleAddToBookmarks = () => {
     // add to bookmarks
     const url =
-      "http://localhost:8000/user/" + user._id + "/bookmarks/" + articleId;
+    backendUrl+"/user/" + user._id + "/bookmarks/" + articleId;
       axios.post(url).then((res)=>{
         toast.success("successfully added to your bookmarks");
       })
@@ -88,7 +89,7 @@ export default function SingleArticle() {
         });
       }
       axios
-        .post(`http://localhost:8000/articles/disliked/${articleId}`, {
+        .post(`${backendUrl}/articles/disliked/${articleId}`, {
           userid: user._id,
         })
         .then((res) => res.data)
@@ -122,7 +123,7 @@ export default function SingleArticle() {
         });
       }
       axios
-        .post(`http://localhost:8000/articles/liked/${articleId}`, {
+        .post(`${backendUrl}/articles/liked/${articleId}`, {
           userid: user._id,
         })
         .then((res) => res.data)

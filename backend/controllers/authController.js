@@ -12,7 +12,7 @@ const parseForm = bodyParser.urlencoded({ extended: false });
 
 //Signup controller
 const register_post = async (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   let firstname = req.body.fname;
   let lastname = req.body.lastname;
   let email = req.body.email;
@@ -31,7 +31,7 @@ const register_post = async (req, res) => {
         password: hashedpswd,
         phone: phoneno,
       });
-      console.log(user);
+      // console.log(user);
 
       res.status(201).json({ user: user._id, data: user });
     } catch (err) {
@@ -185,6 +185,7 @@ const checkEmail_get = async (req, res) => {
 const remove_Expert = async (req, res) => {
   try {
     const expertId = req.params.expertid;
+    console.log(expertId)
 
     // Check if the expert with the given ID exists
     const existingExpert = await Expert.findById(expertId);
@@ -222,7 +223,7 @@ const updateblockedstate = async (req, res) => {
 
     // Save the updated expert
     await existingExpert.save();
-    console.log(existingExpert);
+    // console.log(existingExpert);
 
     res.json({ status: true, expert: existingExpert });
   } catch (error) {

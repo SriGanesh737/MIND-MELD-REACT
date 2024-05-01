@@ -6,6 +6,7 @@ import { useAuth } from "../../providers/authProvider";
 import { useUser } from "../../providers/UserProvider";
 import { toast } from "sonner";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
+import { backendUrl } from "../../backendUrl";
 const LoginForm = () => {
   const { setUserDetails } = useUser();
   const [email, setEmail] = useState("");
@@ -25,7 +26,7 @@ const LoginForm = () => {
   };
   const [csrfToken, setcsrfToken] = useState("");
   const gettoken = () => {
-    axios.get("http://localhost:8000/log/csrf-token", {withCredentials: true}).then((res) => {
+    axios.get(backendUrl+"/log/csrf-token", {withCredentials: true}).then((res) => {
       
       console.log(res.data.csrfToken);
       setcsrfToken(res.data.csrfToken);
@@ -42,7 +43,7 @@ const LoginForm = () => {
     // send post request to /api/login
     setLoading(true);
     axios
-      .post("http://localhost:8000/log/login", {
+      .post(backendUrl+'/log/login', {
         _csrf: csrfToken,
         email,
         password,
@@ -55,7 +56,7 @@ const LoginForm = () => {
           setToken(res.data.token);
 
           //fetch user details and store in context
-          const url = "http://localhost:8000/user/email/" + email;
+          const url = backendUrl+"/user/email/" + email;
           fetch(url)
             .then((res) => res.json())
             .then((data) => {

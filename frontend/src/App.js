@@ -25,6 +25,7 @@ import { getUsers,getExperts} from './store/user-slice'
 import AboutUs from "./pages/AboutUs/AboutUs";
 import EditDetails from './pages/EditDetails/EditDetails'
 import EditUser from "./pages/EditUser/EditUser";
+import { backendUrl } from "./backendUrl";
 
 import {
   createBrowserRouter, 
@@ -45,7 +46,7 @@ function App()
   function getAllArticles() 
   {
     axios
-      .get("http://localhost:8000/articles",{
+      .get(backendUrl+"/articles",{
         headers:{
           Authorization:token,
         }
@@ -61,7 +62,7 @@ function App()
   }
   function getAllExperts() {
     axios
-      .get("http://localhost:8000/user/role/expert",{
+      .get(backendUrl+"/user/role/expert",{
         headers:{
           Authorization:token,
         }
@@ -79,7 +80,7 @@ function App()
   }
   function getAllusers() {
     axios
-      .get("http://localhost:8000/user/role/user",{
+      .get(backendUrl+"/user/role/user",{
         headers:{
           Authorization:token,
         }
@@ -124,6 +125,7 @@ const router = createBrowserRouter(
     {(role==="admin" || role==="expert"|| role=='user')&&<Route path="/queries" element={<QnA/>}/>}
     {(role==="admin" || (role==="expert" && user.is_blocked===false))&&<Route path="/compose" element={<ComposePage/>}/>}
     {(role==="admin" || role==="expert")&&<Route path="/yourwork" element={<Yourwork/>}/>}
+    {console.log(role)}
 
         {role==="admin"&&<Route path="/admin" element={<Admin/>} />}
         {role==="admin"&&<Route path="/admin/all_articles" element={<Allarticles></Allarticles>} />}
