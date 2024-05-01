@@ -12,7 +12,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailerror, setEmailerror] = useState("");
- 
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { setToken } = useAuth();
@@ -27,15 +27,15 @@ const LoginForm = () => {
   const [csrfToken, setcsrfToken] = useState("");
   // const gettoken = () => {
   //   axios.get(backendUrl+"/log/csrf-token", {withCredentials: true}).then((res) => {
-      
+
   //     console.log(res.data.csrfToken);
   //     setcsrfToken(res.data.csrfToken);
-      
+
   //   }).catch((err) => console.log(err))
   // };
 
   // useEffect(() => {
-  //   gettoken(); 
+  //   gettoken();
   // }, []);
 
   const formSubmitHandler = (event) => {
@@ -43,11 +43,14 @@ const LoginForm = () => {
     // send post request to /api/login
     setLoading(true);
     axios
-      .post(backendUrl+'/log/login', {
-       
-        email,
-        password,
-      }, {withCredentials: true})
+      .post(
+        backendUrl + "/log/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         if (res.status === 200) {
           // save token in local storage
@@ -56,7 +59,7 @@ const LoginForm = () => {
           setToken(res.data.token);
 
           //fetch user details and store in context
-          const url = backendUrl+"/user/email/" + email;
+          const url = backendUrl + "/user/email/" + email;
           fetch(url)
             .then((res) => res.json())
             .then((data) => {
@@ -67,9 +70,7 @@ const LoginForm = () => {
           // redirect to home page
           setLoading(false);
           navigate("/home");
-        }
-        else
-        {
+        } else {
           toast.error("invalid credentials");
         }
       })

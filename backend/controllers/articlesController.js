@@ -3,6 +3,7 @@ const Article = require("../models/Article");
 const Comment = require("../models/Comment");
 const redis = require('redis');
 const client = require('../redis/redis');
+const axios = require('axios');
 
 //get article by id controller
 // const article_get_byId = (req, res) => {
@@ -67,29 +68,79 @@ const article_get_byId = async (req, res) => {
   }
 };
 
+// fetch articles from NewYorkTimes API
+const fetchArticlesFromAPI = async () => {
+  console.log("Fetching articles from NewYorkTimes API...");
+  const api_key = "K0tpM23AaQUj7ByqRdNUg009v8r5dg3f";
+  const url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=technology&api-key='+api_key+'&page=1&sort=newest';
+  // use axios to fetch data from the API
+  const response = await axios.get(url);
+  const data = response.data.response.docs;
+
+  const articles = data.map((article) => {
+    
+    return {
+      title: article.headline.main,
+      content: article.abstract,
+      author_name: article.byline.original,
+      date_of_publish: article.pub_date,
+      tags: article.keywords.map((keyword) => keyword.value),
+      article_link: article.web_url,
+      image_link: article.multimedia[0] ? `https://www.nytimes.com/${article.multimedia[0].url}` : '',
+    }
+  });
+
+  // console.log(articles);
+  return articles;
+};
 
 
+//get articles by topic and page controller
+// const articles_get_byTopicAndPage = (req, res) => {
+//   //pagination in backend
+//   const topic = req.params.topic;
+//   const page = req.params.page;
+//   const articlesPerPage = 9;
+//   Article.find({ topic: topic })
+//     .skip((page - 1) * articlesPerPage)
+//     .limit(articlesPerPage)
+//     .then((articles) => {
+//       res.status(200).json(articles);
+//     })
+//     .catch((err) => {
+//       res.status(500).json({ message: "Internal Server Error" });
+//     });
+// };
 
 
+const articles_get_byTopicAndPage = async (req, res) => {
+  try {
 
+    console.log("here")
+    // Pagination in the backend
+    const topic = req.params.topic;
+    const page = req.params.page;
+    const articlesPerPage = 9;
+    const cacheKey = 'articles';
 
+    if (topic == "news_updates"){
+      const articles = await fetchArticlesFromAPI();
+      return res.status(200).json(articles);
+    }
+     let articles = await Article.find({ topic: topic });
+      // Store the fetched articles in the cache
+    // Perform pagination on the cached articles
+    const startIndex = (page - 1) * articlesPerPage;
+    const endIndex = startIndex + articlesPerPage;
+    const paginatedArticles = articles.slice(startIndex, endIndex);
+    await client.del(cacheKey);
 
-
-
-const articles_get_byTopicAndPage = (req, res) => {
-  //pagination in backend
-  const topic = req.params.topic;
-  const page = req.params.page;
-  const articlesPerPage = 9;
-  Article.find({ topic: topic })
-    .skip((page - 1) * articlesPerPage)
-    .limit(articlesPerPage)
-    .then((articles) => {
-      res.status(200).json(articles);
-    })
-    .catch((err) => {
-      res.status(500).json({ message: "Internal Server Error" });
-    });
+    // Send the paginated articles as a response
+    res.status(200).json(paginatedArticles);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 
 
@@ -110,6 +161,7 @@ const articles_get = async (req, res) => {
         // Store articles array as a JSON string in the Redis cache
         client.set(cacheKey, JSON.stringify(articles));
         console.log('Articles data set into Redis cache');
+        // console.log(articles);
         res.status(200).json(articles);
       })
       .catch((err) => {

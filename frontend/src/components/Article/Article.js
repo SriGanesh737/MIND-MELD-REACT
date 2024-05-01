@@ -10,18 +10,24 @@ export default function Article({ setClickedId, article_data, i }) {
   };
 
   const articleClickHandler = (e) => {
-    console.log(article_data);
-    let modal = document.querySelector(".modal-image");
-    let popImage = document.querySelector(".pop-image");
-    let descriptionText = document.querySelector(".description-text");
-    popImage.src = article_data["image_link"];
-    descriptionText.innerHTML = article_data["content"].slice(0, 350);
-
-    // scroll to top of page
-    setClickedId(article_data["_id"]);
-    window.scrollTo(0, 0);
-    modal.style.display = "block";
-    document.body.style.overflow = "hidden";
+    if(article_data.article_link!==undefined) {
+      // open the article in new tab
+      window.open(article_data.article_link, "_blank");
+    }
+    else{
+      console.log(article_data);
+      let modal = document.querySelector(".modal-image");
+      let popImage = document.querySelector(".pop-image");
+      let descriptionText = document.querySelector(".description-text");
+      popImage.src = article_data["image_link"];
+      descriptionText.innerHTML = article_data["content"].slice(0, 350);
+  
+      // scroll to top of page
+      setClickedId(article_data["_id"]);
+      window.scrollTo(0, 0);
+      modal.style.display = "block";
+      document.body.style.overflow = "hidden";
+    }
   };
 
   return (
