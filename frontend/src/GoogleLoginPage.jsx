@@ -5,6 +5,7 @@ import { useUser } from './providers/UserProvider';
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {toast} from 'sonner'
+import { backendUrl } from './backendUrl';
 
 import { useEffect } from 'react';
 
@@ -33,7 +34,7 @@ function GoogleLoginPage() {
                         const userEmail = res.data.email;
                         
                         // google signin post request
-                        axios.post('http://localhost:8000/auth/googleSignIn',data)
+                        axios.post(backendUrl+'/auth/googleSignIn',data)
                         .then((res)=>{
                             if(res.status===200)
                             {
@@ -45,7 +46,7 @@ function GoogleLoginPage() {
                                 setToken(res.data.token);
                     
                                 //set user details in context
-                                axios.get(`http://localhost:8000/user/email/${userEmail}`)
+                                axios.get(`${backendUrl}/user/email/${userEmail}`)
                                 .then((res)=>{
                                 console.log(res.data);
                                 // set user details in context
