@@ -91,7 +91,7 @@ app.use(
 
 // create a test get route to check if the server is running
 app.get("/", (req, res) => {
-  res.send("Server is running successfully!!!");
+  res.send("Server is Now running Successfully!!!");
 });
 
 // Set up the morgan logger middleware to log to the dynamically generated log file
