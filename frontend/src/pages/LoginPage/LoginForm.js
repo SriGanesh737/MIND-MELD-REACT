@@ -68,6 +68,9 @@ const LoginForm = () => {
           setLoading(false);
           navigate("/home");
         }
+        else{
+          toast.error("invalid credentials");
+        }
       })
       .catch((err) => {
         const errorMessage = err.response.data.message;
