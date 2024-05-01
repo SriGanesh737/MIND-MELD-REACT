@@ -30,6 +30,7 @@ const client = require('../redis/redis');
 const article_get_byId = async (req, res) => {
   try {
     const articleId = req.params.articleId;
+    console.log(articleId)
     const cacheKey = 'articles';
 
     // Check if the list of articles exists in the cache
@@ -109,7 +110,6 @@ const articles_get = async (req, res) => {
         // Store articles array as a JSON string in the Redis cache
         client.set(cacheKey, JSON.stringify(articles));
         console.log('Articles data set into Redis cache');
-        console.log(articles);
         res.status(200).json(articles);
       })
       .catch((err) => {
@@ -120,7 +120,7 @@ const articles_get = async (req, res) => {
     // Parse the JSON string retrieved from the Redis cache
     articles = JSON.parse(articles);
     console.log('Articles data fetched from Redis cache');
-    console.log(articles);
+    // console.log(articles);
     res.status(200).json(articles);
   }
 };

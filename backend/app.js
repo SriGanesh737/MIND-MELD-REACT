@@ -10,11 +10,28 @@ const userRoutes = require("./routes/userRoutes");
 const queriesRoutes = require("./routes/queriesRoutes");
 const utilityRoutes = require("./routes/utilityRoutes");
 const cookieParser = require("cookie-parser");
+const mongoose = require("mongoose");
+
+const dotenv = require("dotenv");
+
 const csrf = require("csurf");
 const loginroutes = require("./routes/login_routes");
 const helmet = require("helmet");
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
+
+// dotenv.config();
+// const connectionParams = {
+//   useNewUrlParser: true,
+// };
+// const mongoUri = process.env.myUri;
+// // remove once testing is done
+// mongoose.connect(mongoUri, connectionParams).then(() => {
+//     console.log("Connected to database ");
+// })
+//   .catch((err) => {
+//     console.error("Error connecting to MongoDB Atlas:", err);
+//   });
 
 
 const options={

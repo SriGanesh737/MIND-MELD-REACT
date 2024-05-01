@@ -39,19 +39,19 @@ const Signup = () => {
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     return emailRegex.test(value);
   });
-  const [csrfToken, setcsrfToken] = useState("");
-  const gettoken = () => {
-    axios.get(backendUrl+"/log/csrf-token", {withCredentials: true}).then((res) => {
+  // const [csrfToken, setcsrfToken] = useState("");
+  // const gettoken = () => {
+  //   axios.get(backendUrl+"/log/csrf-token", {withCredentials: true}).then((res) => {
       
-      console.log(res.data.csrfToken);
-      setcsrfToken(res.data.csrfToken);
-      // axios.defaults.headers.post["X-CSRF-Token"] = res.data.csrfToken;
-    }).catch((err) => console.log(err))
-  };
+  //     console.log(res.data.csrfToken);
+  //     setcsrfToken(res.data.csrfToken);
+  //     // axios.defaults.headers.post["X-CSRF-Token"] = res.data.csrfToken;
+  //   }).catch((err) => console.log(err))
+  // };
 
-  useEffect(() => {
-    gettoken(); 
-  }, []);
+  // useEffect(() => {
+  //   gettoken(); 
+  // }, []);
   const {
     value: enteredcontactnumber,
     isValid: contactnumberIsValid,
@@ -146,7 +146,7 @@ const Signup = () => {
     event.preventDefault();
     if (formisvalid) {
       let details = {
-        _csrf:csrfToken,
+     
         fname: enteredfirstname,
         lastname: enteredLastname,
         email: enteredEmail,
@@ -160,7 +160,7 @@ const Signup = () => {
       
       console.log(details);
       axios
-        .post(backendUrl+"/log/register", details,{withCredentials: true,headers:{'Content-Type':'multipart/form-data', 'X-CSRF-Token': csrfToken}})
+        .post(backendUrl+"/log/register", details,{withCredentials: true,headers:{'Content-Type':'multipart/form-data'}})
         .then((res) => {
           if (res.status === 201) {
             // console.log(res.data);
