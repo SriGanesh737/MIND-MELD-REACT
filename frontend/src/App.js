@@ -124,6 +124,7 @@ const router = createBrowserRouter(
     {(role==="admin" || role==="expert"|| role=='user')&&<Route path="/bookmarks" element={<Bookmarks/>}/>}
     {(role==="admin" || role==="expert"|| role=='user')&&<Route path="/queries" element={<QnA/>}/>}
     {(role==="admin" || (role==="expert" && user.is_blocked===false))&&<Route path="/compose" element={<ComposePage/>}/>}
+    {console.log(role)}
     {(role==="admin" || role==="expert")&&<Route path="/yourwork" element={<Yourwork/>}/>}
     {console.log(role)}
 

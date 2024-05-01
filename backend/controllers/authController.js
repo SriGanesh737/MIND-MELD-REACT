@@ -19,7 +19,7 @@ const register_post = async (req, res) => {
   let password = req.body.pswd;
   let phoneno = req.body.phno;
   let registeras = req.body.registeras;
-
+  
   if (registeras === "user") {
     try {
       
