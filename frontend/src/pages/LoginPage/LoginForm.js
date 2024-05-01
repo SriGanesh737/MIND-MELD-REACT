@@ -71,6 +71,7 @@ const LoginForm = () => {
       })
       .catch((err) => {
         const errorMessage = err.response.data.message;
+        toast.error("invalid credentials");
         console.log(err);
       });
     setLoading(false);

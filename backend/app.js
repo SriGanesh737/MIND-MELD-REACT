@@ -20,18 +20,18 @@ const helmet = require("helmet");
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
 
-// dotenv.config();
-// const connectionParams = {
-//   useNewUrlParser: true,
-// };
-// const mongoUri = process.env.myUri;
-// // remove once testing is done
-// mongoose.connect(mongoUri, connectionParams).then(() => {
-//     console.log("Connected to database ");
-// })
-//   .catch((err) => {
-//     console.error("Error connecting to MongoDB Atlas:", err);
-//   });
+dotenv.config();
+const connectionParams = {
+  useNewUrlParser: true,
+};
+const mongoUri = process.env.myUri;
+// remove once testing is done
+mongoose.connect(mongoUri, connectionParams).then(() => {
+    console.log("Connected to database ");
+})
+  .catch((err) => {
+    console.error("Error connecting to MongoDB Atlas:", err);
+  });
 
 
 const options={
