@@ -45,7 +45,7 @@ export default function Articles() {
     const highlights = highLightsArticles(data);
     setHighlightArticles(highlights);
 
-    console.log(data);
+    // console.log(data);
   })
   .catch((error) => {
     console.error(error);
