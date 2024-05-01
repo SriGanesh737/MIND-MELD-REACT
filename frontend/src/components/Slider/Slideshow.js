@@ -17,16 +17,22 @@ const Slideshow = ({ sliderData: highLightArticles }) => {
     autoplaySpeed: 2000,
   };
 
-  const highlightClickHandler = (id)=>{
+  const highlightClickHandler = (slide)=>{
     // redirect to single article page
-    navigate("/articles/"+id)
+    const id = slide._id;
+    if(id){
+      navigate("/articles/"+id)
+    }
+    else{
+      window.open(slide.article_link, "_blank");
+    }
   }
 
   return (
     <div className={`${Styles["slideshow-container"]}`} data-wow-delay="0.1s">
       <Slider {...settings}>
         {highLightArticles.map((slide) => (
-          <div onClick={()=>highlightClickHandler(slide._id)} key={slide._id} className={`${Styles.slide} active`}>
+          <div onClick={()=>highlightClickHandler(slide)} key={slide._id} className={`${Styles.slide} active`}>
             <div className={Styles["image-part"]}>
               
               <img src={slide.image_link} alt="mindmeld" />
