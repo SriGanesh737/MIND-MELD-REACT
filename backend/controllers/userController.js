@@ -100,7 +100,9 @@ const user_get_byId = async (req, res) => {
 
 //User by email getter controller
 const user_get_byEmail = async (req, res) => {
+
   const email = req.params.email;
+  console.log(email)
   const user = await User.findOne({ email: email });
   const expert = await Expert.findOne({ email: email });
   const admin = await Admin.findOne({ email: email });

@@ -25,18 +25,18 @@ const LoginForm = () => {
     setPassword(event.target.value);
   };
   const [csrfToken, setcsrfToken] = useState("");
-  const gettoken = () => {
-    axios.get(backendUrl+"/log/csrf-token", {withCredentials: true}).then((res) => {
+  // const gettoken = () => {
+  //   axios.get(backendUrl+"/log/csrf-token", {withCredentials: true}).then((res) => {
       
-      console.log(res.data.csrfToken);
-      setcsrfToken(res.data.csrfToken);
+  //     console.log(res.data.csrfToken);
+  //     setcsrfToken(res.data.csrfToken);
       
-    }).catch((err) => console.log(err))
-  };
+  //   }).catch((err) => console.log(err))
+  // };
 
-  useEffect(() => {
-    gettoken(); 
-  }, []);
+  // useEffect(() => {
+  //   gettoken(); 
+  // }, []);
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
@@ -44,7 +44,7 @@ const LoginForm = () => {
     setLoading(true);
     axios
       .post(backendUrl+'/log/login', {
-        _csrf: csrfToken,
+       
         email,
         password,
       }, {withCredentials: true})
