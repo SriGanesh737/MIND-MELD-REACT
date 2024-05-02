@@ -11,22 +11,22 @@ export default function Footer() {
     <div className={styles["footer-col"]}>
         <h4>Navigations</h4>
         <ul>
-            <li><a href="landingpage">Home</a></li>
+            <li><a href="home">Home</a></li>
             <li><a href="aboutus">About Us</a></li>
             <li><a href="contactus">Contact Us</a></li>
-            <li><a href="askquery">FAQ</a></li>
+            <li><a href="queries">FAQ</a></li>
         </ul>
     </div>
     <div className={styles["footer-col"]}>
        <h4>Quick Links</h4>
        <ul>
-            <li><a href="posts?topic=education">Education</a></li>
-            <li><a href="posts?topic=fashion">Fashion</a></li>
-            <li><a href="posts?topic=health">Health</a></li>
+            <li><a href="articles/topic/education">Education</a></li>
+            <li><a href="articles/topic/lifestyle">Fashion</a></li>
+            <li><a href="articles/topic/health">Health</a></li>
 
-            <li><a href="posts?topic=sports">Sports</a></li>
-            <li><a href="posts?topic=entertainment">Entertainment</a></li>
-            <li><a href="posts?topic=news_updates">News_updates</a></li>
+            <li><a href="articles/topic/sports">Sports</a></li>
+            <li><a href="articles/topic/entertainment">Entertainment</a></li>
+            <li><a href="articles/topic/news_updates">News_updates</a></li>
 
     </ul>
 

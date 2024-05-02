@@ -809,11 +809,7 @@ router.get("/email/:email", userController.user_get_byEmail);
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             oneOf:
- *               - $ref: '#/components/schemas/UserUpdateRequest'
- *               - $ref: '#/components/schemas/ExpertUpdateRequest'
- *               - $ref: '#/components/schemas/AdminUpdateRequest'
+ *           
  *     responses:
  *       200:
  *         description: User information updated successfully
@@ -853,107 +849,6 @@ router.get("/email/:email", userController.user_get_byEmail);
  *                   type: boolean
  *                   description: Indicates the status of the operation
  *                   example: false
- * components:
- *   schemas:
- *     UserUpdateRequest:
- *       type: object
- *       properties:
- *         firstname:
- *           type: string
- *           description: The updated first name of the user
- *         lastname:
- *           type: string
- *           description: The updated last name of the user
- *         gender:
- *           type: string
- *           description: The updated gender of the user
- *         email:
- *           type: string
- *           description: The updated email address of the user
- *         mobile:
- *           type: string
- *           description: The updated mobile number of the user
- *         image_link:
- *           type: string
- *           description: The updated profile image link of the user
- *     ExpertUpdateRequest:
- *       type: object
- *       properties:
- *         firstname:
- *           type: string
- *           description: The updated first name of the expert
- *         lastname:
- *           type: string
- *           description: The updated last name of the expert
- *         domain:
- *           type: string
- *           description: The updated domain of expertise of the expert
- *         gender:
- *           type: string
- *           description: The updated gender of the expert
- *         email:
- *           type: string
- *           description: The updated email address of the expert
- *         mobile:
- *           type: string
- *           description: The updated mobile number of the expert
- *         image_link:
- *           type: string
- *           description: The updated profile image link of the expert
- *         insta_link:
- *           type: string
- *           description: The updated Instagram profile link of the expert
- *         facebook_link:
- *           type: string
- *           description: The updated Facebook profile link of the expert
- *         github_link:
- *           type: string
- *           description: The updated GitHub profile link of the expert
- *         qualification:
- *           type: string
- *           description: The updated qualification of the expert
- *         dateofbirth:
- *           type: string
- *           description: The updated date of birth of the expert
- *     AdminUpdateRequest:
- *       type: object
- *       properties:
- *         firstname:
- *           type: string
- *           description: The updated first name of the admin
- *         lastname:
- *           type: string
- *           description: The updated last name of the admin
- *         domain:
- *           type: string
- *           description: The updated domain of expertise of the admin
- *         gender:
- *           type: string
- *           description: The updated gender of the admin
- *         email:
- *           type: string
- *           description: The updated email address of the admin
- *         mobile:
- *           type: string
- *           description: The updated mobile number of the admin
- *         image_link:
- *           type: string
- *           description: The updated profile image link of the admin
- *         insta_link:
- *           type: string
- *           description: The updated Instagram profile link of the admin
- *         facebook_link:
- *           type: string
- *           description: The updated Facebook profile link of the admin
- *         github_link:
- *           type: string
- *           description: The updated GitHub profile link of the admin
- *         qualification:
- *           type: string
- *           description: The updated qualification of the admin
- *         dateofbirth:
- *           type: string
- *           description: The updated date of birth of the admin
  */
 
 router.put(
